@@ -1,0 +1,28 @@
+\documentclass [12pt]{report}
+
+\usepackage[magyar]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{mathptmx}
+
+\linespread{1.5}
+
+\begin{document}
+
+\includepdf[pages = {1-4}]{eleje.pdf}
+\tableofcontents
+\thispagestyle{empty}
+
+
+\chapter{Bevezetés}
+\setcounter{page}{1}
+\pagenumbering{arabic} 
+\chapter{Irodalmi áttekintés}
+\chapter{Az S-gráf modell}
+\chapter{Problémadefiníció}
+\chapter{Az S-gráf keretrendszer}
+\chapter{A probléma megvalósítása}
+\chapter{Teszteredmények}
+\chapter{Összefoglalás}
+
+\end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  9 FEB 2019 13:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  9 FEB 2019 17:21
 entering extended mode
 **./Szakdoga_main.tex
 (Szakdoga_main.tex
@@ -530,28 +530,28 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
  (Szakdoga_main.toc
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 5.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 4.
 
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\ot1ztmcm.f
 d"
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 5.
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 4.
 
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\omlztmcm.f
 d"
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 5.
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 4.
 
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\omsztmcm.f
 d"
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 5.
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 4.
 
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\omxztmcm.f
@@ -559,9 +559,9 @@ d"
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 5.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 5.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
 )
 \tf@toc=\write3
 \openout3 = `Szakdoga_main.toc'.
@@ -578,36 +578,36 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 
 ]
 3. fejezet.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 30.
 [3
 
 ]
 4. fejezet.
 
-LaTeX Warning: Citation `?' on page 4 undefined on input line 31.
+LaTeX Warning: Citation `?' on page 4 undefined on input line 32.
 
 
-LaTeX Warning: Citation `?' on page 4 undefined on input line 31.
+LaTeX Warning: Citation `?' on page 4 undefined on input line 32.
 
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 32.
 [4
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 35.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 36.
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 35.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 36.
  [5]
-Overfull \hbox (28.42688pt too wide) in paragraph at lines 51--52
+Overfull \hbox (28.42688pt too wide) in paragraph at lines 52--53
 \OT1/ptm/m/n/12 liz[]al[]o al-go-rit-mus je-lent[]os r[]esze fel-haszn[]alhat[]
 o v[]altoztat[]asok n[]elk[]ul (vagy csak mi-nim[]alis v[]altoztat[]asok
  []
 
 
-Overfull \hbox (11.06914pt too wide) in paragraph at lines 63--64
+Overfull \hbox (11.06914pt too wide) in paragraph at lines 64--65
 \OT1/ptm/m/n/12 Ezenk[]v[]ul be-ve-zetj[]uk, m[]eg a $\OML/ztmcm/m/it/12 Profi
 t[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 x\OT1/ztmcm/m/n/12 )$ \OT1/ptm/m/n/12 
 jel[]ol[]est, amely meg-ad-ja $\OML/ztmcm/m/it/12 x$ \OT1/ptm/m/n/12 mennyis[]e
@@ -617,32 +617,48 @@ g[]u $\OML/ztmcm/m/it/12 p$ \OT1/ptm/m/n/12 term[]ek bev[]etel[]et
 <profit_func.jpg, id=80, 898.10532pt x 526.96875pt>
 File: profit_func.jpg Graphic file (type jpg)
 <use profit_func.jpg>
-Package pdftex.def Info: profit_func.jpg  used on input line 76.
+Package pdftex.def Info: profit_func.jpg  used on input line 77.
 (pdftex.def)             Requested size: 449.05156pt x 263.48372pt.
-
-Overfull \hbox (0.229pt too wide) in paragraph at lines 73--82
- \OT1/ptm/m/n/12 Nyilv[]anval[]oan a bev[]etel[]unk ak-kor lesz ma-xim[]alis, h
-a a ke-res-let-tel egyez[]o da-rabsz[]amot gy[]artunk
- []
-
 [6] [7 <./profit_func.jpg>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 82.
- [8]
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
+
+
+LaTeX Warning: Citation `?' on page 8 undefined on input line 89.
+
+<profit_func_prob.jpg, id=91, 780.66656pt x 465.99094pt>
+File: profit_func_prob.jpg Graphic file (type jpg)
+<use profit_func_prob.jpg>
+Package pdftex.def Info: profit_func_prob.jpg  used on input line 94.
+(pdftex.def)             Requested size: 390.33232pt x 232.99489pt.
+
+Overfull \hbox (4.77098pt too wide) in paragraph at lines 87--99
+\OT1/ptm/m/n/12 f[]uggv[]eny be-szo-roz-zuk az ak-tu[]alis $\OML/ztmcm/m/it/12 
+prob[]$ []\OT1/ptm/m/n/12 ert[]ekkel, amely l[]enyeg[]eben a f[]uggv[]eny "[]os
+sze-nyom[]as[]at"
+ []
+
+[8]
+<expProfit_func_var.jpg, id=97, 782.925pt x 436.63126pt>
+File: expProfit_func_var.jpg Graphic file (type jpg)
+<use expProfit_func_var.jpg>
+Package pdftex.def Info: expProfit_func_var.jpg  used on input line 111.
+(pdftex.def)             Requested size: 391.46155pt x 218.3151pt.
+ [9 <./profit_func_prob.jpg>] [10 <./expProfit_func_var.jpg>]
 5. fejezet.
-[9
-
-]
-6. fejezet.
-[10
-
-]
-7. fejezet.
 [11
 
 ]
-8. fejezet.
+6. fejezet.
 [12
+
+]
+7. fejezet.
+[13
+
+]
+8. fejezet.
+[14
 
 ] (Szakdoga_main.aux)
 
@@ -650,25 +666,26 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5485 strings out of 492946
- 84559 string characters out of 3125822
- 184358 words of memory out of 3000000
- 9261 multiletter control sequences out of 15000+200000
- 27731 words of font info for 60 fonts, out of 3000000 for 9000
+ 5505 strings out of 492946
+ 84889 string characters out of 3125822
+ 184379 words of memory out of 3000000
+ 9271 multiletter control sequences out of 15000+200000
+ 31391 words of font info for 68 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,18n,46p,1782b,434s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,18n,46p,1793b,434s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.en
 c}<C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmex10.pfb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmmi10.pfb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.
 9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Oliver/AppData/Local/Progr
 ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Oliver/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Oliver/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Ol
-iver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Szakdoga_main.pdf (17 pages, 270207 bytes).
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/Oliver/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Oli
+ver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/User
+s/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Szakdoga_main.pdf (19 pages, 385075 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
+ 144 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

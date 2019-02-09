@@ -27,6 +27,7 @@
 \pagenumbering{arabic} 
 \chapter{Irodalmi áttekintés}
 \chapter{Az S-gráf modell}
+\section{Profit maximalizálás S-gráffal}
 \chapter{Problémadefiníció}
 A probléma lényege abban keresendő, hogy a korábban kidolgozott általános throughput maximalizáló algoritmus \cite{?} valódi ipari környezetben nem minden esetben állja meg a helyét, ugyanis sok esetben a a probléma megoldásához használt paraméterek nem determinisztikusak. Változó piaci környezetben ilyen sztochasztikus paraméternek számítanak például a termék iránti kereslet, illetve a piaci ár, amin a terméket értékesíteni lehet. Belátható az is, hogy ezek a paraméterek sokban befolyásolják a maximalizálandó profitot. Vegyünk például egy olyan esetet, amelyben a keresletnél többet termeltünk, ez esetben a keletkező többletet nem tudjuk értékesíteni, ez akár további kiadásokkal is járhat a többlet termék esetleges tárolási költsége miatt. Szakdolgozatom célja a \ref{math_modells} pontban bemutatott, Hegyháti által kidolgozott \cite{?} matematikai modellek S-gráf keretrendszerbe történő implementálása, oly módon, hogy az általános throughput maximalizáló algoritmus sértetlen maradjon, a probléma típusától függően kompatibilis használat lehetséges legyen.
 \section{A problémák csoportosítása} \label{problem_csop}
@@ -78,9 +79,40 @@ $$s_p=1,\quad dem_{s,p}=3, \quad oc_{s,p}=1, \quad  uc_{s,p}=1$$
 \label{profit_func}
 \end{center}
 \end{figure}
-Nyilvánvalóan a bevételünk akkor lesz maximális, ha a kereslettel egyező darabszámot gyártunk az adott termékből (zöld pont az ábrán), ha ennél kevesebbet gyártunk a termékből, akkor a kereslet kielégítéséből eredő profit is elmarad, illetve további többlet költség kerül levonásra a profit összegéből az esetleges alul termelési plusz költségek miatt (pl. sárga pont az ábrán), abban az esetben pedig, ha a keresletet meghaladó mennyiséget gyártunk adott termékből, a kereslet kielégítődik ugyan, és bevételünk maximális lenne az adott piaci keresletet figyelembe véve, azonban a túltermelés következtében létrejött többlet tárolási költségét le kell vonjuk a profit értékéből (pl. piros pont az ábrán). Arra kell törekednünk tehát, hogy a lehetőségeket mérlegelve minden termékből annyit gyártsunk, hogy az az adott forgatókönyvben szereplő keresletet kielégítse, vagy azt a legkedvezőbb módon megközelítse valamelyik irányból, ügyelve az alul-, és túltermelési költségekre. Extrém esetekben előállhat olyan helyzet is, hogy a rendelkezésre determinisztikus paraméterek (pl. gépek száma), az aktuális időhorizont, illetve a sztochasztikus paraméterek aktuális értéke miatt a a profit függvény $x$-ben felvett értéke negatív szám lesz, ez esetben inkább a veszteségek minimalizálásáról beszélhetünk, mintsem profit maximalizálásról, azonban könnyen belátható, hogy a matematikai modellekben amelyeket használunk a profit kiszámítására, ez semmiféle változást nem eredményez, csupán arra kell figyelni, hogy az implementáció során felkészüljünk a negatív számok a programnyelvben történő kezelésére.
+Nyilvánvalóan a bevétel akkor lesz maximális, ha a kereslettel egyező darabszámot gyártunk az adott termékből (zöld pont az ábrán), ha ennél kevesebbet gyártunk a termékből, akkor a kereslet kielégítéséből eredő profit is elmarad, illetve további többlet költség kerül levonásra a profit összegéből az esetleges alul termelési plusz költségek miatt (pl. sárga pont az ábrán), abban az esetben pedig, ha a keresletet meghaladó mennyiséget gyártunk adott termékből, a kereslet kielégítődik ugyan, és bevételünk maximális lenne az adott piaci keresletet figyelembe véve, azonban a túltermelés következtében létrejött többlet tárolási költségét le kell vonjuk a profit értékéből (pl. piros pont az ábrán). Arra kell törekedni tehát, hogy a lehetőségeket mérlegelve minden termékből annyit gyártsunk, hogy az az adott forgatókönyvben szereplő keresletet kielégítse, vagy azt a legkedvezőbb módon megközelítse valamelyik irányból, ügyelve az alul-, és túltermelési költségekre. Extrém esetekben előállhat olyan helyzet is, hogy a rendelkezésre álló determinisztikus paraméterek (pl. gépek száma), az aktuális időhorizont, illetve a sztochasztikus paraméterek aktuális értéke miatt a a profit függvény $x$-ben felvett értéke negatív szám lesz, ez esetben inkább a veszteségek minimalizálásáról beszélhetünk, mintsem profit maximalizálásról, azonban könnyen belátható, hogy a definiált matematikai modellekben amelyeket használunk a profit kiszámítására, ez semmiféle változást nem eredményez, csupán arra kell figyelni, hogy az implementáció során felkészüljünk a negatív számok a programnyelvben történő kezelésére.
 \subsection{Preventív ütemezés fix batch mérettel}
+Ebben az esetben az egyetlen döntés, amit meg kell hozni, hogy az egyes termékekből hány darab batch-et gyártsunk, ezért a várható profit könnyen kiszámítható:
+$$\sum_{p \in P}\bigg (\sum_{s \in S} prob_s \cdot profit_{s,p} (s_p \cdot b_p)\bigg)$$
+Későbbi használat szempontjából érdemes még bevezetni adott $p$ termék $x$ értékben vett várható profit értékére a következő jelölést:
+$$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$$
+Fontos megjegyezni, hogy az egyes termékek várható profitja egymástól független, hiszen nem osztoznak közös recepteken, éppen ezért, ha két különböző konfigurációban adott termékből gyártott batch darabszám megegyezik, akkor ha megnöveljük, vagy csökkentjük ezt a számot, mindkét konfiguráció várható profit értékében ugyan olyan változás fog történni, attól függetlenül, hogy más termékekből adott konfigurációban mennyit gyártunk.
+Ezenkívül tudjuk azt is, hogy az $ExpProfit$ függvény értéke sosem fog nőni, ha már egyszer elkezdett csökkenni, mert $ExpProfit$ egy folytonos, szakaszos, lineáris függvény. \cite{?}
+$ExpProfit_p(x)$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. Miután minden forgatókönyvre előállítottuk a \ref{profit_func_prob} ábrához hasonlóan ezt az "összenyomott" profit függvényt, ezen függvények összeadásával előáll az $ExpProfit_p$, ha ezt minden termékre megtesszük, az adott $p$ termékek $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékének összegeként előáll a várható profit.
+\pagebreak
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{profit_func_prob}
+\caption{A profit függvény szorzásának szemléltetése}
+\label{profit_func_prob}
+\end{center}
+\end{figure}
 \subsection{Preventív ütemezés változó batch mérettel}
+Az előző esettel ellentétben, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. Ebben az esetben a batch méretről való döntés is a megoldó algoritmus feladata úgy, hogy $p$ termék batch mérete $s_p^{min}$ és $s_p^{max}$ között legyen. Mivel ezt a döntést előre meg kell hozni, ezért minden forgatókönyvben azonos méretű lesz minden $p$ termékhez tartozó batch. Ezután, már csak arról kell döntést hozni, hogy adott termékből mennyit gyártsunk, ez az $x_p$ érték a következő intervallumból kerül kiválasztásra: $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$. Az $ExpProfit$ függvény maximális értékét az egyik keresleti értékben veszi fel, legyen ez $dem_{s'}$. Az optimális $x_p$ érték kiválasztása a következőképpen tehető meg:
+\begin{equation*}
+x_{p}(b_p)= \begin{cases}
+            b_p \cdot s_p^{max} \quad \text{ha } b_p \cdot s_p^{max}<dem_{s'}\\
+            dem_{s'} \qquad \text{ha } b_p \cdot s_p^{min} \leq dem_{s'} \leq b_p \cdot s_p^{max}\\
+            b_p \cdot s_p^{min} \quad \text{ ha } b_p \cdot s_p^{min}>dem_{s'}
+       \end{cases}       
+\end{equation*}\\
+A \ref{expProfit_func_var} ábra szemlélteti a fentieket. Látható, hogy ez esetben a $dem_{s'}$ érték beleesik a \\$[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$ tartományba, ezért itt $x_p=3$ lenne az optimális választás.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{expProfit_func_var}
+\caption{Az optimális $x_p$ érték kiválasztásának szemléltetése}
+\label{expProfit_func_var}
+\end{center}
+\end{figure}
 \subsection{Two stage (két lépcsős ütemezés)}
 \chapter{Az S-gráf keretrendszer}
 \chapter{A probléma megvalósítása}

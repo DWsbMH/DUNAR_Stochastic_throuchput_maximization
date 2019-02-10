@@ -8,9 +8,16 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Prevent\IeC {\'\i }v \IeC {\"u}temez\IeC {\'e}s fix batch m\IeC {\'e}rettel}{8}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Prevent\IeC {\'\i }v \IeC {\"u}temez\IeC {\'e}s v\IeC {\'a}ltoz\IeC {\'o} batch m\IeC {\'e}rettel}{9}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {4.2.3}Two stage (k\IeC {\'e}t l\IeC {\'e}pcs\IeC {\H o}s \IeC {\"u}temez\IeC {\'e}s)}{10}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Az S-gr\IeC {\'a}f keretrendszer}{11}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {6}A probl\IeC {\'e}ma megval\IeC {\'o}s\IeC {\'\i }t\IeC {\'a}sa}{12}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.1}Sz\IeC {\"u}ks\IeC {\'e}ges v\IeC {\'a}ltoztat\IeC {\'a}sok az \IeC {\'a}ltal\IeC {\'a}nos throughput maximaliz\IeC {\'a}l\IeC {\'o}n}{12}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.2}Multiproduct receptek esete}{12}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {7}Teszteredm\IeC {\'e}nyek}{13}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {8}\IeC {\"O}sszefoglal\IeC {\'a}s}{14}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.4}K\IeC {\"o}vetkeztet\IeC {\'e}s}{11}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Az S-gr\IeC {\'a}f keretrendszer}{12}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {6}A probl\IeC {\'e}ma megval\IeC {\'o}s\IeC {\'\i }t\IeC {\'a}sa}{13}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.1}A BrokenLine oszt\IeC {\'a}ly}{13}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.1.1}Koordin\IeC {\'a}ta p\IeC {\'a}r hozz\IeC {\'a}ad\IeC {\'a}sa}{15}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.1.2}Kezdeti-, \IeC {\'e}s v\IeC {\'e}g meredeks\IeC {\'e}g kisz\IeC {\'a}m\IeC {\'\i }t\IeC {\'a}sa}{15}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.1.3}A f\IeC {\"u}ggv\IeC {\'e}ny skal\IeC {\'a}r \IeC {\'e}rt\IeC {\'e}kkel val\IeC {\'o} szorz\IeC {\'a}sa}{16}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.1.4}A f\IeC {\"u}ggv\IeC {\'e}ny $x$ helyen vett \IeC {\'e}rt\IeC {\'e}k\IeC {\'e}nek lek\IeC {\'e}rdez\IeC {\'e}se}{16}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.1.5}K\IeC {\'e}t f\IeC {\"u}ggv\IeC {\'e}ny \IeC {\"o}sszead\IeC {\'a}sa}{17}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.2}Sz\IeC {\"u}ks\IeC {\'e}ges v\IeC {\'a}ltoztat\IeC {\'a}sok az \IeC {\'a}ltal\IeC {\'a}nos throughput maximaliz\IeC {\'a}l\IeC {\'o}n}{17}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.3}Multiproduct receptek esete}{17}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Teszteredm\IeC {\'e}nyek}{18}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {8}\IeC {\"O}sszefoglal\IeC {\'a}s}{19}% 

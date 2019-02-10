@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  9 FEB 2019 17:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  10 FEB 2019 16:54
 entering extended mode
 **./Szakdoga_main.tex
 (Szakdoga_main.tex
@@ -291,22 +291,30 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \mathdisplay@stack=\toks24
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
+)
+("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count112
+\float@exts=\toks25
+\float@box=\box31
+\@float@everytoks=\toks26
+\@floatcapt=\box32
 ) (Szakdoga_main.aux)
 \openout1 = `Szakdoga_main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 20.
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -315,22 +323,22 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 LaTeX Warning: Please use \usepackage{t1enc} with
                \usepackage[magyar]{babel}, to get accented chars hyphenated.
 
-\AtBeginShipoutBox=\box31
+\AtBeginShipoutBox=\box33
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/context/base\supp-pdf.m
 kii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count112
+\scratchcounter=\count113
 \scratchdimen=\dimen127
-\scratchbox=\box32
-\nofMPsegments=\count113
-\nofMParguments=\count114
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count115
+\scratchbox=\box34
+\nofMPsegments=\count114
+\nofMParguments=\count115
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count116
 \MPscratchDim=\dimen128
-\MPnumerator=\count116
-\makeMPintoPDFobject=\count117
-\everyMPtoPDFconversion=\toks26
+\MPnumerator=\count117
+\makeMPintoPDFobject=\count118
+\everyMPtoPDFconversion=\toks28
 )
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf
 -base.sty"
@@ -431,7 +439,7 @@ pdfTeX warning: pdflatex (file ./eleje.pdf): PDF inclusion: found PDF version <
 <eleje.pdf, id=1, 597.55246pt x 845.07718pt>
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf>
-Package pdftex.def Info: eleje.pdf  used on input line 21.
+Package pdftex.def Info: eleje.pdf  used on input line 22.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
 
@@ -439,7 +447,7 @@ pdfTeX warning: pdflatex (file ./eleje.pdf): PDF inclusion: found PDF version <
 1.7>, but at most version <1.5> allowed
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf>
-Package pdftex.def Info: eleje.pdf  used on input line 21.
+Package pdftex.def Info: eleje.pdf  used on input line 22.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
 
@@ -452,23 +460,23 @@ pdfTeX warning: pdflatex (file ./eleje.pdf): PDF inclusion: found PDF version <
 <eleje.pdf, id=4, page=1, 597.55246pt x 845.07718pt>
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 1>
-Package pdftex.def Info: eleje.pdf , page1 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page1 used on input line 22.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 1>
-Package pdftex.def Info: eleje.pdf , page1 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page1 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 1>
-Package pdftex.def Info: eleje.pdf , page1 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page1 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 1>
-Package pdftex.def Info: eleje.pdf , page1 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page1 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 1>
-Package pdftex.def Info: eleje.pdf , page1 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page1 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 [1
 
@@ -480,15 +488,15 @@ pdfTeX warning: pdflatex (file ./eleje.pdf): PDF inclusion: found PDF version <
 <eleje.pdf, id=35, page=2, 597.55246pt x 845.07718pt>
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 2>
-Package pdftex.def Info: eleje.pdf , page2 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page2 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 2>
-Package pdftex.def Info: eleje.pdf , page2 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page2 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 2>
-Package pdftex.def Info: eleje.pdf , page2 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page2 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 [2 <./eleje.pdf>]
 
@@ -497,15 +505,15 @@ pdfTeX warning: pdflatex (file ./eleje.pdf): PDF inclusion: found PDF version <
 <eleje.pdf, id=48, page=3, 597.55246pt x 845.07718pt>
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 3>
-Package pdftex.def Info: eleje.pdf , page3 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page3 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 3>
-Package pdftex.def Info: eleje.pdf , page3 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page3 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 3>
-Package pdftex.def Info: eleje.pdf , page3 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page3 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 [3 <./eleje.pdf>]
 
@@ -514,19 +522,19 @@ pdfTeX warning: pdflatex (file ./eleje.pdf): PDF inclusion: found PDF version <
 <eleje.pdf, id=53, page=4, 597.55246pt x 845.07718pt>
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 4>
-Package pdftex.def Info: eleje.pdf , page4 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page4 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 4>
-Package pdftex.def Info: eleje.pdf , page4 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page4 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 File: eleje.pdf Graphic file (type pdf)
 <use eleje.pdf, page 4>
-Package pdftex.def Info: eleje.pdf , page4 used on input line 21.
+Package pdftex.def Info: eleje.pdf , page4 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 [4 <./eleje.pdf>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 22.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
  (Szakdoga_main.toc
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
@@ -562,13 +570,14 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
-)
+ [5
+
+{C:/Users/Oliver/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
 \tf@toc=\write3
 \openout3 = `Szakdoga_main.toc'.
 
- [5
 
-{C:/Users/Oliver/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+[6]
 1. fejezet.
 [1
 
@@ -579,86 +588,147 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 ]
 3. fejezet.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 30.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 31.
 [3
 
 ]
 4. fejezet.
 
-LaTeX Warning: Citation `?' on page 4 undefined on input line 32.
+LaTeX Warning: Citation `?' on page 4 undefined on input line 33.
 
 
-LaTeX Warning: Citation `?' on page 4 undefined on input line 32.
+LaTeX Warning: Citation `?' on page 4 undefined on input line 33.
 
 [4
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 36.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 37.
 
 ("C:\Users\Oliver\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 36.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 37.
  [5]
-Overfull \hbox (28.42688pt too wide) in paragraph at lines 52--53
+Overfull \hbox (28.42688pt too wide) in paragraph at lines 53--54
 \OT1/ptm/m/n/12 liz[]al[]o al-go-rit-mus je-lent[]os r[]esze fel-haszn[]alhat[]
 o v[]altoztat[]asok n[]elk[]ul (vagy csak mi-nim[]alis v[]altoztat[]asok
  []
 
 
-Overfull \hbox (11.06914pt too wide) in paragraph at lines 64--65
+Overfull \hbox (11.06914pt too wide) in paragraph at lines 65--66
 \OT1/ptm/m/n/12 Ezenk[]v[]ul be-ve-zetj[]uk, m[]eg a $\OML/ztmcm/m/it/12 Profi
 t[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 x\OT1/ztmcm/m/n/12 )$ \OT1/ptm/m/n/12 
 jel[]ol[]est, amely meg-ad-ja $\OML/ztmcm/m/it/12 x$ \OT1/ptm/m/n/12 mennyis[]e
 g[]u $\OML/ztmcm/m/it/12 p$ \OT1/ptm/m/n/12 term[]ek bev[]etel[]et
  []
 
-<profit_func.jpg, id=80, 898.10532pt x 526.96875pt>
+<profit_func.jpg, id=84, 898.10532pt x 526.96875pt>
 File: profit_func.jpg Graphic file (type jpg)
 <use profit_func.jpg>
-Package pdftex.def Info: profit_func.jpg  used on input line 77.
+Package pdftex.def Info: profit_func.jpg  used on input line 76.
 (pdftex.def)             Requested size: 449.05156pt x 263.48372pt.
 [6] [7 <./profit_func.jpg>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 82.
 
 
-LaTeX Warning: Citation `?' on page 8 undefined on input line 89.
+LaTeX Warning: Citation `?' on page 8 undefined on input line 88.
 
-<profit_func_prob.jpg, id=91, 780.66656pt x 465.99094pt>
+<profit_func_prob.jpg, id=95, 780.66656pt x 465.99094pt>
 File: profit_func_prob.jpg Graphic file (type jpg)
 <use profit_func_prob.jpg>
-Package pdftex.def Info: profit_func_prob.jpg  used on input line 94.
+Package pdftex.def Info: profit_func_prob.jpg  used on input line 93.
 (pdftex.def)             Requested size: 390.33232pt x 232.99489pt.
 
-Overfull \hbox (4.77098pt too wide) in paragraph at lines 87--99
+Overfull \hbox (4.77098pt too wide) in paragraph at lines 86--98
 \OT1/ptm/m/n/12 f[]uggv[]eny be-szo-roz-zuk az ak-tu[]alis $\OML/ztmcm/m/it/12 
 prob[]$ []\OT1/ptm/m/n/12 ert[]ekkel, amely l[]enyeg[]eben a f[]uggv[]eny "[]os
 sze-nyom[]as[]at"
  []
 
 [8]
-<expProfit_func_var.jpg, id=97, 782.925pt x 436.63126pt>
+<expProfit_func_var.jpg, id=100, 782.925pt x 436.63126pt>
 File: expProfit_func_var.jpg Graphic file (type jpg)
 <use expProfit_func_var.jpg>
-Package pdftex.def Info: expProfit_func_var.jpg  used on input line 111.
+Package pdftex.def Info: expProfit_func_var.jpg  used on input line 110.
 (pdftex.def)             Requested size: 391.46155pt x 218.3151pt.
- [9 <./profit_func_prob.jpg>] [10 <./expProfit_func_var.jpg>]
-5. fejezet.
-[11
 
-]
-6. fejezet.
+Overfull \hbox (9.26566pt too wide) in paragraph at lines 116--117
+\OT1/ptm/m/n/12 Ebben az eset-ben $\OML/ztmcm/m/it/12 p$ \OT1/ptm/m/n/12 term[]
+ek gy[]artand[]o mennyis[]eg[]et il-let[]o d[]ont[]es egy bi-zony-ta-lan esem[]
+eny bek[]ovet-
+ []
+
+[9 <./profit_func_prob.jpg>]
+Overfull \hbox (13.52519pt too wide) in paragraph at lines 123--125
+\OT1/ptm/m/n/12 L[]athat[]o, hogy a k[]eplet ha-sonl[]o a 4.2.2[] pont-ban be-m
+u-ta-tott k[]eplethez, azon-ban m[]g ott az $\OML/ztmcm/m/it/12 ExpProfit$
+ []
+
+[10 <./expProfit_func_var.jpg>] [11]
+5. fejezet.
 [12
 
 ]
-7. fejezet.
+6. fejezet.
+LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 131.
+
+Overfull \hbox (7.57292pt too wide) in paragraph at lines 131--132
+\OT1/ptm/m/it/12 brok-en-line.h\OT1/ptm/m/n/12 , il-let-ve \OT1/ptm/m/it/12 bro
+k-en-line.cpp \OT1/ptm/m/n/12 f[]ajlokban tal[]alhat[]o a sol-ver \OT1/ptm/m/it
+/12 src\OMS/cmsy/m/n/12 n\OT1/ptm/m/it/12 base \OT1/ptm/m/n/12 mapp[]aj[]aban. 
+Az []altalunk
+ []
+
+<broken_line_variables.jpg, id=113, 255.20343pt x 71.51718pt>
+File: broken_line_variables.jpg Graphic file (type jpg)
+<use broken_line_variables.jpg>
+Package pdftex.def Info: broken_line_variables.jpg  used on input line 147.
+(pdftex.def)             Requested size: 255.2028pt x 71.517pt.
 [13
 
 ]
+Overfull \hbox (28.63242pt too wide) in paragraph at lines 152--154
+\OT1/ptm/m/n/12 Ahhoz, hogy a \OT1/ptm/m/it/12 Brok-en-Line \OT1/ptm/m/n/12 osz
+t[]allyal a ma-te-ma-ti-kai mo-del-lek min-den sz[]uks[]eges m[]uvelete elv[]eg
+ezhet[]o
+ []
+
+[14 <./broken_line_variables.jpg>]
+<calculate_angle.jpg, id=121, 772.38562pt x 438.8897pt>
+File: calculate_angle.jpg Graphic file (type jpg)
+<use calculate_angle.jpg>
+Package pdftex.def Info: calculate_angle.jpg  used on input line 175.
+(pdftex.def)             Requested size: 386.19186pt x 219.4443pt.
+ [15]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 183.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 183.
+
+Overfull \hbox (1.21184pt too wide) in paragraph at lines 184--185
+\OT1/ptm/m/n/12 ut[]an le-het vissza-ad-ni a ke-re-sett \OT1/ptm/m/it/12 Co-or-
+di-na-te \OT1/ptm/m/n/12 ob-jek-tu-mot. Az $\OML/ztmcm/m/it/12 x$ []\OT1/ptm/m/
+n/12 ert[]ekhez tar-toz[]o $\OML/ztmcm/m/it/12 y$ []\OT1/ptm/m/n/12 ert[]ek kis
+z[]am[]t[]asa
+ []
+
+[16 <./calculate_angle.jpg>]
+Overfull \hbox (2.065pt too wide) in paragraph at lines 192--193
+\OT1/ptm/m/n/12 K[]et f[]uggv[]eny []ossze-ad[]as[]at az \OT1/ptm/m/it/12 addBr
+ok-en-Line(BrokenLine b) \OT1/ptm/m/n/12 met[]odus v[]egzi, mely-nek visszat[]e
+r[]esi
+ []
+
+[17]
+7. fejezet.
+[18
+
+]
 8. fejezet.
-[14
+[19
 
 ] (Szakdoga_main.aux)
 
@@ -666,13 +736,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5505 strings out of 492946
- 84889 string characters out of 3125822
- 184379 words of memory out of 3000000
- 9271 multiletter control sequences out of 15000+200000
- 31391 words of font info for 68 fonts, out of 3000000 for 9000
+ 5609 strings out of 492946
+ 86555 string characters out of 3125822
+ 185878 words of memory out of 3000000
+ 9366 multiletter control sequences out of 15000+200000
+ 40866 words of font info for 88 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,18n,46p,1793b,434s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,18n,46p,1791b,434s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.en
 c}<C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmex10.pfb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
@@ -683,9 +753,9 @@ ta/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/Oliver/A
 ppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Oli
 ver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Szakdoga_main.pdf (19 pages, 385075 bytes).
+Output written on Szakdoga_main.pdf (25 pages, 469599 bytes).
 PDF statistics:
- 144 PDF objects out of 1000 (max. 8388607)
+ 165 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

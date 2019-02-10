@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  10 FEB 2019 16:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  10 FEB 2019 17:46
 entering extended mode
 **./Szakdoga_main.tex
 (Szakdoga_main.tex
@@ -534,7 +534,7 @@ Package pdftex.def Info: eleje.pdf , page4 used on input line 22.
 (pdftex.def)             Requested size: 562.1644pt x 795.0303pt.
 [4 <./eleje.pdf>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 24.
  (Szakdoga_main.toc
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
@@ -570,14 +570,14 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
- [5
+ [1
 
 {C:/Users/Oliver/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
 \tf@toc=\write3
 \openout3 = `Szakdoga_main.toc'.
 
 
-[6]
+[2]
 1. fejezet.
 [1
 
@@ -716,19 +716,30 @@ z[]am[]t[]asa
  []
 
 [16 <./calculate_angle.jpg>]
-Overfull \hbox (2.065pt too wide) in paragraph at lines 192--193
+<add_broken_line.jpg, id=128, 989.19562pt x 389.95688pt>
+File: add_broken_line.jpg Graphic file (type jpg)
+<use add_broken_line.jpg>
+Package pdftex.def Info: add_broken_line.jpg  used on input line 197.
+(pdftex.def)             Requested size: 474.8085pt x 187.17717pt.
+
+Overfull \hbox (18.14174pt too wide) in paragraph at lines 197--198
+ [] 
+ []
+
+
+Overfull \hbox (2.065pt too wide) in paragraph at lines 194--201
 \OT1/ptm/m/n/12 K[]et f[]uggv[]eny []ossze-ad[]as[]at az \OT1/ptm/m/it/12 addBr
 ok-en-Line(BrokenLine b) \OT1/ptm/m/n/12 met[]odus v[]egzi, mely-nek visszat[]e
 r[]esi
  []
 
-[17]
+[17] [18 <./add_broken_line.jpg>]
 7. fejezet.
-[18
+[19
 
 ]
 8. fejezet.
-[19
+[20
 
 ] (Szakdoga_main.aux)
 
@@ -736,10 +747,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5609 strings out of 492946
- 86555 string characters out of 3125822
- 185878 words of memory out of 3000000
- 9366 multiletter control sequences out of 15000+200000
+ 5615 strings out of 492946
+ 86686 string characters out of 3125822
+ 185889 words of memory out of 3000000
+ 9371 multiletter control sequences out of 15000+200000
  40866 words of font info for 88 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,18n,46p,1791b,434s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -753,9 +764,9 @@ ta/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/Oliver/A
 ppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Oli
 ver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Szakdoga_main.pdf (25 pages, 469599 bytes).
+Output written on Szakdoga_main.pdf (26 pages, 568966 bytes).
 PDF statistics:
- 165 PDF objects out of 1000 (max. 8388607)
+ 169 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

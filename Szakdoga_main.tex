@@ -18,10 +18,10 @@
 \linespread{1.5}
 
 \begin{document}
-
+\pagenumbering{Roman} 
 \includepdf[pages = {1-4}]{eleje.pdf}
+\setcounter{page}{1}
 \tableofcontents
-\thispagestyle{empty}
 
 \chapter{Bevezetés}
 \setcounter{page}{1}
@@ -181,15 +181,26 @@ Ha egyik meredekség sem szorul frissítésre, a metódus semmiféle változtat�
 \subsection{A függvény skalár értékkel való szorzása} \label{multiplyByScalar}
 A függvény skalárral való szorzását a \textit{multiplyByScalar(double s)} metódus végzi. Ahhoz, hogy megkapjuk a függvény skalárral való szorzatát, csupán be kell szorozni a vectorban tárolt összes pont $y$ koordinátáját, valamint a kezdeti-, és vég meredekséget a paraméterként kapott $s$-el. A függvény szorzását szemléltető példa a \ref{profit_func_prob} ábrán látható.
 \subsection{A függvény $x$ helyen vett értékének lekérdezése} \label{getValue}
-A függvény $x$ helyen vett értékének lekérdezésére a \textit{getValue(double x)} metódus hivatott. A metódus először is megnézi, hogy a vectorban tárolt koordináta párok között található-e olyan, amelynek $x$ koordinátája egyezik a paraméterként kapott $x$-el. Ha talál ilyet, egyszerűen visszaadja a megfelelő koordináta párost tartalmazó \textit{Coordinate} objektumot. Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a vectorhoz, majd csak azután lehet visszaadni a keresett \textit{Coordinate} objektumot. Az $x$ értékhez tartozó $y$ érték kiszámítása a keresett $x$ értéke és a vectorban tárolt pontok alapján háromféleképpen történhet:
+A függvény $x$ helyen vett értékének lekérdezésére a \textit{getValue(double x)} metódus hivatott. A metódus először is megnézi, hogy a vectorban tárolt koordináta párok között található-e olyan, amelynek $x$ koordinátája egyezik a paraméterként kapott $x$-el. Ha talál ilyet, egyszerűen visszaadja a megfelelő koordináta párost tartalmazó \textit{Coordinate} objektumot. Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a vectorhoz, majd csak ezután lehet visszaadni a keresett \textit{Coordinate} objektumot. Az $x$ értékhez tartozó $y$ érték kiszámítása a keresett $x$ értéke és a vectorban tárolt pontok alapján háromféleképpen történhet:
 \begin{itemize}
 \item Ha a keresett $x$ értéke kisebb mint a vectorban tárolt első pont $x$ koordinátájának értéke, akkor: 
 $y=y_{First}-(x_{First}-x) \cdot Angle_{begin}$ ,ahol $x_{First} \text{ és } y_{First}$ a vectorban tárolt első pont koordinátái.
 \item Ha a keresett $x$ érték két a vectorban tárolt pont $x$ koordinátájának értéke közé esik, akkor:
-$y=\bigg(\big(x-x_{LastSmaller}\big) \cdot \big((y_{FirstBigger}-y_{LastSmaller})/(x_{FirstBigger}-x_{LastSmaller})\big)\bigg)+y_{LastSmaller}$
+$y=\bigg(\big(x-x_{LastSmaller}\big) \cdot \big((y_{FirstBigger}-y_{LastSmaller})/(x_{FirstBigger}-x_{LastSmaller})\big)\bigg)+y_{LastSmaller}$ ,ahol $x_{LastSmaller} \text{ és } y_{LastSmaller}$ a keresett $x$ értéket megelőző pont koordinátái, míg $x_{FirstBigger} \text{ és } y_{FirstBigger}$ a keresett $x$ értéket követő pont koordinátái. 
+\item Ha a keresett $x$ értéke nagyobb, mint a vectorban tárolt utolsó pont $x$ koordinátájának értéke, akkor:
+$y=y_{Last}-(x-x_{Last}) \cdot Angle_{end}$ ,ahol $x_{Last} \text{ és } y_{Last}$ a vectorban tárolt utolsó pont koordinátái.
 \end{itemize}
 \subsection{Két függvény összeadása} \label{addBrokenLine}
-Két függvény összeadását az \textit{addBrokenLine(BrokenLine b)} metódus végzi, melynek visszatérési értéke az összegként kapott függvényt tároló új \textit{BrokenLine} objektum. Mivel a függvények tárolásához elegendő három pont tárolása, ezért gyakran előfordul olyan eset, hogy a két összeadni kívánt \textit{BrokenLine} objektum nem tartalmazza a szükséges koordinátákat, ezért a hiányzó koordináta párokat először hozzá kell adni   
+Két függvény összeadását az \textit{addBrokenLine(BrokenLine b)} metódus végzi, melynek visszatérési értéke az összegként kapott függvényt tároló új \textit{BrokenLine} objektum. Mivel a függvények tárolásához elegendő három pont tárolása, ezért gyakran előfordul olyan eset, hogy a két összeadni kívánt \textit{BrokenLine} objektum nem tartalmazza a szükséges koordinátákat, ezért a hiányzó koordináta párokat először hozzá kell adni, ezt azonban megkönnyíti a \ref{getValue} pontban bemutatott \textit{getValue} metódus, hiszen elég, ha lekérdezzük az aktuális $x$ értékét mindkét függvény esetén, és ha az valamelyiknél nem található, automatikusan hozzá lesz adva annak pontjaihoz. Ennek következtében a két függvény összeadása már jóval egyszerűbb feladat, egyetlen \textit{for} ciklussal megtehető.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.48]{add_broken_line}
+\caption{Az \textit{AddBrokenLine} metódus}
+\label{add_broken_line}
+\end{center}
+\end{figure}
+\subsection{A függvény horizontális nyújtása}
+\subsection{A függvény maximális értékéhez tartozó koordináták lekérdezése}
 \section{Szükséges változtatások az általános throughput maximalizálón} \label{refactor}
 \section{Multiproduct receptek esete} \label{extended_multiproduct}
 \chapter{Teszteredmények}

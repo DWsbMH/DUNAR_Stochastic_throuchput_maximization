@@ -17,7 +17,9 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {6.1.3}A f\IeC {\"u}ggv\IeC {\'e}ny skal\IeC {\'a}r \IeC {\'e}rt\IeC {\'e}kkel val\IeC {\'o} szorz\IeC {\'a}sa}{16}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {6.1.4}A f\IeC {\"u}ggv\IeC {\'e}ny $x$ helyen vett \IeC {\'e}rt\IeC {\'e}k\IeC {\'e}nek lek\IeC {\'e}rdez\IeC {\'e}se}{16}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {6.1.5}K\IeC {\'e}t f\IeC {\"u}ggv\IeC {\'e}ny \IeC {\"o}sszead\IeC {\'a}sa}{17}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.2}Sz\IeC {\"u}ks\IeC {\'e}ges v\IeC {\'a}ltoztat\IeC {\'a}sok az \IeC {\'a}ltal\IeC {\'a}nos throughput maximaliz\IeC {\'a}l\IeC {\'o}n}{17}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.3}Multiproduct receptek esete}{17}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {7}Teszteredm\IeC {\'e}nyek}{18}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {8}\IeC {\"O}sszefoglal\IeC {\'a}s}{19}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.1.6}A f\IeC {\"u}ggv\IeC {\'e}ny horizont\IeC {\'a}lis ny\IeC {\'u}jt\IeC {\'a}sa}{18}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.1.7}A f\IeC {\"u}ggv\IeC {\'e}ny maxim\IeC {\'a}lis \IeC {\'e}rt\IeC {\'e}k\IeC {\'e}hez tartoz\IeC {\'o} koordin\IeC {\'a}t\IeC {\'a}k lek\IeC {\'e}rdez\IeC {\'e}se}{18}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.2}Sz\IeC {\"u}ks\IeC {\'e}ges v\IeC {\'a}ltoztat\IeC {\'a}sok az \IeC {\'a}ltal\IeC {\'a}nos throughput maximaliz\IeC {\'a}l\IeC {\'o}n}{18}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.3}Multiproduct receptek esete}{18}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Teszteredm\IeC {\'e}nyek}{19}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {8}\IeC {\"O}sszefoglal\IeC {\'a}s}{20}% 

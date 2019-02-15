@@ -1,3 +1,9 @@
 /sablon
 /TexMakerStuff
 /libre
+*.log
+*.aux
+*.blg
+*.bbl
+*.gz
+*.toc

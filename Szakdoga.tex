@@ -1,0 +1,46 @@
+\documentclass [12pt]{report}
+
+\usepackage[magyar]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{mathptmx}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\geometry{
+ left=30mm,
+ top=25.4mm,
+ right=25.4mm,
+ bottom=25.4mm
+ }
+
+\linespread{1.5}
+
+\begin{document}
+\pagenumbering{Roman} 
+\includepdf[pages = {1-4}]{eleje.pdf}
+\setcounter{page}{1}
+\tableofcontents
+
+\chapter{Bevezetés}
+\setcounter{page}{1}
+\pagenumbering{arabic} 
+\chapter{Irodalmi áttekintés}
+\chapter{Az S-gráf modell}
+\section{Profit maximalizálás S-gráffal}
+
+\include{Problem_definition}
+
+\chapter{Az S-gráf keretrendszer} \label{s-graph_framework}
+
+\include{Problem_implementation}
+
+\chapter{Teszteredmények}
+\chapter{Összefoglalás}
+
+\bibliographystyle{plain}
+\bibliography{Szakdoga}
+\addcontentsline{toc}{chapter}{References}
+
+\end{document}

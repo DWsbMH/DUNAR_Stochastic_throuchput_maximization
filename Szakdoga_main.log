@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  10 FEB 2019 17:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.27)  15 FEB 2019 10:32
 entering extended mode
 **./Szakdoga_main.tex
 (Szakdoga_main.tex
@@ -593,12 +593,6 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
 
 ]
 4. fejezet.
-
-LaTeX Warning: Citation `?' on page 4 undefined on input line 33.
-
-
-LaTeX Warning: Citation `?' on page 4 undefined on input line 33.
-
 [4
 
 ]
@@ -631,10 +625,6 @@ Package pdftex.def Info: profit_func.jpg  used on input line 76.
 [6] [7 <./profit_func.jpg>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 82.
-
-
-LaTeX Warning: Citation `?' on page 8 undefined on input line 88.
-
 <profit_func_prob.jpg, id=95, 780.66656pt x 465.99094pt>
 File: profit_func_prob.jpg Graphic file (type jpg)
 <use profit_func_prob.jpg>
@@ -739,34 +729,33 @@ r[]esi
 
 ]
 8. fejezet.
-[20
+(Szakdoga_main.bbl [20
 
-] (Szakdoga_main.aux)
+]) [21
 
-LaTeX Warning: There were undefined references.
-
- ) 
+] (Szakdoga_main.aux) ) 
 Here is how much of TeX's memory you used:
- 5615 strings out of 492946
- 86686 string characters out of 3125822
- 185889 words of memory out of 3000000
- 9371 multiletter control sequences out of 15000+200000
+ 5619 strings out of 492946
+ 86803 string characters out of 3125822
+ 185893 words of memory out of 3000000
+ 9372 multiletter control sequences out of 15000+200000
  40866 words of font info for 88 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,18n,46p,1791b,434s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.en
-c}<C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmex10.pfb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmmi10.pfb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Oliver/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Oliver/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/Oliver/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Oli
-ver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/User
-s/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Szakdoga_main.pdf (26 pages, 568966 bytes).
+{C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts
+/enc/dvips/base/8r.enc}<C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Oliver/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Oliver/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Olive
+r/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.p
+fb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utm
+b8a.pfb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/time
+s/utmr8a.pfb><C:/Users/Oliver/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
+/times/utmri8a.pfb>
+Output written on Szakdoga_main.pdf (27 pages, 570338 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
+ 172 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

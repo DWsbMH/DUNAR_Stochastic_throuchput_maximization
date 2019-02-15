@@ -30,7 +30,7 @@
 \chapter{Az S-gráf modell}
 \section{Profit maximalizálás S-gráffal}
 \chapter{Problémadefiníció}
-A probléma lényege abban keresendő, hogy a korábban kidolgozott általános throughput maximalizáló algoritmus \cite{?} valódi ipari környezetben nem minden esetben állja meg a helyét, ugyanis sok esetben a a probléma megoldásához használt paraméterek nem determinisztikusak. Változó piaci környezetben ilyen sztochasztikus paraméternek számítanak például a termék iránti kereslet, illetve a piaci ár, amin a terméket értékesíteni lehet. Belátható az is, hogy ezek a paraméterek sokban befolyásolják a maximalizálandó profitot. Vegyünk például egy olyan esetet, amelyben a keresletnél többet termeltünk, ez esetben a keletkező többletet nem tudjuk értékesíteni, ez akár további kiadásokkal is járhat a többlet termék esetleges tárolási költsége miatt. Szakdolgozatom célja a \ref{math_modells} pontban bemutatott, Hegyháti által kidolgozott \cite{?} matematikai modellek S-gráf keretrendszerbe történő implementálása, oly módon, hogy az általános throughput maximalizáló algoritmus sértetlen maradjon, a probléma típusától függően kompatibilis használat lehetséges legyen.
+A probléma lényege abban keresendő, hogy a korábban kidolgozott általános throughput maximalizáló algoritmus \cite{phd_Hegyhati} valódi ipari környezetben nem minden esetben állja meg a helyét, ugyanis sok esetben a a probléma megoldásához használt paraméterek nem determinisztikusak. Változó piaci környezetben ilyen sztochasztikus paraméternek számítanak például a termék iránti kereslet, illetve a piaci ár, amin a terméket értékesíteni lehet. Belátható az is, hogy ezek a paraméterek sokban befolyásolják a maximalizálandó profitot. Vegyünk például egy olyan esetet, amelyben a keresletnél többet termeltünk, ez esetben a keletkező többletet nem tudjuk értékesíteni, ez akár további kiadásokkal is járhat a többlet termék esetleges tárolási költsége miatt. Szakdolgozatom célja a \ref{math_modells} pontban bemutatott, Hegyháti által kidolgozott \cite{phd_Hegyhati} matematikai modellek S-gráf keretrendszerbe történő implementálása, oly módon, hogy az általános throughput maximalizáló algoritmus sértetlen maradjon, a probléma típusától függően kompatibilis használat lehetséges legyen.
 \section{A problémák csoportosítása} \label{problem_csop}
 A megoldandó problémák a sztochasztikus esetben is az általános throughput maximalizálásnál használthoz hasonló paraméterekkel adottak, pl.: minden terméket a receptje azonosít be, ezen kívül adott a termékek előállítására használható berendezések halmaza, illetve a termelésre rendelkezésre álló időhorizont. Az általános paramétereken kívül azonban sztochasztikus esetben különböző bizonytalan paraméterek is adottak minden termékre, amelyek valószínűségeit különböző scenariokba, forgatókönyvekbe csoportosítjuk. Ezáltal minden forgatókönyvre adott: 
 \begin{itemize}
@@ -85,7 +85,7 @@ $$\sum_{p \in P}\bigg (\sum_{s \in S} prob_s \cdot profit_{s,p} (s_p \cdot b_p)\
 Érdemes még bevezetni adott $p$ termék $x$ értékben vett várható profit értékére a következő jelölést:
 $$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$$
 Fontos megjegyezni, hogy az egyes termékek várható profitja egymástól független, hiszen nem osztoznak közös recepteken, éppen ezért, ha két különböző konfigurációban adott termékből gyártott batch darabszám megegyezik, akkor ha megnöveljük, vagy csökkentjük ezt a számot, mindkét konfiguráció várható profit értékében ugyan olyan változás fog történni, attól függetlenül, hogy más termékekből adott konfigurációban mennyit gyártunk.
-Ezenkívül tudjuk azt is, hogy az $ExpProfit$ függvény értéke sosem fog nőni, ha már egyszer elkezdett csökkenni, mert $ExpProfit$ egy folytonos, szakaszos, lineáris függvény. \cite{?}
+Ezenkívül tudjuk azt is, hogy az $ExpProfit$ függvény értéke sosem fog nőni, ha már egyszer elkezdett csökkenni, mert $ExpProfit$ egy folytonos, szakaszos, lineáris függvény. \cite{phd_Hegyhati}
 $ExpProfit_p(x)$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. Miután minden forgatókönyvre előállítottuk a \ref{profit_func_prob} ábrához hasonlóan ezt az "összenyomott" profit függvényt, ezen függvények összeadásával előáll az $ExpProfit_p$, ha ezt minden termékre megtesszük, az adott $p$ termékek $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékének összegeként előáll a várható profit.
 \pagebreak
 \begin{figure}
@@ -205,5 +205,9 @@ Két függvény összeadását az \textit{addBrokenLine(BrokenLine b)} metódus 
 \section{Multiproduct receptek esete} \label{extended_multiproduct}
 \chapter{Teszteredmények}
 \chapter{Összefoglalás}
+
+\bibliographystyle{plain}
+\bibliography{Szakdoga}
+\addcontentsline{toc}{chapter}{References}
 
 \end{document}

@@ -23,3 +23,4 @@
 \select@language {magyar} \contentsline {section}{\numberline {6.3}Multiproduct receptek esete}{18}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {7}Teszteredm\IeC {\'e}nyek}{19}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {8}\IeC {\"O}sszefoglal\IeC {\'a}s}{20}% 
+\select@language {magyar} \contentsline {chapter}{References}{21}% 

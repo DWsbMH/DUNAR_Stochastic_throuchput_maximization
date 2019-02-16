@@ -23,24 +23,16 @@
 \setcounter{page}{1}
 \tableofcontents
 
-\chapter{Bevezetés}
-\setcounter{page}{1}
-\pagenumbering{arabic} 
-\chapter{Irodalmi áttekintés}
-\chapter{Az S-gráf modell}
-\section{Profit maximalizálás S-gráffal}
-
+\include{Preface}
+\include{Research}
+\include{S-graph}
 \include{Problem_definition}
-
-\chapter{Az S-gráf keretrendszer} \label{s-graph_framework}
-
+\include{Solver}
 \include{Problem_implementation}
-
-\chapter{Teszteredmények}
-\chapter{Összefoglalás}
-
+\include{Testing}
+\include{Summary}
 \bibliographystyle{plain}
 \bibliography{Szakdoga}
-\addcontentsline{toc}{chapter}{References}
+\addcontentsline{toc}{chapter}{Irodalomjegyzék}
 
 \end{document}

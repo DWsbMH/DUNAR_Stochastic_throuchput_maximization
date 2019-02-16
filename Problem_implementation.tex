@@ -117,6 +117,16 @@ Két függvény összeadását az \textit{addBrokenLine(BrokenLine b)} metódus 
 \end{center}
 \end{figure}
 \subsection{A függvény horizontális nyújtása}
+A függvény a \ref{extended_multiproduct} pontban használt horizontális nyújtását (illetve összenyomását, s értéktől függően) a \textit{stretchHorizontally(double s)} metódus végzi. A metódus egyszerűen egy \textit{for} ciklus segítségével a függvény összes pontjának $x$ koordinátáját, valamint a kezdeti-, és vég meredekséget beszorozza a paraméterként kapott $s$ értékkel, illetve a meredekségek esetén annak reciprokával.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{profit_func_stretch}
+\caption{Példa a függvény horizontális nyújtására $s=0.5$ értékkel}
+\label{profit_func_stretch}
+\end{center}
+\end{figure}
 \subsection{A függvény maximális értékéhez tartozó koordináták lekérdezése}
+A függvény maximumának lekérdezését a \textit{getMaximum()} metódus végzi, mely egy egyszerű maximum keresést valósít meg $y$ koordinátára nézve. A metódusnak a \ref{variable_batch_size_modell} pontban bemutatott változó batch méretű esetben van nagy jelentősége, ezt használjuk ugyanis $dem_{s'}$ meghatározására.
+\section{Az új bemeneti paraméterek implementációja}  
 \section{Szükséges változtatások az általános throughput maximalizálón} \label{refactor}
 \section{Multiproduct receptek esete} \label{extended_multiproduct}

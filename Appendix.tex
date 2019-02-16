@@ -1,18 +1,44 @@
 \appendix
 \chapter{Jelmagyarázat}
-\chapter{} \label{input_files}
+\begin {itemize}
+\item[] $P$ a termékek halmaza
+\item[] $b_p$ a legyártott batch-ek darabszáma az adott konfigurációban
+\item[] $s_p$ a termék batch mérete (fix batch méret esetén)
+\item[] $s_p^{min},s_p^{max}$ adott termékhez tartozó lehetséges legkisebb, legnagyobb batch méret (válzotó batch méret esetén)
+\item[] $S$ a forgatókönyvek halmaza
+\item[] $prob_s$ s forgatókönyv valószínűsége $s	\in S$
+\item[] $dem_{s,p}$ p termék iránti kereslet az s forgatókönyvben $s	\in S, p	\in P$
+\item[] $price_{s,p}$ p termék ára az s forgatókönyvben $s	\in S, p	\in P$
+\item[] $oc_{s,p}, uc_{s,p}$ p termék túl-, és alul termelési költsége s forgatókönyvben $s	\in S, p	\in P$
+\item[]$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$ $p$ termék $x$ értékben vett várható profit értéke
+\end {itemize}
+\begin{equation*}
+Profit_{s,p}(x)= \begin{cases}
+            price_{s,p}\cdot x-(dem_{s,p}-x) \cdot uc_{s,p}\qquad \text{ha } x<dem_{s,p} \\
+            price_{s,p} \cdot dem_{s,p}-(x-dem_{s,p}) \cdot oc_{s,p}\qquad \text{egyébként}
+       \end{cases}
+\end{equation*}
+
+\chapter{Input fájlok} \label{input_files}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.60]{stochasticOds}
+\includegraphics[scale=0.85]{multipurposeOds}
+\caption{A \textbf{multipurpose.ods} fájl}
+\label{multipurpose_ods}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.75]{stochasticOds}
 \caption{A \textbf{stochastic.ods} fájl}
 \label{stochastic_ods}
 \end{center}
 \end{figure}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.65]{stochasticExtendedOds}
+\includegraphics[scale=0.70]{stochasticExtendedOds}
 \caption{A \textbf{stochastic\_extended.ods} fájl}
-\label{stochastic_ods}
+\label{stochastic_extended_ods}
 \end{center}
 \end{figure}
 \chapter{CD melléklet tartalma}

@@ -1,0 +1,45 @@
+\BOOKMARK [0][-]{chapter.1}{Bevezet\351s}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Irodalmi \341ttekint\351s}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Szakaszos gy\341rt\363rendszerek \374temez\351se}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Megold\363 m\363dszerek}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{Sztochasztikus \374temez\351s}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.4}{Az \374temtervek vizualiz\341ci\363ja}{chapter.2}% 6
+\BOOKMARK [0][-]{chapter.3}{Az S-gr\341f modell}{}% 7
+\BOOKMARK [1][-]{section.3.1}{Profit maximaliz\341l\341s S-gr\341ffal}{chapter.3}% 8
+\BOOKMARK [0][-]{chapter.4}{Probl\351madefin\355ci\363}{}% 9
+\BOOKMARK [1][-]{section.4.1}{A probl\351ma csoportos\355t\341sa}{chapter.4}% 10
+\BOOKMARK [1][-]{section.4.2}{A probl\351ma param\351terei}{chapter.4}% 11
+\BOOKMARK [0][-]{chapter.5}{Az S-gr\341f keretrendszer}{}% 12
+\BOOKMARK [1][-]{section.5.1}{A solver fel\351p\355t\351se}{chapter.5}% 13
+\BOOKMARK [1][-]{section.5.2}{Az \341ltal\341nos throughput maximaliz\341l\363}{chapter.5}% 14
+\BOOKMARK [0][-]{chapter.6}{A probl\351ma megval\363s\355t\341sa}{}% 15
+\BOOKMARK [1][-]{section.6.1}{A felhaszn\341lt m\363dszerek}{chapter.6}% 16
+\BOOKMARK [2][-]{subsection.6.1.1}{Prevent\355v \374temez\351s fix batch m\351rettel}{section.6.1}% 17
+\BOOKMARK [2][-]{subsection.6.1.2}{Prevent\355v \374temez\351s v\341ltoz\363 batch m\351rettel}{section.6.1}% 18
+\BOOKMARK [2][-]{subsection.6.1.3}{Two stage \(k\351t l\351pcsos \374temez\351s\)}{section.6.1}% 19
+\BOOKMARK [2][-]{subsection.6.1.4}{K\366vetkeztet\351s}{section.6.1}% 20
+\BOOKMARK [1][-]{section.6.2}{A BrokenLine oszt\341ly}{chapter.6}% 21
+\BOOKMARK [2][-]{subsection.6.2.1}{Koordin\341ta p\341r hozz\341ad\341sa}{section.6.2}% 22
+\BOOKMARK [2][-]{subsection.6.2.2}{Kezdeti-, \351s v\351g meredeks\351g kisz\341m\355t\341sa}{section.6.2}% 23
+\BOOKMARK [2][-]{subsection.6.2.3}{A f\374ggv\351ny skal\341r \351rt\351kkel val\363 szorz\341sa}{section.6.2}% 24
+\BOOKMARK [2][-]{subsection.6.2.4}{A f\374ggv\351ny x helyen vett \351rt\351k\351nek lek\351rdez\351se}{section.6.2}% 25
+\BOOKMARK [2][-]{subsection.6.2.5}{K\351t f\374ggv\351ny \366sszead\341sa}{section.6.2}% 26
+\BOOKMARK [2][-]{subsection.6.2.6}{A f\374ggv\351ny horizont\341lis ny\372jt\341sa}{section.6.2}% 27
+\BOOKMARK [2][-]{subsection.6.2.7}{A f\374ggv\351ny maxim\341lis \351rt\351k\351hez tartoz\363 koordin\341t\341k lek\351rdez\351se}{section.6.2}% 28
+\BOOKMARK [1][-]{section.6.3}{Az \372j param\351terek implement\341ci\363ja}{chapter.6}% 29
+\BOOKMARK [2][-]{subsection.6.3.1}{\332j kapcsol\363 defini\341l\341sa}{section.6.3}% 30
+\BOOKMARK [2][-]{subsection.6.3.2}{\332j input f\341jl defini\341l\341sa}{section.6.3}% 31
+\BOOKMARK [2][-]{subsection.6.3.3}{A beolvasott param\351terek t\341rol\341sa}{section.6.3}% 32
+\BOOKMARK [1][-]{section.6.4}{Sz\374ks\351ges v\341ltoztat\341sok az \341ltal\341nos throughput maximaliz\341l\363n}{chapter.6}% 33
+\BOOKMARK [2][-]{subsection.6.4.1}{A megl\351vo k\363d refaktor\341l\341sa}{section.6.4}% 34
+\BOOKMARK [2][-]{subsection.6.4.2}{A getRevenue\(\) met\363dus}{section.6.4}% 35
+\BOOKMARK [1][-]{section.6.5}{Multiproduct receptek esete}{chapter.6}% 36
+\BOOKMARK [0][-]{chapter.7}{Teszteredm\351nyek}{}% 37
+\BOOKMARK [1][-]{section.7.1}{A tesztel\351s menete}{chapter.7}% 38
+\BOOKMARK [1][-]{section.7.2}{Alapesetek tesztel\351se \(1:1\)}{chapter.7}% 39
+\BOOKMARK [1][-]{section.7.3}{Multiproduct receptek tesztel\351se}{chapter.7}% 40
+\BOOKMARK [0][-]{chapter.8}{\326sszefoglal\341s}{}% 41
+\BOOKMARK [0][-]{chapter*.2}{Irodalomjegyz\351k}{}% 42
+\BOOKMARK [0][-]{appendix.A}{Jelmagyar\341zat}{}% 43
+\BOOKMARK [0][-]{appendix.B}{}{}% 44
+\BOOKMARK [0][-]{appendix.C}{CD mell\351klet tartalma}{}% 45

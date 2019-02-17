@@ -9,7 +9,7 @@ $$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$$
 $ExpProfit_p(x)$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. Miután minden forgatókönyvre előállítottuk a \ref{profit_func_prob} ábrához hasonlóan ezt az "összenyomott" profit függvényt, ezen függvények összeadásával előáll az $ExpProfit_p$, ha ezt minden termékre megtesszük, az adott $p$ termékek $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékének összegeként előáll a várható profit.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{profit_func_prob}
+\includegraphics[scale=0.4]{profit_func_prob}
 \caption{A profit függvény szorzásának szemléltetése}
 \label{profit_func_prob}
 \end{center}
@@ -26,7 +26,7 @@ x_{p}(b_p)= \begin{cases}
 A \ref{expProfit_func_var} ábra szemlélteti a fentieket. Látható, hogy ez esetben a $dem_{s'}$ érték beleesik a \\$[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$ tartományba, ezért itt $x_p=3$ lenne az optimális választás.
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{expProfit_func_var}
+\includegraphics[scale=0.4]{expProfit_func_var}
 \caption{Az optimális $x_p$ érték kiválasztásának szemléltetése}
 \label{expProfit_func_var}
 \end{center}
@@ -61,7 +61,7 @@ Profit_{s,p}(x)= \begin{cases}
 Miután ennek a három pontnak a pontos koordinátái beazonosításra kerültek, már csak annyit kell tenni, hogy kiszámítunk két arány számot, amelyek a függvény kezdeti-, és vég meredekségét hivatottak letárolni. Ezen paraméterek ismeretében később a függvény bármely $x$ pontjában felvett értéke számítható lesz. Ezek alapján a \textbf{BrokenLine} osztály adattagjai a következőek:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=1]{broken_line_variables}
+\includegraphics[scale=0.5]{broken_line_variables}
 \caption{A \textit{BrokenLine} osztály adattagjai}
 \label{broken_line_variables}
 \end{center}
@@ -89,7 +89,7 @@ $$Angle_{begin}=(4-3) / (3-2)\quad \text{, azaz } Angle_{begin}=1$$
 $$Angle_{end}=(4-2) / (6-3)\quad \text{, azaz } Angle_{end}=2/3$$
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{calculate_angle}
+\includegraphics[scale=0.375]{calculate_angle}
 \caption{Példa a meredekségek kiszámítására}
 \label{calculate angle}
 \end{center}
@@ -111,7 +111,7 @@ $y=y_{Last}-(x-x_{Last}) \cdot Angle_{end}$ ,ahol $x_{Last} \text{ és } y_{Last
 Két függvény összeadását az \textbf{addBrokenLine(BrokenLine b)} metódus végzi, melynek visszatérési értéke az összegként kapott függvényt tároló új \textbf{BrokenLine} objektum. Mivel a függvények tárolásához elegendő három pont tárolása, ezért gyakran előfordul olyan eset, hogy a két összeadni kívánt \textbf{BrokenLine} objektum nem tartalmazza a szükséges koordinátákat, ezért a hiányzó koordináta párokat először hozzá kell adni, ezt azonban megkönnyíti a \ref{getValue} pontban bemutatott \textbf{getValue} metódus, hiszen elég, ha lekérdezzük az aktuális $x$ értékét mindkét függvény esetén, és ha az valamelyiknél nem található, automatikusan hozzá lesz adva annak pontjaihoz. Ennek következtében a két függvény összeadása már jóval egyszerűbb feladat, egyetlen \textit{for} ciklussal megtehető.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.48]{add_broken_line}
+\includegraphics[scale=0.375]{add_broken_line}
 \caption{Az \textit{AddBrokenLine} metódus}
 \label{add_broken_line}
 \end{center}
@@ -120,7 +120,7 @@ Két függvény összeadását az \textbf{addBrokenLine(BrokenLine b)} metódus 
 A függvény a \ref{extended_multiproduct} pontban használt horizontális nyújtását (illetve összenyomását, s értéktől függően) a \textbf{stretchHorizontally(double s)} metódus végzi. A metódus egyszerűen egy \textit{for} ciklus segítségével a függvény összes pontjának $x$ koordinátáját, valamint a kezdeti-, és vég meredekséget beszorozza a paraméterként kapott $s$ értékkel, illetve a meredekségek esetén annak reciprokával.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{profit_func_stretch}
+\includegraphics[scale=0.38]{profit_func_stretch}
 \caption{Példa a függvény horizontális nyújtására $s=0.5$ értékkel}
 \label{profit_func_stretch}
 \end{center}
@@ -133,7 +133,7 @@ Ahhoz, hogy az általános throughput maximalizáló használható legyen a \ref
 Mivel a sztochasztikus throughput maximalizáló működhet preventív, illetve két lépcsős módon, ezért szükségessé vált egy új parancssori kapcsoló bevezetése:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.65]{switch}
+\includegraphics[scale=0.4]{switch}
 \caption{Az új kapcsoló leírása a readme fájlban}
 \label{switch}
 \end{center}

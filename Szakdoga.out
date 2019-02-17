@@ -29,17 +29,18 @@
 \BOOKMARK [1][-]{section.6.3}{Az \372j param\351terek implement\341ci\363ja}{chapter.6}% 29
 \BOOKMARK [2][-]{subsection.6.3.1}{\332j kapcsol\363 defini\341l\341sa}{section.6.3}% 30
 \BOOKMARK [2][-]{subsection.6.3.2}{\332j input f\341jl defini\341l\341sa}{section.6.3}% 31
-\BOOKMARK [2][-]{subsection.6.3.3}{A beolvasott param\351terek t\341rol\341sa}{section.6.3}% 32
+\BOOKMARK [2][-]{subsection.6.3.3}{A f\341jl beolvas\341sa, beolvasott param\351terek t\341rol\341sa}{section.6.3}% 32
 \BOOKMARK [1][-]{section.6.4}{Sz\374ks\351ges v\341ltoztat\341sok az \341ltal\341nos throughput maximaliz\341l\363n}{chapter.6}% 33
 \BOOKMARK [2][-]{subsection.6.4.1}{A megl\351vo k\363d refaktor\341l\341sa}{section.6.4}% 34
 \BOOKMARK [2][-]{subsection.6.4.2}{A getRevenue\(\) met\363dus}{section.6.4}% 35
-\BOOKMARK [1][-]{section.6.5}{Multiproduct receptek esete}{chapter.6}% 36
-\BOOKMARK [0][-]{chapter.7}{Teszteredm\351nyek}{}% 37
-\BOOKMARK [1][-]{section.7.1}{A tesztel\351s menete}{chapter.7}% 38
-\BOOKMARK [1][-]{section.7.2}{Alapesetek tesztel\351se \(1:1\)}{chapter.7}% 39
-\BOOKMARK [1][-]{section.7.3}{Multiproduct receptek tesztel\351se}{chapter.7}% 40
-\BOOKMARK [0][-]{chapter.8}{\326sszefoglal\341s}{}% 41
-\BOOKMARK [0][-]{chapter*.2}{Irodalomjegyz\351k}{}% 42
-\BOOKMARK [0][-]{appendix.A}{Jelmagyar\341zat}{}% 43
-\BOOKMARK [0][-]{appendix.B}{Input f\341jlok}{}% 44
-\BOOKMARK [0][-]{appendix.C}{CD mell\351klet tartalma}{}% 45
+\BOOKMARK [2][-]{subsection.6.4.3}{A ThroughputUI oszt\341ly kieg\351sz\355t\351se}{section.6.4}% 36
+\BOOKMARK [1][-]{section.6.5}{Multiproduct receptek esete}{chapter.6}% 37
+\BOOKMARK [0][-]{chapter.7}{Teszteredm\351nyek}{}% 38
+\BOOKMARK [1][-]{section.7.1}{A tesztel\351s menete}{chapter.7}% 39
+\BOOKMARK [1][-]{section.7.2}{Alapesetek tesztel\351se \(1:1\)}{chapter.7}% 40
+\BOOKMARK [1][-]{section.7.3}{Multiproduct receptek tesztel\351se}{chapter.7}% 41
+\BOOKMARK [0][-]{chapter.8}{\326sszefoglal\341s}{}% 42
+\BOOKMARK [0][-]{chapter*.2}{Irodalomjegyz\351k}{}% 43
+\BOOKMARK [0][-]{appendix.A}{Jelmagyar\341zat}{}% 44
+\BOOKMARK [0][-]{appendix.B}{Input f\341jlok}{}% 45
+\BOOKMARK [0][-]{appendix.C}{CD mell\351klet tartalma}{}% 46

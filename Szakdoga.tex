@@ -8,6 +8,12 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
 \geometry{
  left=30mm,
  top=25.4mm,
@@ -16,6 +22,7 @@
  }
  \usepackage[hidelinks]{hyperref}
 \linespread{1.5}
+\sloppy
 
 \begin{document}
 \pagenumbering{Roman} 

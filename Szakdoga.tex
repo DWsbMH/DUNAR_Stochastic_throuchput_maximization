@@ -10,6 +10,7 @@
 \usepackage{float}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+\usepackage{fancyhdr}
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
@@ -23,6 +24,13 @@
  \usepackage[hidelinks]{hyperref}
 \linespread{1.5}
 \sloppy
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,LO]{\footnotesize S-gráf alapú várható profit maximalizálás sztochasztikus környezetben}
+\fancyhead[RE,RO]{\footnotesize Dunár Olivér} 
+\renewcommand{\headrulewidth}{0.5pt}
+\fancyfoot[C]{\thepage}
 
 \begin{document}
 \pagenumbering{Roman} 

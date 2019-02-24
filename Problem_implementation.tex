@@ -163,6 +163,7 @@ A \textbf{GetRevenue()} metódusnak azonban egy másik, a sztochasztikus esetekk
 Ezen változtatások segítségével a \textbf{GetRevenue()} függvény ezentúl egységesen használható a \textbf{ThroughputSolver} osztály számára egy adott konfiguráció összprofitjának kiszámítására, függetlenül a probléma típusától. 
 \subsection{A \textit{GetProductRevenue} metódus} \label{getProductRevenue}
 A \textbf{GetProductRevenue} metódus hivatott $p$ termék $x$ helyen vett várható profit értékének, azaz $ExpProfit_p(x)$ kiszámítására. Mivel a metódusnak kezelnie kell a különböző eseteket, ezért szerkezete a következőképpen alakul: 
+\pagebreak
 \begin{algorithmic}
 \Procedure{GetProductRevenue}{}
 \If {$\textbf{not } stochastic$} \Return $non \text{ } stochastic \text{ } profit$
@@ -187,4 +188,51 @@ $$ \sum_{s \in S}(prob_s \cdot Profit(x_{s,p}(b_p))$$
 \end{itemize}
 Ezen módszerek implementációját tartalmazza tehát a \textbf{GetProductRevenue} metódus, amely segítségével ezentúl adott termék profitja, függetlenül a probléma típusától egységesen megkapható.
 \subsection{A \textit{ThroughputUI} osztály kiegészítése}
+A \textbf{ThroughputUI} osztály feladata a \textbf{ThroughputSolver} osztály által kiszámított eredmények megjelenítése a felhasználó számára. Általános (nem sztochasztikus) esetben a Throughput maximalizáló egy példa lefutását a \ref{ThroughputUI} ábra szemlélteti.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.8]{throughputUI}
+\caption{Példa a \textit{ThroughputUI} szerkezetére általános esetben}
+\label{ThroughputUI}
+\end{center}
+\end{figure}
+Nyilvánvaló, hogy a \textbf{ThroughputUI} osztály is kiegészítésre szorul a sztochasztikus esetek kezeléséhez a következőkkel:
+\begin{itemize}
+\item Optimális batch darabszámok és méretek minden termékre (fixed batch méret és változó batch méret esetén)
+\item Optimális batch darabszámok minden termékre, batch méretek minden termék - forgatókönyv párosra (két lépcsős ütemezés esetén)
+\item Forgatókönyvek, és a hozzájuk tartozó valószínűségek
+\item A várható összprofit értéke forgatókönyvenként
+\end{itemize}
+Ezen adatok tárolását a \textbf{ThroughputSolver} osztály általam létrehozott metódusa a \textbf{SaveStochasticStatistics} végzi el felhasználva a \textbf{ThroughputSolver} osztály \textbf{Statistics} típusú objektumát, melynek feladata a futás közben a \textbf{ThroughputUI} osztály számára szükséges statisztikai adatok tárolása. A \textbf{SaveStochasticStatistics} metódus minden alkalommal lefut, mikor egy új konfiguráció kerül hozzáadásra a \textbf{NewSolution} metódus által. A sztochasztikus esetek lefutását a \ref{ThroughputUIFixedVar}, és a \ref{ThroughputUITwoStage} ábra szemlélteti.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.9]{throughputUIFixedVar}
+\caption{Példa a \textit{ThroughputUI} szerkezetére fixed, és változó batch méret esetén}
+\label{ThroughputUIFixedVar}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.9]{throughputUITwoStage}
+\caption{Példa a \textit{ThroughputUI} szerkezetére két lépcsős ütemezés esetén}
+\label{ThroughputUITwoStage}
+\end{center}
+\end{figure}
+Mivel az S-Gráf keretrendszer throughput maximalizálója alapvetően többszálas működésre lett tervezve, ezért a \textbf{ThroughputSolver} osztály által használt \textbf{Statistics} osztály általam bevezetett új adattagjait, illetve azok \textit{getter}, \textit{setter} metódusait fel kell készíteni a párhuzamos használatra. A C++ programnyelven történő párhuzamos programozás megértéséhez, a szükséges változtatások bevezetéséhez nagy segítségnek bizonyult Anthony A. Williams a témában íródott könyve. \cite{CppConcurrency} A primitív adattagok esetében az \textbf{AtomicVariable\textless T\textgreater } osztályt használtam fel, melynek definíciója a solver \textit{base} mappájában található \textbf{parallel.h} fájlban olvasható. Az osztály megvalósítja T típusú változó párhuzamos elérését, azon végzett műveletek biztonságos lekezelését \textbf{Lock} objektumok használatával. A bonyolultabb adatszerkezetek (például map-ek) párhuzamos elérését a \textbf{Statistics} osztály \textit{getter}, \textit{setter} metódusaiba implementált \textbf{Lock} objektumokkal oldottam meg. A \textbf{Statistics} osztály általam bevezetett adattagjai a \ref{StatisticsVariables} ábrán láthatóak.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{StatisticsVariables}
+\caption{A \textit{Statistics} osztály új adattagjai}
+\label{StatisticsVariables}
+\end{center}
+\end{figure}
+Mivel a \textit{map} típusú adattagok \textit{getter} metódusai konstans metódusok, ezzel szemben a solverben definiált \textbf{Lock} osztály \textbf{Set}, és \textbf{Unset} metódusai nyilvánvalóan nem konstansok, ezért elengedhetetlen volt ez esetben a \textbf{Lock} típusú objektumok \textit{mutable} kulcsszóval történő definiálása a \textbf{Statistics} osztályban.. Az általam létrehozott, \textbf{Lock} objektummal védett \textit{getter}, és \textit{setter} metódusokra példa a \ref{GetterSetterLock} ábrán látható.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{GetterSetterLock}
+\caption{Példa a \textit{Lock} objektummal védett \textit{getter}, \textit{setter} metódusokra}
+\label{GetterSetterLock}
+\end{center}
+\end{figure}
 \section{Multiproduct receptek esete} \label{extended_multiproduct}
+Ebben a részben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1:1 kapcsolat áll fenn, nem teljesül. Egy recept akár több különböző terméket is előállíthat, illetve egy bizonyos terméket akár több különböző recept is előállíthat. 

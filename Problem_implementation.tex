@@ -1,12 +1,14 @@
 \chapter{A probléma megvalósítása}
 \section{A felhasznált módszerek} \label{math_modells}
-A problémák megoldásához az S-gráf keretrendszerben már kidolgozásra kerültek elméleti algoritmusok \cite{phd_Hegyhati}. Szakdolgozati munkám célja ezen elméleti algoritmusok tanulmányozása, részleteinek kidolgozása, valamint az S-gráf megoldó keretrendszerbe történő integrálása, implementálása, valamint tesztelése.
+A problémák megoldásához az S-gráf keretrendszerben már kidolgozásra kerültek elméleti algoritmusok \cite{phd_Hegyhati}.
+Szakdolgozati munkám célja ezen elméleti algoritmusok tanulmányozása, részleteinek kidolgozása, valamint az S-gráf megoldó keretrendszerbe történő integrálása, implementálása, valamint tesztelése.
 \subsection{Preventív ütemezés kötött batch mérettel} \label{FixBatchSize}
 Ebben az esetben az egyetlen döntés, amit meg kell hozni, hogy az egyes termékekből hány darab batch-et gyártsunk, a várható profit a következőképpen számítható ki:
 $$\sum_{p \in P}\bigg (\sum_{s \in S} prob_s \cdot profit_{s,p} (s_p \cdot b_p)\bigg)$$
 Érdemes még bevezetni adott $p$ termék $x$ értékben vett várható profit értékére a következő jelölést:
 $$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$$
-$ExpProfit_p(x)$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. Miután minden forgatókönyvre előállítottuk a \ref{profit_func_prob} ábrához hasonlóan ezt az "összenyomott" profit függvényt, ezen függvények összeadásával előáll az $ExpProfit_p$, ha ezt minden termékre megtesszük, az adott $p$ termékek $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékének összegeként előáll a várható profit.
+$ExpProfit_p(x)$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. 
+Miután minden forgatókönyvre előállítottuk a \ref{profit_func_prob} ábrához hasonlóan ezt az "összenyomott" profit függvényt, ezen függvények összeadásával előáll az $ExpProfit_p$, ha ezt minden termékre megtesszük, az adott $p$ termékek $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékének összegeként előáll a várható profit.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.4]{profit_func_prob}
@@ -15,7 +17,12 @@ $ExpProfit_p(x)$ kiszámításához tehát nincs másra szükségünk, mint hogy
 \end{center}
 \end{figure}
 \subsection{Preventív ütemezés változó batch mérettel} \label{variable_batch_size_modell}
-Az előző esettel ellentétben, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. Ebben az esetben a batch méretről való döntés is a megoldó algoritmus feladata úgy, hogy $p$ termék batch mérete $s_p^{min}$ és $s_p^{max}$ között legyen. Mivel ezt a döntést előre meg kell hozni, ezért minden forgatókönyvben azonos méretű lesz minden $p$ termékhez tartozó batch. Ezután, már csak arról kell döntést hozni, hogy adott termékből mennyit gyártsunk, ez az $x_p$ érték a következő intervallumból kerül kiválasztásra: $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$. Az $ExpProfit$ függvény maximális értékét az egyik keresleti értékben veszi fel, legyen ez $dem_{s'}$. Az optimális $x_p$ érték kiválasztása a következőképpen tehető meg:
+Az előző esettel ellentétben, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. 
+Ebben az esetben a batch méretről való döntés is a megoldó algoritmus feladata úgy, hogy $p$ termék batch mérete $s_p^{min}$ és $s_p^{max}$ között legyen.
+Mivel ezt a döntést előre meg kell hozni, ezért minden forgatókönyvben azonos méretű lesz minden $p$ termékhez tartozó batch.
+Ezután, már csak arról kell döntést hozni, hogy adott termékből mennyit gyártsunk, ez az $x_p$ érték a következő intervallumból kerül kiválasztásra: $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$.
+Az $ExpProfit$ függvény maximális értékét az egyik keresleti értékben veszi fel, legyen ez $dem_{s'}$.
+Az optimális $x_p$ érték kiválasztása a következőképpen tehető meg:
 \begin{equation*}
 x_{p}(b_p)= \begin{cases}
             b_p \cdot s_p^{max} \quad \text{ha } b_p \cdot s_p^{max}<dem_{s'}\\
@@ -32,7 +39,8 @@ A \ref{expProfit_func_var} ábra szemlélteti a fentieket. Látható, hogy ez es
 \end{center}
 \end{figure}
 \subsection{Két lépcsős ütemezés (two stage)} \label{TwoStage}
-Ebben az esetben $p$ termék gyártandó mennyiségét illető döntés egy bizonytalan esemény bekövetkezése után is meghozható, például, ha egy forgatókönyv már bekövetkezett. Éppen ezért a termék mennyisége az adott forgatókönyvtől függ, legyen ez: $x_{s,p}$. E mennyiség kiválasztása a következőképpen zajlik:
+Ebben az esetben $p$ termék gyártandó mennyiségét illető döntés egy bizonytalan esemény bekövetkezése után is meghozható, például, ha egy forgatókönyv már bekövetkezett.
+Éppen ezért a termék mennyisége az adott forgatókönyvtől függ, legyen ez: $x_{s,p}$. E mennyiség kiválasztása a következőképpen zajlik:
 \begin{equation*}
 x_{s,p}(b_p)= \begin{cases}
             b_p \cdot s_p^{max} \quad \text{ha } b_p \cdot s_p^{max}<dem_{s}\\
@@ -40,25 +48,33 @@ x_{s,p}(b_p)= \begin{cases}
             b_p \cdot s_p^{min} \quad \text{ ha } b_p \cdot s_p^{min}>dem_{s}
        \end{cases}       
 \end{equation*}\\
-Látható, hogy a képlet hasonló a \ref{variable_batch_size_modell} pontban bemutatott képlethez, azonban míg ott  az $ExpProfit$ függvényből kerül kiválasztásra az optimális $x_p$ mennyiség (azaz, minden forgatókönyv esetén ez az érték ugyan annyi lesz), addig a két lépcsős ütemezés esetén minden egyes forgatókönyv $Profit$ függvényéből egyenként kerül kiválasztásra az optimális mennyiség. Ezzel megoldható az, hogy egy bizonyos forgatókönyv bekövetkezése után annak elvárásaihoz igazítsuk a termelt batch-ek méretét, jobb várható profitot elérve ezzel a legtöbb esetben. A várható profit két lépcsős ütemezés esetén a következőképpen számítható ki:
+Látható, hogy a képlet hasonló a \ref{variable_batch_size_modell} pontban bemutatott képlethez, azonban míg ott  az $ExpProfit$ függvényből kerül kiválasztásra az optimális $x_p$ mennyiség (azaz, minden forgatókönyv esetén ez az érték ugyan annyi lesz), addig a két lépcsős ütemezés esetén minden egyes forgatókönyv $Profit$ függvényéből egyenként kerül kiválasztásra az optimális mennyiség.
+Ezzel megoldható az, hogy egy bizonyos forgatókönyv bekövetkezése után annak elvárásaihoz igazítsuk a termelt batch-ek méretét, jobb várható profitot elérve ezzel a legtöbb esetben.
+A várható profit két lépcsős ütemezés esetén a következőképpen számítható ki:
 $$\sum_{p \in P} \bigg( \sum_{s \in S}(prob_s \cdot Profit(x_{s,p}(b_p)) \bigg)$$ 
 \subsection{Következtetés} \label{piecewise_suggestion}
 Az előzőekben bemutatott módszerek ismerete arra enged következtetni, hogy a probléma megoldásához elengedhetetlen az S-gráf keretrendszerben egy olyan osztály definiálása, amely képes  folytonos, szakaszos, lineáris függvények modellezésére, tárolására, azokon történő műveletek végrehajtására. Ezen osztály részletes leírása a \ref{piecewise_class} pontban olvasható.
 \section{A PiecewiseLinearFunction osztály} \label{piecewise_class}
-Ahogy az már korábban, a \ref{piecewise_suggestion} pontban említésre került, a probléma implementációjához elengedhetetlen egy olyan osztály definiálása, amely kezelni képes folytonos, szakaszos, lineáris függvényeket. Erre hivatott az általam megalkotott \textbf{PiecewiseLinearFunction} osztály, amelynek forráskódja \textbf{piecewiselinearfunction.h}, illetve \textbf{piecewiselinearfunction.cpp} fájlokban található a solver \textbf{src\textbackslash base} mappájában. Az általunk használt függvények tárolásához elegendő, ha kezdetben három pont koordinátái adottak, hiszen ezek elhelyezkedéséből a többi pont koordinátái később, ha valamilyen okból kifolyólag ez szükségessé válik, könnyen kiszámíthatóak, hiszen folytonos, lineáris függvényekről beszélünk. Ez a három pont a $profit_{s,p}$ függvények esetében nem más, mint: 
+Ahogy az már korábban, a \ref{piecewise_suggestion} pontban említésre került, a probléma implementációjához elengedhetetlen egy olyan osztály definiálása, amely kezelni képes folytonos, szakaszos, lineáris függvényeket.
+Erre hivatott az általam megalkotott \className{PiecewiseLinearFunction} osztály, amelynek forráskódja \fileName{piecewiselinearfunction.h}, illetve \fileName{piecewiselinearfunction.cpp} fájlokban található a solver \fileName{src\textbackslash base} mappájában.
+Az általunk használt függvények tárolásához elegendő, ha kezdetben három pont koordinátái adottak, hiszen ezek elhelyezkedéséből a többi pont koordinátái később, ha valamilyen okból kifolyólag ez szükségessé válik, könnyen kiszámíthatóak, hiszen folytonos, lineáris függvényekről beszélünk.
+Ez a három pont a $profit_{s,p}$ függvények esetében nem más, mint: 
 \begin{itemize}
 \item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}-1$
 \item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}$
 \item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}+1$
 \end{itemize} 
-E három pont koordinátái minden esetben kiszámíthatók, minden forgatókönyv-termék párosra már az input fájl beolvasását követően, hiszen minden sztochasztikus paraméter adott ehhez a fájlban. Az ehhez szükséges képlet a \ref{variable_batch_size_modell} pont szerint:
+E három pont koordinátái minden esetben kiszámíthatók, minden forgatókönyv-termék párosra már az input fájl beolvasását követően, hiszen minden sztochasztikus paraméter adott ehhez a fájlban.
+Az ehhez szükséges képlet a \ref{variable_batch_size_modell} pont szerint:
 \begin{equation*}
 Profit_{s,p}(x)= \begin{cases}
             price_{s,p}\cdot x-(dem_{s,p}-x) \cdot uc_{s,p}\qquad \text{ha } x<dem_{s,p} \\
             price_{s,p} \cdot dem_{s,p}-(x-dem_{s,p}) \cdot oc_{s,p}\qquad \text{egyébként}
        \end{cases}
 \end{equation*}
-Miután ennek a három pontnak a pontos koordinátái beazonosításra kerültek, már csak annyit kell tenni, hogy kiszámítunk két arány számot, amelyek a függvény kezdeti-, és vég meredekségét hivatottak letárolni. Ezen paraméterek ismeretében később a függvény bármely $x$ pontjában felvett értéke számítható lesz. Ezek alapján a \textbf{PiecewiseLinearFunction} osztály adattagjai a következőek:
+Miután ennek a három pontnak a pontos koordinátái beazonosításra kerültek, már csak annyit kell tenni, hogy kiszámítunk két arány számot, amelyek a függvény kezdeti-, és vég meredekségét hivatottak letárolni.
+Ezen paraméterek ismeretében később a függvény bármely $x$ pontjában felvett értéke számítható lesz.
+Ezek alapján a \\className{PiecewiseLinearFunction} osztály adattagjai a következőek:
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{piecewise_variables}
@@ -66,8 +82,8 @@ Miután ennek a három pontnak a pontos koordinátái beazonosításra kerültek
 \label{piecewise_variables}
 \end{center}
 \end{figure} 
-A \ref{piecewise_variables} ábrán látható \textbf{Coordinate} osztály a függvények pontjainak $x$ és $y$ koordinátáinak egyszerű tárolására, lekérdezésére, és összehasonlítására szolgál a megvalósított \textit{setter}, \textit{getter} és felültöltött egyenlőség operátorral.\\
-Ahhoz, hogy a \textbf{PiecewiseLinearFunction} osztállyal a matematikai modellek minden szükséges művelete elvégezhető legyen, a következő funkcionalitást kell megvalósítani az osztálynak:
+A \ref{piecewise_variables} ábrán látható \className{Coordinate} osztály a függvények pontjainak $x$ és $y$ koordinátáinak egyszerű tárolására, lekérdezésére, és összehasonlítására szolgál a megvalósított \textit{setter}, \textit{getter} és felültöltött egyenlőség operátorral.\\
+Ahhoz, hogy a \className{PiecewiseLinearFunction} osztállyal a matematikai modellek minden szükséges művelete elvégezhető legyen, a következő funkcionalitást kell megvalósítani az osztálynak:
 \begin{itemize}
 \item Koordináta pár hozzáadása
 \item Koordináta párok rendezése $x$ szerint növekvő sorrendbe
@@ -79,9 +95,17 @@ Ahhoz, hogy a \textbf{PiecewiseLinearFunction} osztállyal a matematikai modelle
 \item A függvény maximális értékéhez tartozó koordináták lekérdezése
 \end{itemize} 
 \subsection{Koordináta pár hozzáadása} \label{addCoordinates}
-Egy új koordináta pár hozzáadását végző metódus az \textbf{addCoordinate(const Coordinate\& c)}. Egy új koordináta pár hozzáadása esetén először is meg kell győződnünk, hogy adott koordináta pár szerepel-e már a koordináták tárolására szolgáló vectorban, hiszen ha már szerepel, nem adhatjuk hozzá újra. Ha nem szerepel még ilyen koordináta pár, hozzáadjuk, majd rendezzük a vectort $x$ szerint növekvő sorrendbe. Ha ez megtörtént, meg kell vizsgálni, hogy a kezdeti-, és vég meredekségeket frissíteni kell-e. Abban az esetben, ha a most hozzáadott koordináta pár szerepel a rendezett vector első, vagy második helyén, a kezdeti meredekséget frissíteni kell. Hasonlóan, ha az új koordináta pár a vector utolsó, vagy utolsó előtti eleme, a vég meredekség frissítésre szorul. Mivel kezdetben akár mindkét feltétel igaz lehet, ezért ezek teljesülését két külön \textit{bool} változóban kell tárolni. Miután megállapításra került, hogy melyik meredekségeket kell frissíteni, meghívásra kerül az ezeket kiszámító függvény. 
+Egy új koordináta pár hozzáadását végző metódus az \methodName{addCoordinate(const Coordinate\& c)}.
+Egy új koordináta pár hozzáadása esetén először is meg kell győződnünk, hogy adott koordináta pár szerepel-e már a koordináták tárolására szolgáló vectorban, hiszen ha már szerepel, nem adhatjuk hozzá újra.
+Ha nem szerepel még ilyen koordináta pár, hozzáadjuk, majd rendezzük a vectort $x$ szerint növekvő sorrendbe.
+Ha ez megtörtént, meg kell vizsgálni, hogy a kezdeti-, és vég meredekségeket frissíteni kell-e.
+Abban az esetben, ha a most hozzáadott koordináta pár szerepel a rendezett vector első, vagy második helyén, a kezdeti meredekséget frissíteni kell.
+Hasonlóan, ha az új koordináta pár a vector utolsó, vagy utolsó előtti eleme, a vég meredekség frissítésre szorul.
+Mivel kezdetben akár mindkét feltétel igaz lehet, ezért ezek teljesülését két külön \textit{bool} változóban kell tárolni.
+Miután megállapításra került, hogy melyik meredekségeket kell frissíteni, meghívásra kerül az ezeket kiszámító függvény. 
 \subsection{Kezdeti-, és vég meredekség kiszámítása} \label{calculateAngle}
-A  kezdeti-, és vég meredekség kiszámítására és frissítésére hivatott metódus a \textbf{calculateAngle(bool begin,bool end)}, melynek két paramétere a \ref{addCoordinates} pontban említett két \textit{bool} változó, amelyek megadják, hogy kell e frissíteni adott meredekségeket. A meredekségek kiszámítása roppant egyszerű a koordináták ismeretében:
+A  kezdeti-, és vég meredekség kiszámítására és frissítésére hivatott metódus a \methodName{calculateAngle(bool begin,bool end)}, melynek két paramétere a \ref{addCoordinates} pontban említett két \textit{bool} változó, amelyek megadják, hogy kell e frissíteni adott meredekségeket.
+A meredekségek kiszámítása roppant egyszerű a koordináták ismeretében:
 $$Angle_{begin}=(y_{second}-y_{first}) / (x_{second}-x_{first})$$
 $$Angle_{end}=(y_{penultimate}-y_{last}) / (x_{last}-x_{penultimate})$$
 A \ref{calculate angle} ábrán látható három pont koordinátái alapján a meredekségek például a következőképpen alakulnak: 
@@ -96,9 +120,15 @@ $$Angle_{end}=(4-2) / (6-3)\quad \text{, azaz } Angle_{end}=2/3$$
 \end{figure}
 Ha egyik meredekség sem szorul frissítésre, a metódus semmiféle változtatást nem tesz.
 \subsection{A függvény skalár értékkel való szorzása} \label{multiplyByScalar}
-A függvény skalárral való szorzását a szorzás operátort felültöltő metódus végzi. Ahhoz, hogy megkapjuk a függvény skalárral való szorzatát, csupán be kell szorozni a vectorban tárolt összes pont $y$ koordinátáját, valamint a kezdeti-, és vég meredekséget a paraméterként kapott $s$-el. A függvény szorzását szemléltető példa a \ref{profit_func_prob} ábrán látható.
+A függvény skalárral való szorzását a szorzás operátort felültöltő metódus végzi.
+Ahhoz, hogy megkapjuk a függvény skalárral való szorzatát, csupán be kell szorozni a vectorban tárolt összes pont $y$ koordinátáját, valamint a kezdeti-, és vég meredekséget a paraméterként kapott $s$-el.
+A függvény szorzását szemléltető példa a \ref{profit_func_prob} ábrán látható.
 \subsection{A függvény $x$ helyen vett értékének lekérdezése} \label{getValue}
-A függvény $x$ helyen vett értékének lekérdezésére a ( ) operátort felültöltő metódus hivatott. A metódus először is megnézi, hogy a vectorban tárolt koordináta párok között található-e olyan, amelynek $x$ koordinátája egyezik a paraméterként kapott $x$-el. Ha talál ilyet, egyszerűen visszaadja a megfelelő koordináta párost tartalmazó \textbf{Coordinate} objektumot. Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a vectorhoz, majd csak ezután lehet visszaadni a keresett \textbf{Coordinate} objektumot. Az $x$ értékhez tartozó $y$ érték kiszámítása a keresett $x$ értéke és a vectorban tárolt pontok alapján háromféleképpen történhet:
+A függvény $x$ helyen vett értékének lekérdezésére a ( ) operátort felültöltő metódus hivatott.
+A metódus először is megnézi, hogy a vectorban tárolt koordináta párok között található-e olyan, amelynek $x$ koordinátája egyezik a paraméterként kapott $x$-el.
+Ha talál ilyet, egyszerűen visszaadja a megfelelő koordináta párost tartalmazó \className{Coordinate} objektumot.
+Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a vectorhoz, majd csak ezután lehet visszaadni a keresett \className{Coordinate} objektumot.
+Az $x$ értékhez tartozó $y$ érték kiszámítása a keresett $x$ értéke és a vectorban tárolt pontok alapján háromféleképpen történhet:
 \begin{itemize}
 \item Ha a keresett $x$ értéke kisebb mint a vectorban tárolt első pont $x$ koordinátájának értéke, akkor: 
 $y=y_{First}-(x_{First}-x) \cdot Angle_{begin}$ ,ahol $x_{First} \text{ és } y_{First}$ a vectorban tárolt első pont koordinátái.
@@ -108,7 +138,9 @@ $y=\bigg(\big(x-x_{LastSmaller}\big) \cdot \big((y_{FirstBigger}-y_{LastSmaller}
 $y=y_{Last}-(x-x_{Last}) \cdot Angle_{end}$ ,ahol $x_{Last} \text{ és } y_{Last}$ a vectorban tárolt utolsó pont koordinátái.
 \end{itemize}
 \subsection{Két függvény összeadása} \label{addPiecewiseLinearFunction}
-Két függvény összeadását az összeadás operátort felültöltő metódus végzi, melynek visszatérési értéke az összegként kapott függvényt tároló új \textbf{PiecewiseLinearFunction} objektum. Mivel a függvények tárolásához elegendő három pont tárolása, ezért gyakran előfordul olyan eset, hogy a két összeadni kívánt \textbf{PiecewiseLinearFunction} objektum nem tartalmazza a szükséges koordinátákat, ezért a hiányzó koordináta párokat először hozzá kell adni, ezt azonban megkönnyíti a \ref{getValue} pontban bemutatott metódus, hiszen elég, ha lekérdezzük az aktuális $x$ értékét mindkét függvény esetén, és ha az valamelyiknél nem található, automatikusan hozzá lesz adva annak pontjaihoz. Ennek következtében a két függvény összeadása már jóval egyszerűbb feladat, egyetlen \textit{for} ciklussal megtehető.
+Két függvény összeadását az összeadás operátort felültöltő metódus végzi, melynek visszatérési értéke az összegként kapott függvényt tároló új \className{PiecewiseLinearFunction} objektum.
+Mivel a függvények tárolásához elegendő három pont tárolása, ezért gyakran előfordul olyan eset, hogy a két összeadni kívánt \className{PiecewiseLinearFunction} objektum nem tartalmazza a szükséges koordinátákat, ezért a hiányzó koordináta párokat először hozzá kell adni, ezt azonban megkönnyíti a \ref{getValue} pontban bemutatott metódus, hiszen elég, ha lekérdezzük az aktuális $x$ értékét mindkét függvény esetén, és ha az valamelyiknél nem található, automatikusan hozzá lesz adva annak pontjaihoz.
+Ennek következtében a két függvény összeadása már jóval egyszerűbb feladat, egyetlen \textit{for} ciklussal megtehető.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.365]{add_piecewise}
@@ -117,7 +149,8 @@ Két függvény összeadását az összeadás operátort felültöltő metódus 
 \end{center}
 \end{figure}
 \subsection{A függvény horizontális nyújtása}
-A függvény a \ref{extended_multiproduct} pontban használt, a \ref{profit_func_stretch} ábrán bemutatott horizontális nyújtását (illetve összenyomását, s értéktől függően) a \textbf{stretchHorizontally(double s)} metódus végzi. A metódus egyszerűen egy \textit{for} ciklus segítségével a függvény összes pontjának $x$ koordinátáját, valamint a kezdeti-, és vég meredekséget beszorozza a paraméterként kapott $s$ értékkel, illetve a meredekségek esetén annak reciprokával. 
+A függvény a \ref{extended_multiproduct} pontban használt, a \ref{profit_func_stretch} ábrán bemutatott horizontális nyújtását (illetve összenyomását, s értéktől függően) a \methodName{stretchHorizontally(double s)} metódus végzi.
+A metódus egyszerűen egy \textit{for} ciklus segítségével a függvény összes pontjának $x$ koordinátáját, valamint a kezdeti-, és vég meredekséget beszorozza a paraméterként kapott $s$ értékkel, illetve a meredekségek esetén annak reciprokával. 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{profit_func_stretch}
@@ -126,7 +159,8 @@ A függvény a \ref{extended_multiproduct} pontban használt, a \ref{profit_func
 \end{center}
 \end{figure}
 \subsection{A függvény maximális értékéhez tartozó koordináták lekérdezése}
-A függvény maximumának lekérdezését a \textbf{getMaximum()} metódus végzi, mely egy egyszerű maximum keresést valósít meg $y$ koordinátára nézve. A metódusnak a \ref{variable_batch_size_modell} pontban bemutatott változó batch méretű esetben van nagy jelentősége, ezt használjuk ugyanis $dem_{s'}$ meghatározására.
+A függvény maximumának lekérdezését a \methodName{getMaximum()} metódus végzi, mely egy egyszerű maximum keresést valósít meg $y$ koordinátára nézve.
+A metódusnak a \ref{variable_batch_size_modell} pontban bemutatott változó batch méretű esetben van nagy jelentősége, ezt használjuk ugyanis $dem_{s'}$ meghatározására.
 \section{Az új paraméterek implementációja}
 Ahhoz, hogy az általános throughput maximalizáló használható legyen a \ref{problem_parameters} pontban bemutatott új sztochasztikus paraméterekkel, fel kell készíteni a megfelelő osztályokat ezen paraméterek kezelésére, be kell olvasni először is ezeket a paramétereket egy input fájlból, majd valamilyen formában le is kell őket tárolni, hogy később a \ref{math_modells} pontban bemutatott műveletek végrehajthatóak legyenek a várható profit kiszámítására.
 \subsection{Új kapcsoló definiálása}
@@ -140,15 +174,36 @@ Mivel a sztochasztikus throughput maximalizáló működhet preventív, illetve 
 \end{figure}
 Abban az esetben, ha nem adjuk meg a kapcsoló értékét, vagy azt single-re állítjuk, preventív módban fog futni az ütemező, ha twostage-t állítunk be, két lépcsős ütemezés fog lefutni, feltéve, hogy a bemeneti fájlban változó batch méretű adatokat adtunk meg.
 \subsection{Új input fájl definiálása}
-Az általam definiált új input fájl a \textbf{stochastic.ods} a solver \textbf{input} mappájában található. A fájl lényegében a \textbf{multipurpose.ods} kibővítése a sztochasztikus paraméterekkel, éppen ezért az utóbbi \textbf{equipment}, és \textbf{proctime} tábláit változtatás nélkül tartalmazza, hiszen ezek tartalmazzák a gépekre, illetve a recept gráfra vonatkozó determinisztikus paramétereket, amelyeket az új esetekben is fel kell használnia a megoldó algoritmusnak. Ezzel szemben a \textbf{product} tábla a sztochasztikus esetekben nem fogja megállni a helyét, hiszen a batch méretekre vonatkozó adatok hiányoznak belőle, ezeket hozzá kell adni a product táblához. Ezenkívül a forgatókönyvek adatait is tárolnunk kell, ezért bevezetésre kerültek a\textbf{ scenario}, és a \textbf{scenario\_data} táblázatok, melyek a \ref{problem_parameters} pontban leírt, forgatókönyvekre vonatkozó sztochasztikus adatokat tartalmazzák. Az általam definiált új formátumokra példa input fájlok megtekinthetőek a \textbf{\ref{input_files}} függelékben.
+Az általam definiált új input fájl a \fileName{stochastic.ods} a solver \fileName{input} mappájában található.
+A fájl lényegében a \fileName{multipurpose.ods} kibővítése a sztochasztikus paraméterekkel, éppen ezért az utóbbi \textbf{equipment}, és \textbf{proctime} tábláit változtatás nélkül tartalmazza, hiszen ezek tartalmazzák a gépekre, illetve a recept gráfra vonatkozó determinisztikus paramétereket, amelyeket az új esetekben is fel kell használnia a megoldó algoritmusnak.
+Ezzel szemben a \textbf{product} tábla a sztochasztikus esetekben nem fogja megállni a helyét, hiszen a batch méretekre vonatkozó adatok hiányoznak belőle, ezeket hozzá kell adni a product táblához.
+Ezenkívül a forgatókönyvek adatait is tárolnunk kell, ezért bevezetésre kerültek a\textbf{ scenario}, és a \textbf{scenario\_data} táblázatok, melyek a \ref{problem_parameters} pontban leírt, forgatókönyvekre vonatkozó sztochasztikus adatokat tartalmazzák.
+Az általam definiált új formátumokra példa input fájlok megtekinthetőek a \textbf{\ref{input_files}} függelékben.
 \subsection{A fájl beolvasása, beolvasott paraméterek tárolása}
-Az input fájl beolvasását a \textbf{RelationalProblemReader} osztály végzi, melynek feladata a fájlban található paraméterek alapján a recept gráf felépítése, annak visszaadása a \textbf{MainSolver }osztály számára. A RelationalProblemReader először is meggyőződik az input fájl típusáról, majd az alapján sorban beolvassa a megfelelő mezőket az input fájlból. Éppen azért szükséges egy metódus definiálása, mely képes a sztochasztikus típusú input fájlt megkülönböztetni a többi fajtától. Ez a metódus az \textbf{IsStochastic()}, illetve a \ref{extended_multiproduct} pontban használt extended input fájl esetén az \textbf{IsExtendedStochastic()}. Miután meggyőződtünk a fájl sztochasztikus mivoltáról, meghívásra kerül a \textbf{ReadStochastic()} metódus, amely beolvassa, majd eltárolja az \textbf{equipment}, \textbf{product}, \textbf{scenario}, \textbf{scenario\_data}, \textbf{proctime} táblák paramétereit a recept gráfot reprezentáló \textbf{SGraph} objektum \textbf{Recipe} objektumában. Jól látszik, hogy az új sztochasztikus paraméterek tárolásához, a \textbf{Recipe}, és az \textbf{SGraph} osztályokban szükséges létrehozni a megfelelő adattagokat, azok eléréséhez szükséges metódusokat. A termékek batch méretére vonatkozó új paraméterek kezelésére a \textbf{Product} osztály kiegészítésre került egy batch\_size, batch\_size\_min, batch\_size\_max adattagokkal, valamint ide kerülnek letárolásra a \textbf{scenario\_data} tábla adatai is, az erre definiált \textbf{ScenarioDataEntry} objektumokból álló vectorba. A \textbf{ScenarioDataEntry} osztály tartalmazza a \textbf{scenario\_data} táblázatban egy sorában található adatokat, például az adott forgatókönyv azonosítóját, a termék iránti keresletet az adott forgatókönyvben, valamint itt tároljuk le a sztochasztikus paraméterek alapján a \ref{piecewise_class} pontban bemutatott módon létrehozott \textbf{PiecewiseLinearFunction} objektumot, amely a $Profit_{s,p}$ függvényt reprezentálja. A fent említett műveleteket, a szükséges objektumok létrehozását a \textbf{RelationalProblemReader} osztály \textbf{ParseScenarioData} metódusa végzi el. Ezenkívül bevezetésre került még három \textit{boolean} változó a \textbf{Recipe} osztályba,  amelyek flag-ként szolgálnak, hogy a throughput maximalizáló könnyen, csupán a \textbf{Recipe} objektum segítségével meg tudja különböztetni a kötött-, változó batch méretű, és a két lépcsős eseteket.
+Az input fájl beolvasását a \className{RelationalProblemReader} osztály végzi, melynek feladata a fájlban található paraméterek alapján a recept gráf felépítése, annak visszaadása a \className{MainSolver }osztály számára.
+A \className{RelationalProblemReader} először is meggyőződik az input fájl típusáról, majd az alapján sorban beolvassa a megfelelő mezőket az input fájlból.
+Éppen azért szükséges egy metódus definiálása, mely képes a sztochasztikus típusú input fájlt megkülönböztetni a többi fajtától.
+Ez a metódus az \methodName{IsStochastic()}, illetve a \ref{extended_multiproduct} pontban használt extended input fájl esetén az \methodName{IsExtendedStochastic()}.
+Miután meggyőződtünk a fájl sztochasztikus mivoltáról, meghívásra kerül a \methodName{ReadStochastic()} metódus, amely beolvassa, majd eltárolja az \textbf{equipment}, \textbf{product}, \textbf{scenario}, \textbf{scenario\_data}, \textbf{proctime} táblák paramétereit a recept gráfot reprezentáló \className{SGraph} objektum \className{Recipe} objektumában.
+Jól látszik, hogy az új sztochasztikus paraméterek tárolásához, a \className{Recipe}, és az \className{SGraph} osztályokban szükséges létrehozni a megfelelő adattagokat, azok eléréséhez szükséges metódusokat.
+A termékek batch méretére vonatkozó új paraméterek kezelésére a \className{Product} osztály kiegészítésre került egy batch\_size, batch\_size\_min, batch\_size\_max adattagokkal, valamint ide kerülnek letárolásra a \textbf{scenario\_data} tábla adatai is, az erre definiált \className{ScenarioDataEntry} objektumokból álló vectorba.
+A \className{ScenarioDataEntry} osztály tartalmazza a \textbf{scenario\_data} táblázatban egy sorában található adatokat, például az adott forgatókönyv azonosítóját, a termék iránti keresletet az adott forgatókönyvben, valamint itt tároljuk le a sztochasztikus paraméterek alapján a \ref{piecewise_class} pontban bemutatott módon létrehozott \className{PiecewiseLinearFunction} objektumot, amely a $Profit_{s,p}$ függvényt reprezentálja.
+A fent említett műveleteket, a szükséges objektumok létrehozását a \className{RelationalProblemReader} osztály \methodName{ParseScenarioData} metódusa végzi el.
+Ezenkívül bevezetésre került még három \textit{boolean} változó a \className{Recipe} osztályba,  amelyek flag-ként szolgálnak, hogy a throughput maximalizáló könnyen, csupán a \className{Recipe} objektum segítségével meg tudja különböztetni a kötött-, változó batch méretű, és a két lépcsős eseteket.
 \section{Szükséges változtatások az S-gráf keretrendszerben} \label{refactor}
-A sztochasztikus paraméterek letárolása után nincs más hátra, mint felkészíteni a throughput maximalizálást végző \textbf{ThroughputSolver} osztályt ezek kezelésére. Azonban ahhoz, hogy egységesen használható legyen az osztály általános, illetve sztochasztikus esetben is, némi refaktorálásra van szükség, ugyanis jelen állapotában a \textbf{ThroughputSolver} osztályban találhatóak olyan megoldások, melyek megkövetelik, hogy a profit egyszerűen a $b_p\cdot price_p$ képlettel megkapható legyen, azonban ez a sztochasztikus esetben korántsem ilyen egyszerű.
+A sztochasztikus paraméterek letárolása után nincs más hátra, mint felkészíteni a throughput maximalizálást végző \className{ThroughputSolver} osztályt ezek kezelésére.
+Azonban ahhoz, hogy egységesen használható legyen az osztály általános, illetve sztochasztikus esetben is, némi refaktorálásra van szükség, ugyanis jelen állapotában a \className{ThroughputSolver} osztályban találhatóak olyan megoldások, melyek megkövetelik, hogy a profit egyszerűen a $b_p\cdot price_p$ képlettel megkapható legyen, azonban ez a sztochasztikus esetben korántsem ilyen egyszerű.
 \subsection{A meglévő kód refaktorálása}
-A \textbf{Throughputsolver} osztály jelenlegi állapotában, általános esetben kétféleképpen számítja ki a profitot, egyrészt az \textbf{SGraph} osztály \textbf{GetRevenue()} metódusát használva, másrészt az egyes termékek adatait az \textbf{SGraph} osztály \textbf{Recipe} objektumában letárolt \textbf{Product} objektumoktól közvetlenül lekérdezve, majd azokat a fent említett $b_p\cdot price_p$ képlettel kiszámítva, és összegezve. Habár általános esetben ezek a módszerek megállják a helyüket, ezek jelen állapotban nem túl elegánsak, hiszen a \textbf{GetRevenue()} metódus lényegében ugyan azt a működést éri el, mint az utóbbi közvetlen elérés, és összegzés. A sztochasztikus esetek bevezetésével ráadásul az adatok közvetlenül a \textbf{Product} objektumoktól való elérése nem lesz működő módszer, ugyanis ezekben az esetekben a termék paraméterei, ahogy azt már korábban tárgyaltuk, forgatókönyv függőek. Éppen ezért a sztochasztikus esetekben használt \textbf{GetRevenue()} metódus a \textbf{Recipe} osztályban kell helyet kapjon, hogy a termék és a forgatókönyv adatok elérése egyaránt lehetséges legyen a metódus számára. Mivel egy jól karbantartható, hibamentes kódban az ilyen redundanciákat érdemes kiküszöbölni, ezért célszerű lenne az általános-, és a sztochasztikus esetben használt \textbf{GetRevenue()} metódusok összevonása, mégpedig a \textbf{Recipe} osztályban, ennek az összevont metódusnak a részletes leírása a \ref{getRevenue} pontban olvasható. Az összevont \textbf{GetRevenue()} metódus megalkotásának köszönhetően a \textbf{Throughputsolver} osztály immáron egységes módon kérdezheti le a várható profitot, a probléma milyenségéről való döntés, valamint a profit kiszámítása pedig a \textbf{Recipe} osztály feladata.
+A \className{Throughputsolver} osztály jelenlegi állapotában, általános esetben kétféleképpen számítja ki a profitot, egyrészt az \className{SGraph} osztály \methodName{GetRevenue()} metódusát használva, másrészt az egyes termékek adatait az \className{SGraph} osztály \className{Recipe} objektumában letárolt \className{Product} objektumoktól közvetlenül lekérdezve, majd azokat a fent említett $b_p\cdot price_p$ képlettel kiszámítva, és összegezve.
+Habár általános esetben ezek a módszerek megállják a helyüket, ezek jelen állapotban nem túl elegánsak, hiszen a \methodName{GetRevenue()} metódus lényegében ugyan azt a működést éri el, mint az utóbbi közvetlen elérés, és összegzés.
+A sztochasztikus esetek bevezetésével ráadásul az adatok közvetlenül a \className{Product} objektumoktól való elérése nem lesz működő módszer, ugyanis ezekben az esetekben a termék paraméterei, ahogy azt már korábban tárgyaltuk, forgatókönyv függőek.
+Éppen ezért a sztochasztikus esetekben használt \methodName{GetRevenue()} metódus a \className{Recipe} osztályban kell helyet kapjon, hogy a termék és a forgatókönyv adatok elérése egyaránt lehetséges legyen a metódus számára.
+Mivel egy jól karbantartható, hibamentes kódban az ilyen redundanciákat érdemes kiküszöbölni, ezért célszerű lenne az általános-, és a sztochasztikus esetben használt \methodName{GetRevenue()} metódusok összevonása, mégpedig a \\className{Recipe} osztályban, ennek az összevont metódusnak a részletes leírása a \ref{getRevenue} pontban olvasható.
+Az összevont \methodName{GetRevenue()} metódus megalkotásának köszönhetően a \className{Throughputsolver} osztály immáron egységes módon kérdezheti le a várható profitot, a probléma milyenségéről való döntés, valamint a profit kiszámítása pedig a \className{Recipe} osztály feladata.
 \subsection{A \textit{GetRevenue} metódus} \label{getRevenue}
-A \textbf{GetRevenue()} metódus arra szolgál, hogy adott konfiguráció várható összbevételét kiszámítsa, majd visszaadja azt. A metódus először döntést hoz a probléma típusát illetően a recept objektumban tárolt \textit{boolean} flag segítségével. Általános esetben a profit kiszámítása meglehetősen egyszerűen, a \ref{getRevenueNonStoch} ábrán látható módon megtehető. 
+A \methodName{GetRevenue()} metódus arra szolgál, hogy adott konfiguráció várható összbevételét kiszámítsa, majd visszaadja azt.
+A metódus először döntést hoz a probléma típusát illetően a recept objektumban tárolt \textit{boolean} flag segítségével.
+Általános esetben a profit kiszámítása meglehetősen egyszerűen, a \ref{getRevenueNonStoch} ábrán látható módon megtehető. 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.38]{getRevenueNonStoch}
@@ -156,13 +211,35 @@ A \textbf{GetRevenue()} metódus arra szolgál, hogy adott konfiguráció várha
 \label{getRevenueNonStoch}
 \end{center}
 \end{figure}
-Sztochasztikus esetben is a fenti ábrához hasonló a ciklus, azonban szükség van egy metódusra, amely $x$ számú $p$ termék profitját képes kiszámítani, ez a függvény a \textbf{GetProductRevenue(uint product\_id, uint batches)}. A metódus megvalósítása közben kiderült továbbá az is, hogy ezenkívül további változtatásokra is szükség van a solver bizonyos karakterisztikái miatt. A probléma akkor jelentkezik, ha egy adott termékből (legyen ennek neve a példa kedvéért $"A"$) többet termelünk egy batch-nél, ebben az esetben nem az általam várt módon történik a konfiguráció adatainak tárolása. Ideális számomra az lenne, ha például a konfigurációban két darab $"A"$ batch termelése esetén egy darab $"A"$ termék jelenne meg, és ennek a batch száma $2$ lenne. Azonban nem ez történik. A konfigurációban egy $"A"$ és egy $"A\_2"$ nevű termék van jelen egyaránt $1$ batch számmal. Erre az ütemterv elkészítéséhez van szükség, hogy egyértelműen beazonosíthatóak legyenek az egyes termékek, illetve azok részfolyamatai. Ez a fajta működés nyilván általános esetben nem okoz gondot, hiszen ott ekvivalens az, ha két ugyan olyan termékből gyártunk egy-egy darabot, vagy egy termékből kettőt, hiszen a profit értékek nem függenek egymástól, azonban sztochasztikus esetben az alul-, és túl termelési költségek miatt a két eset nem ekvivalens. Éppen ezért ezt a működést valamilyen formában orvosolni kell. Erre a problémára nyújt megoldást a \textbf{Recipe} osztály \textbf{ReduceToBase()} metódusa. A metódus működéséhez elengedhetetlen, hogy az inputfájlban specifikált termékek neveit elmentsük a \textbf{Recipe} osztály egy vectorába, a fájl beolvasásakor. Ezen \textit{vector} terméknevei reprezentálják az úgynevezett "base product"-okat, azaz a kezdeti termékeket. Ennek a \textit{vectornak} a birtokában a \textbf{ReduceToBase()} metódus képes az aktuális konfiguráció termékeinek nevét összevetni a kezdeti termékek nevekkel, visszavezetni a konfiguráció termékeit a kezdeti termékekre. A metódus egy \textit{map}-el tér vissza, amely tartalmazza a kezdeti termékeknek megfeleltetett termékneveket és a hozzájuk tartozó mennyiségeket. Ha például a konfigurációban a fent említett $"A"$ és $"A\_2"$ termékek szerepelnek egy-egy batch-el, a metódus által visszaadott map tartalma $"A"$ termék lesz kettő batch-el, ezzel kiküszöbölve az említett problémát.
+Sztochasztikus esetben is a fenti ábrához hasonló a ciklus, azonban szükség van egy metódusra, amely $x$ számú $p$ termék profitját képes kiszámítani, ez a függvény a \methodName{GetProductRevenue(uint product\_id, uint batches)}.
+A metódus megvalósítása közben kiderült továbbá az is, hogy ezenkívül további változtatásokra is szükség van a solver bizonyos karakterisztikái miatt.
+A probléma akkor jelentkezik, ha egy adott termékből (legyen ennek neve a példa kedvéért $"A"$) többet termelünk egy batch-nél, ebben az esetben nem az általam várt módon történik a konfiguráció adatainak tárolása.
+Ideális számomra az lenne, ha például a konfigurációban két darab $"A"$ batch termelése esetén egy darab $"A"$ termék jelenne meg, és ennek a batch száma $2$ lenne.
+Azonban nem ez történik.
+A konfigurációban egy $"A"$ és egy $"A\_2"$ nevű termék van jelen egyaránt $1$ batch számmal.
+Erre az ütemterv elkészítéséhez van szükség, hogy egyértelműen beazonosíthatóak legyenek az egyes termékek, illetve azok részfolyamatai.
+Ez a fajta működés nyilván általános esetben nem okoz gondot, hiszen ott ekvivalens az, ha két ugyan olyan termékből gyártunk egy-egy darabot, vagy egy termékből kettőt, hiszen a profit értékek nem függenek egymástól, azonban sztochasztikus esetben az alul-, és túl termelési költségek miatt a két eset nem ekvivalens.
+Éppen ezért ezt a működést valamilyen formában orvosolni kell.
+Erre a problémára nyújt megoldást a \className{Recipe} osztály \methodName{ReduceToBase()} metódusa.
+A metódus működéséhez elengedhetetlen, hogy az inputfájlban specifikált termékek neveit elmentsük a \className{Recipe} osztály egy vectorába, a fájl beolvasásakor.
+Ezen \textit{vector} terméknevei reprezentálják az úgynevezett "base product"-okat, azaz a kezdeti termékeket.
+Ennek a \textit{vectornak} a birtokában a \methodName{ReduceToBase()} metódus képes az aktuális konfiguráció termékeinek nevét összevetni a kezdeti termékek nevekkel, visszavezetni a konfiguráció termékeit a kezdeti termékekre.
+A metódus egy \textit{map}-el tér vissza, amely tartalmazza a kezdeti termékeknek megfeleltetett termékneveket és a hozzájuk tartozó mennyiségeket.
+Ha például a konfigurációban a fent említett $"A"$ és $"A\_2"$ termékek szerepelnek egy-egy batch-el, a metódus által visszaadott map tartalma $"A"$ termék lesz kettő batch-el, ezzel kiküszöbölve az említett problémát.
 
-A \textbf{GetRevenue()} metódusnak azonban egy másik, a sztochasztikus esetekkel kapcsolatos problémát is orvosolnia kell. Ez a probléma a úgynevezett "axial revenue", azaz a tengelyeken számított várható profit értékével kapcsolatos. Axial revenue-ról akkor beszélünk, ha az adott konfigurációban csupán egy fajta terméket gyártunk, a többi termékből (ha léteznek) ez esetben 0 darabot termelünk. Ez a sztochasztikus esetekben azért okoz problémát, mert a nem gyártott termékek esetleges alul termelési költségeit le kell vonni az összes profitból, így tehát hiába gyártunk csak egy terméket, a többi termék paraméteri is befolyásolják a várható profitot. Az alul termelésből eredendő költségek számítása alapvetően nem okozna problémát, hiszen csak ki kellene számolni adott termékek $x=0$ helyen vett $ExpProfit_p(x)$ értékét, és összegezni a kapott értékeket. Mivel azonban ebben az esetben csak egy fajta terméket termelünk, ezért a konfigurációban csak a termelt termék adatai találhatóak meg, ezért a többi termék $ExpProfit_p(x)$ értékének számítása jelen helyzetben lehetetlen. Erre azonban megoldást nyújt, ha a korábban említett módon, az inputfájl beolvasását követően a \textbf{RelationalProblemReader} osztályban nem csak a kezdeti termékek neveit tároljuk el, hanem azok $x=0$ helyen vett $ExpProfit_p(x)$ értékeit is (felhasználva a \ref{getProductRevenue} pontban bemutatott GetProductRevenue metódust). Ezen értékek tudatában a nem termelt termékekből származó esetleges veszteség immáron levonható az várható profit értékéből, az axial revenue hibátlanul megkapható.
+A \methodName{GetRevenue()} metódusnak azonban egy másik, a sztochasztikus esetekkel kapcsolatos problémát is orvosolnia kell.
+Ez a probléma a úgynevezett "axial revenue", azaz a tengelyeken számított várható profit értékével kapcsolatos.
+Axial revenue-ról akkor beszélünk, ha az adott konfigurációban csupán egy fajta terméket gyártunk, a többi termékből (ha léteznek) ez esetben 0 darabot termelünk.
+Ez a sztochasztikus esetekben azért okoz problémát, mert a nem gyártott termékek esetleges alul termelési költségeit le kell vonni az összes profitból, így tehát hiába gyártunk csak egy terméket, a többi termék paraméteri is befolyásolják a várható profitot.
+Az alul termelésből eredendő költségek számítása alapvetően nem okozna problémát, hiszen csak ki kellene számolni adott termékek $x=0$ helyen vett $ExpProfit_p(x)$ értékét, és összegezni a kapott értékeket.
+Mivel azonban ebben az esetben csak egy fajta terméket termelünk, ezért a konfigurációban csak a termelt termék adatai találhatóak meg, ezért a többi termék $ExpProfit_p(x)$ értékének számítása jelen helyzetben lehetetlen.
+Erre azonban megoldást nyújt, ha a korábban említett módon, az inputfájl beolvasását követően a \className{RelationalProblemReader} osztályban nem csak a kezdeti termékek neveit tároljuk el, hanem azok $x=0$ helyen vett $ExpProfit_p(x)$ értékeit is (felhasználva a \ref{getProductRevenue} pontban bemutatott \methodName{GetProductRevenue metódust}).
+Ezen értékek tudatában a nem termelt termékekből származó esetleges veszteség immáron levonható az várható profit értékéből, az axial revenue hibátlanul megkapható.
 
-Ezen változtatások segítségével a \textbf{GetRevenue()} függvény ezentúl egységesen használható a \textbf{ThroughputSolver} osztály számára egy adott konfiguráció összprofitjának kiszámítására, függetlenül a probléma típusától. 
+Ezen változtatások segítségével a \methodName{GetRevenue()} függvény ezentúl egységesen használható a \className{ThroughputSolver} osztály számára egy adott konfiguráció összprofitjának kiszámítására, függetlenül a probléma típusától. 
 \subsection{A \textit{GetProductRevenue} metódus} \label{getProductRevenue}
-A \textbf{GetProductRevenue} metódus hivatott $p$ termék $x$ helyen vett várható profit értékének, azaz $ExpProfit_p(x)$ kiszámítására. Mivel a metódusnak kezelnie kell a különböző eseteket, ezért szerkezete a következőképpen alakul: 
+A \methodName{GetProductRevenue} metódus hivatott $p$ termék $x$ helyen vett várható profit értékének, azaz $ExpProfit_p(x)$ kiszámítására.
+Mivel a metódusnak kezelnie kell a különböző eseteket, ezért szerkezete a következőképpen alakul: 
 \begin{algorithmic}
 \Procedure{GetProductRevenue}{}
 \If {$\textbf{not } stochastic$} \Return $non \text{ } stochastic \text{ } profit$
@@ -185,9 +262,10 @@ A \textbf{GetProductRevenue} metódus hivatott $p$ termék $x$ helyen vett várh
 \item Két lépcsős ütemezés esetén a várható profit számítása a \ref{TwoStage} pontban ismertetett módon $x_{s,p}(b_p)$  meghatározása után, a következő képlettel lehetséges:
 $$ \sum_{s \in S}(prob_s \cdot Profit(x_{s,p}(b_p))$$ 
 \end{itemize}
-Ezen módszerek implementációját tartalmazza tehát a \textbf{GetProductRevenue} metódus, amely segítségével ezentúl adott termék profitja, függetlenül a probléma típusától egységesen megkapható.
+Ezen módszerek implementációját tartalmazza tehát a \methodName{GetProductRevenue} metódus, amely segítségével ezentúl adott termék profitja, függetlenül a probléma típusától egységesen megkapható.
 \subsection{A \textit{ThroughputUI} osztály kiegészítése}
-A \textbf{ThroughputUI} osztály feladata a \textbf{ThroughputSolver} osztály által kiszámított eredmények megjelenítése a felhasználó számára. Általános (nem sztochasztikus) esetben a Throughput maximalizáló egy példa lefutását a \ref{ThroughputUI} ábra szemlélteti.
+A \className{ThroughputUI} osztály feladata a \className{ThroughputSolver} osztály által kiszámított eredmények megjelenítése a felhasználó számára.
+Általános (nem sztochasztikus) esetben a Throughput maximalizáló egy példa lefutását a \ref{ThroughputUI} ábra szemlélteti.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.8]{throughputUI}
@@ -195,14 +273,16 @@ A \textbf{ThroughputUI} osztály feladata a \textbf{ThroughputSolver} osztály �
 \label{ThroughputUI}
 \end{center}
 \end{figure}
-Jól látszik, hogy a \textbf{ThroughputUI} osztály is kiegészítésre szorul a sztochasztikus esetek kezeléséhez a következőkkel:
+Jól látszik, hogy a \className{ThroughputUI} osztály is kiegészítésre szorul a sztochasztikus esetek kezeléséhez a következőkkel:
 \begin{itemize}
 \item Optimális batch darabszámok és méretek minden termékre (kötött batch méret és változó batch méret esetén)
 \item Optimális batch darabszámok minden termékre, batch méretek minden termék - forgatókönyv párosra (két lépcsős ütemezés esetén)
 \item Forgatókönyvek, és a hozzájuk tartozó valószínűségek
 \item A várható összprofit értéke forgatókönyvenként
 \end{itemize}
-Ezen adatok tárolását a \textbf{ThroughputSolver} osztály általam létrehozott metódusa a \textbf{SaveStochasticStatistics} végzi el felhasználva a \textbf{ThroughputSolver} osztály \textbf{Statistics} típusú objektumát, melynek feladata a futás közben a \textbf{ThroughputUI} osztály számára szükséges statisztikai adatok tárolása. A \textbf{SaveStochasticStatistics} metódus minden alkalommal lefut, mikor egy új konfiguráció kerül hozzáadásra a \textbf{NewSolution} metódus által. A sztochasztikus esetek lefutását a \ref{ThroughputUIFixedVar}, és a \ref{ThroughputUITwoStage} ábra szemlélteti.
+Ezen adatok tárolását a \className{ThroughputSolver} osztály általam létrehozott metódusa a \methodName{SaveStochasticStatistics} végzi el felhasználva a \className{ThroughputSolver} osztály \className{Statistics} típusú objektumát, melynek feladata a futás közben a \className{ThroughputUI} osztály számára szükséges statisztikai adatok tárolása.
+A \methodName{SaveStochasticStatistics} metódus minden alkalommal lefut, mikor egy új konfiguráció kerül hozzáadásra a \methodName{NewSolution} metódus által.
+A sztochasztikus esetek lefutását a \ref{ThroughputUIFixedVar}, és a \ref{ThroughputUITwoStage} ábra szemlélteti.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.9]{throughputUIFixedVar}
@@ -217,7 +297,12 @@ Ezen adatok tárolását a \textbf{ThroughputSolver} osztály általam létrehoz
 \label{ThroughputUITwoStage}
 \end{center}
 \end{figure}
-Mivel az S-gráf keretrendszer throughput maximalizálója alapvetően többszálas működésre lett tervezve, ezért a \textbf{ThroughputSolver} osztály által használt \textbf{Statistics} osztály általam bevezetett új adattagjait, illetve azok \textit{getter}, \textit{setter} metódusait fel kell készíteni a párhuzamos használatra. A C++ programnyelven történő párhuzamos programozás megértéséhez, a szükséges változtatások bevezetéséhez nagy segítségnek bizonyult Anthony A. Williams a témában íródott könyve. \cite{CppConcurrency} A primitív adattagok esetében az \textbf{AtomicVariable\textless T\textgreater } osztályt használtam fel, melynek definíciója a solver \textit{base} mappájában található \textbf{parallel.h} fájlban olvasható. Az osztály megvalósítja T típusú változó párhuzamos elérését, azon végzett műveletek biztonságos lekezelését \textbf{Lock} objektumok használatával. A bonyolultabb adatszerkezetek (például map-ek) párhuzamos elérését a \textbf{Statistics} osztály \textit{getter}, \textit{setter} metódusaiba implementált \textbf{Lock} objektumokkal oldottam meg. A \textbf{Statistics} osztály általam bevezetett adattagjai a \ref{StatisticsVariables} ábrán láthatóak.
+Mivel az S-gráf keretrendszer throughput maximalizálója alapvetően többszálas működésre lett tervezve, ezért a \className{ThroughputSolver} osztály által használt \className{Statistics} osztály általam bevezetett új adattagjait, illetve azok \textit{getter}, \textit{setter} metódusait fel kell készíteni a párhuzamos használatra.
+A C++ programnyelven történő párhuzamos programozás megértéséhez, a szükséges változtatások bevezetéséhez nagy segítségnek bizonyult Anthony A. Williams a témában íródott könyve. \cite{CppConcurrency}
+A primitív adattagok esetében az \className{AtomicVariable\textless T\textgreater } osztályt használtam fel, melynek definíciója a solver \fileName{base} mappájában található \fileName{parallel.h} fájlban olvasható.
+Az osztály megvalósítja T típusú változó párhuzamos elérését, azon végzett műveletek biztonságos lekezelését \className{Lock} objektumok használatával.
+A bonyolultabb adatszerkezetek (például map-ek) párhuzamos elérését a \className{Statistics} osztály \textit{getter}, \textit{setter} metódusaiba implementált \className{Lock} objektumokkal oldottam meg.
+A \className{Statistics} osztály általam bevezetett adattagjai a \ref{StatisticsVariables} ábrán láthatóak.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.4]{StatisticsVariables}
@@ -225,7 +310,8 @@ Mivel az S-gráf keretrendszer throughput maximalizálója alapvetően többszá
 \label{StatisticsVariables}
 \end{center}
 \end{figure}
-Mivel a \textit{map} típusú adattagok \textit{getter} metódusai konstans metódusok, ezzel szemben a solverben definiált \textbf{Lock} osztály \textbf{Set}, és \textbf{Unset} metódusai nem konstansok, ezért elengedhetetlen volt ez esetben a \textbf{Lock} típusú objektumok \textit{mutable} kulcsszóval történő definiálása a \textbf{Statistics} osztályban.. Az általam létrehozott, \textbf{Lock} objektummal védett \textit{getter}, és \textit{setter} metódusokra példa a \ref{GetterSetterLock} ábrán látható.
+Mivel a \textit{map} típusú adattagok \textit{getter} metódusai konstans metódusok, ezzel szemben a solverben definiált \className{Lock} osztály \methodName{Set}, és \methodName{Unset} metódusai nem konstansok, ezért elengedhetetlen volt ez esetben a \className{Lock} típusú objektumok \textit{mutable} kulcsszóval történő definiálása a \className{Statistics} osztályban.
+Az általam létrehozott, \className{Lock} objektummal védett \textit{getter}, és \textit{setter} metódusokra példa a \ref{GetterSetterLock} ábrán látható.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.4]{GetterSetterLock}
@@ -234,4 +320,5 @@ Mivel a \textit{map} típusú adattagok \textit{getter} metódusai konstans met�
 \end{center}
 \end{figure}
 \section{Multiproduct receptek esete} \label{extended_multiproduct}
-Ebben a részben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1:1 kapcsolat áll fenn, nem teljesül. Egy recept akár több különböző terméket is előállíthat, illetve egy bizonyos terméket akár több különböző recept is előállíthat. 
+Ebben a részben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1:1 kapcsolat áll fenn, nem teljesül.
+Egy recept akár több különböző terméket is előállíthat, illetve egy bizonyos terméket akár több különböző recept is előállíthat. 

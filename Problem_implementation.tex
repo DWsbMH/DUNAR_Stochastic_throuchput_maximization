@@ -74,7 +74,7 @@ Profit_{s,p}(x)= \begin{cases}
 \end{equation*}
 Miután ennek a három pontnak a pontos koordinátái beazonosításra kerültek, már csak annyit kell tenni, hogy kiszámítunk két arány számot, amelyek a függvény kezdeti-, és vég meredekségét hivatottak letárolni.
 Ezen paraméterek ismeretében később a függvény bármely $x$ pontjában felvett értéke számítható lesz.
-Ezek alapján a \\className{PiecewiseLinearFunction} osztály adattagjai a következőek:
+Ezek alapján a \className{PiecewiseLinearFunction} osztály adattagjai a következőek:
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{piecewise_variables}
@@ -186,7 +186,7 @@ A \className{RelationalProblemReader} először is meggyőződik az input fájl 
 Ez a metódus az \methodName{IsStochastic()}, illetve a \ref{extended_multiproduct} pontban használt extended input fájl esetén az \methodName{IsExtendedStochastic()}.
 Miután meggyőződtünk a fájl sztochasztikus mivoltáról, meghívásra kerül a \methodName{ReadStochastic()} metódus, amely beolvassa, majd eltárolja az \textbf{equipment}, \textbf{product}, \textbf{scenario}, \textbf{scenario\_data}, \textbf{proctime} táblák paramétereit a recept gráfot reprezentáló \className{SGraph} objektum \className{Recipe} objektumában.
 Jól látszik, hogy az új sztochasztikus paraméterek tárolásához, a \className{Recipe}, és az \className{SGraph} osztályokban szükséges létrehozni a megfelelő adattagokat, azok eléréséhez szükséges metódusokat.
-A termékek batch méretére vonatkozó új paraméterek kezelésére a \className{Product} osztály kiegészítésre került egy batch\_size, batch\_size\_min, batch\_size\_max adattagokkal, valamint ide kerülnek letárolásra a \textbf{scenario\_data} tábla adatai is, az erre definiált \className{ScenarioDataEntry} objektumokból álló vectorba.
+A termékek batch méretére vonatkozó új paraméterek kezelésére a \className{Product} osztály kiegészítésre került a batch\_size, batch\_size\_min, batch\_size\_max adattagokkal, valamint ide kerülnek letárolásra a \textbf{scenario\_data} tábla adatai is, az erre definiált \className{ScenarioDataEntry} objektumokból álló vectorba.
 A \className{ScenarioDataEntry} osztály tartalmazza a \textbf{scenario\_data} táblázatban egy sorában található adatokat, például az adott forgatókönyv azonosítóját, a termék iránti keresletet az adott forgatókönyvben, valamint itt tároljuk le a sztochasztikus paraméterek alapján a \ref{piecewise_class} pontban bemutatott módon létrehozott \className{PiecewiseLinearFunction} objektumot, amely a $Profit_{s,p}$ függvényt reprezentálja.
 A fent említett műveleteket, a szükséges objektumok létrehozását a \className{RelationalProblemReader} osztály \methodName{ParseScenarioData} metódusa végzi el.
 Ezenkívül bevezetésre került még három \textit{boolean} változó a \className{Recipe} osztályba,  amelyek flag-ként szolgálnak, hogy a throughput maximalizáló könnyen, csupán a \className{Recipe} objektum segítségével meg tudja különböztetni a kötött-, változó batch méretű, és a két lépcsős eseteket.
@@ -194,11 +194,11 @@ Ezenkívül bevezetésre került még három \textit{boolean} változó a \class
 A sztochasztikus paraméterek letárolása után nincs más hátra, mint felkészíteni a throughput maximalizálást végző \className{ThroughputSolver} osztályt ezek kezelésére.
 Azonban ahhoz, hogy egységesen használható legyen az osztály determinisztikus, illetve sztochasztikus esetben is, némi refaktorálásra van szükség, ugyanis jelen állapotában a \className{ThroughputSolver} osztályban találhatóak olyan megoldások, melyek megkövetelik, hogy a profit egyszerűen a $b_p\cdot price_p$ képlettel megkapható legyen, azonban ez a sztochasztikus esetben korántsem ilyen egyszerű.
 \subsection{A meglévő kód refaktorálása}
-A \className{Throughputsolver} osztály jelenlegi állapotában, determinisztikus esetben kétféleképpen számítja ki a profitot, egyrészt az \className{SGraph} osztály \methodName{GetRevenue()} metódusát használva, másrészt az egyes termékek adatait az \className{SGraph} osztály \className{Recipe} objektumában letárolt \className{Product} objektumoktól közvetlenül lekérdezve, majd azokat a fent említett $b_p\cdot price_p$ képlettel kiszámítva, és összegezve.
+A \className{Throughputsolver} osztály jelenlegi állapotában, determinisztikus esetben kétféleképpen számítja ki a profitot, egyrészt az \className{SGraph} osztály \methodName{GetRevenue()} metódusát használva, másrészt az egyes termékek adatait az \className{SGraph} osztály \className{Recipe} objektumában letárolt \className{Product} objektumok adatait közvetlenül lekérdezve, majd azokat a fent említett $b_p\cdot price_p$ képlettel kiszámítva, és összegezve.
 Habár determinisztikus esetben ezek a módszerek megállják a helyüket, ezek jelen állapotban nem túl elegánsak, hiszen a \methodName{GetRevenue()} metódus lényegében ugyan azt a működést éri el, mint az utóbbi közvetlen elérés, és összegzés.
 A sztochasztikus esetek bevezetésével ráadásul az adatok közvetlenül a \className{Product} objektumoktól való elérése nem lesz működő módszer, ugyanis ezekben az esetekben a termék paraméterei, ahogy azt már korábban tárgyaltuk, forgatókönyv függőek.
 Éppen ezért a sztochasztikus esetekben használt \methodName{GetRevenue()} metódus a \className{Recipe} osztályban kell helyet kapjon, hogy a termék és a forgatókönyv adatok elérése egyaránt lehetséges legyen a metódus számára.
-Mivel egy jól karbantartható, hibamentes kódban az ilyen redundanciákat érdemes kiküszöbölni, ezért célszerű lenne az determinisztikus-, és a sztochasztikus esetben használt \methodName{GetRevenue()} metódusok összevonása, mégpedig a \\className{Recipe} osztályban, ennek az összevont metódusnak a részletes leírása a \ref{getRevenue} pontban olvasható.
+Mivel egy jól karbantartható, hibamentes kódban a fent említett redundanciákat érdemes kiküszöbölni, ezért célszerű lenne a determinisztikus-, és a sztochasztikus esetben használt \methodName{GetRevenue()} metódusok összevonása, mégpedig a \className{Recipe} osztályban, ennek az összevont metódusnak a részletes leírása a \ref{getRevenue} pontban olvasható.
 Az összevont \methodName{GetRevenue()} metódus megalkotásának köszönhetően a \className{Throughputsolver} osztály immáron egységes módon kérdezheti le a várható profitot, a probléma milyenségéről való döntés, valamint a profit kiszámítása pedig a \className{Recipe} osztály feladata.
 \subsection{A \textit{GetRevenue} metódus} \label{getRevenue}
 A \methodName{GetRevenue()} metódus arra szolgál, hogy adott konfiguráció várható összbevételét kiszámítsa, majd visszaadja azt.
@@ -320,5 +320,5 @@ Az általam létrehozott, \className{Lock} objektummal védett \textit{getter}, 
 \end{center}
 \end{figure}
 \section{Multiproduct receptek esete} \label{extended_multiproduct}
-Ebben a részben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1:1 kapcsolat áll fenn, nem teljesül.
+Ebben a részben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1-1 kapcsolat áll fenn, nem teljesül.
 Egy recept akár több különböző terméket is előállíthat, illetve egy bizonyos terméket akár több különböző recept is előállíthat. 

@@ -11,7 +11,7 @@
 \BOOKMARK [1][-]{section.4.2}{A probl\351ma param\351terei}{chapter.4}% 11
 \BOOKMARK [0][-]{chapter.5}{Az S-gr\341f keretrendszer}{}% 12
 \BOOKMARK [1][-]{section.5.1}{A solver fel\351p\355t\351se}{chapter.5}% 13
-\BOOKMARK [1][-]{section.5.2}{Az \341ltal\341nos throughput maximaliz\341l\363}{chapter.5}% 14
+\BOOKMARK [1][-]{section.5.2}{A determinisztikus throughput maximaliz\341l\363}{chapter.5}% 14
 \BOOKMARK [0][-]{chapter.6}{A probl\351ma megval\363s\355t\341sa}{}% 15
 \BOOKMARK [1][-]{section.6.1}{A felhaszn\341lt m\363dszerek}{chapter.6}% 16
 \BOOKMARK [2][-]{subsection.6.1.1}{Prevent\355v \374temez\351s k\366t\366tt batch m\351rettel}{section.6.1}% 17
@@ -38,7 +38,7 @@
 \BOOKMARK [1][-]{section.6.5}{Multiproduct receptek esete}{chapter.6}% 38
 \BOOKMARK [0][-]{chapter.7}{Teszteredm\351nyek}{}% 39
 \BOOKMARK [1][-]{section.7.1}{A tesztel\351s menete}{chapter.7}% 40
-\BOOKMARK [1][-]{section.7.2}{Alapesetek tesztel\351se \(1:1\)}{chapter.7}% 41
+\BOOKMARK [1][-]{section.7.2}{Alapesetek tesztel\351se \(1-1\)}{chapter.7}% 41
 \BOOKMARK [1][-]{section.7.3}{Multiproduct receptek tesztel\351se}{chapter.7}% 42
 \BOOKMARK [0][-]{chapter.8}{\326sszefoglal\341s}{}% 43
 \BOOKMARK [0][-]{chapter*.2}{Irodalomjegyz\351k}{}% 44

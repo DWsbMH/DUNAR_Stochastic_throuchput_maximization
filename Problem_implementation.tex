@@ -162,7 +162,7 @@ A metódus egyszerűen egy \textit{for} ciklus segítségével a függvény öss
 A függvény maximumának lekérdezését a \methodName{getMaximum()} metódus végzi, mely egy egyszerű maximum keresést valósít meg $y$ koordinátára nézve.
 A metódusnak a \ref{variable_batch_size_modell} pontban bemutatott változó batch méretű esetben van nagy jelentősége, ezt használjuk ugyanis $dem_{s'}$ meghatározására.
 \section{Az új paraméterek implementációja}
-Ahhoz, hogy az általános throughput maximalizáló használható legyen a \ref{problem_parameters} pontban bemutatott új sztochasztikus paraméterekkel, fel kell készíteni a megfelelő osztályokat ezen paraméterek kezelésére, be kell olvasni először is ezeket a paramétereket egy input fájlból, majd valamilyen formában le is kell őket tárolni, hogy később a \ref{math_modells} pontban bemutatott műveletek végrehajthatóak legyenek a várható profit kiszámítására.
+Ahhoz, hogy az determinisztikus throughput maximalizáló használható legyen a \ref{problem_parameters} pontban bemutatott új sztochasztikus paraméterekkel, fel kell készíteni a megfelelő osztályokat ezen paraméterek kezelésére, be kell olvasni először is ezeket a paramétereket egy input fájlból, majd valamilyen formában le is kell őket tárolni, hogy később a \ref{math_modells} pontban bemutatott műveletek végrehajthatóak legyenek a várható profit kiszámítására.
 \subsection{Új kapcsoló definiálása}
 Mivel a sztochasztikus throughput maximalizáló működhet preventív, illetve két lépcsős módon, ezért szükségessé vált egy új parancssori kapcsoló bevezetése:
 \begin{figure}[H]
@@ -192,22 +192,22 @@ A fent említett műveleteket, a szükséges objektumok létrehozását a \class
 Ezenkívül bevezetésre került még három \textit{boolean} változó a \className{Recipe} osztályba,  amelyek flag-ként szolgálnak, hogy a throughput maximalizáló könnyen, csupán a \className{Recipe} objektum segítségével meg tudja különböztetni a kötött-, változó batch méretű, és a két lépcsős eseteket.
 \section{Szükséges változtatások az S-gráf keretrendszerben} \label{refactor}
 A sztochasztikus paraméterek letárolása után nincs más hátra, mint felkészíteni a throughput maximalizálást végző \className{ThroughputSolver} osztályt ezek kezelésére.
-Azonban ahhoz, hogy egységesen használható legyen az osztály általános, illetve sztochasztikus esetben is, némi refaktorálásra van szükség, ugyanis jelen állapotában a \className{ThroughputSolver} osztályban találhatóak olyan megoldások, melyek megkövetelik, hogy a profit egyszerűen a $b_p\cdot price_p$ képlettel megkapható legyen, azonban ez a sztochasztikus esetben korántsem ilyen egyszerű.
+Azonban ahhoz, hogy egységesen használható legyen az osztály determinisztikus, illetve sztochasztikus esetben is, némi refaktorálásra van szükség, ugyanis jelen állapotában a \className{ThroughputSolver} osztályban találhatóak olyan megoldások, melyek megkövetelik, hogy a profit egyszerűen a $b_p\cdot price_p$ képlettel megkapható legyen, azonban ez a sztochasztikus esetben korántsem ilyen egyszerű.
 \subsection{A meglévő kód refaktorálása}
-A \className{Throughputsolver} osztály jelenlegi állapotában, általános esetben kétféleképpen számítja ki a profitot, egyrészt az \className{SGraph} osztály \methodName{GetRevenue()} metódusát használva, másrészt az egyes termékek adatait az \className{SGraph} osztály \className{Recipe} objektumában letárolt \className{Product} objektumoktól közvetlenül lekérdezve, majd azokat a fent említett $b_p\cdot price_p$ képlettel kiszámítva, és összegezve.
-Habár általános esetben ezek a módszerek megállják a helyüket, ezek jelen állapotban nem túl elegánsak, hiszen a \methodName{GetRevenue()} metódus lényegében ugyan azt a működést éri el, mint az utóbbi közvetlen elérés, és összegzés.
+A \className{Throughputsolver} osztály jelenlegi állapotában, determinisztikus esetben kétféleképpen számítja ki a profitot, egyrészt az \className{SGraph} osztály \methodName{GetRevenue()} metódusát használva, másrészt az egyes termékek adatait az \className{SGraph} osztály \className{Recipe} objektumában letárolt \className{Product} objektumoktól közvetlenül lekérdezve, majd azokat a fent említett $b_p\cdot price_p$ képlettel kiszámítva, és összegezve.
+Habár determinisztikus esetben ezek a módszerek megállják a helyüket, ezek jelen állapotban nem túl elegánsak, hiszen a \methodName{GetRevenue()} metódus lényegében ugyan azt a működést éri el, mint az utóbbi közvetlen elérés, és összegzés.
 A sztochasztikus esetek bevezetésével ráadásul az adatok közvetlenül a \className{Product} objektumoktól való elérése nem lesz működő módszer, ugyanis ezekben az esetekben a termék paraméterei, ahogy azt már korábban tárgyaltuk, forgatókönyv függőek.
 Éppen ezért a sztochasztikus esetekben használt \methodName{GetRevenue()} metódus a \className{Recipe} osztályban kell helyet kapjon, hogy a termék és a forgatókönyv adatok elérése egyaránt lehetséges legyen a metódus számára.
-Mivel egy jól karbantartható, hibamentes kódban az ilyen redundanciákat érdemes kiküszöbölni, ezért célszerű lenne az általános-, és a sztochasztikus esetben használt \methodName{GetRevenue()} metódusok összevonása, mégpedig a \\className{Recipe} osztályban, ennek az összevont metódusnak a részletes leírása a \ref{getRevenue} pontban olvasható.
+Mivel egy jól karbantartható, hibamentes kódban az ilyen redundanciákat érdemes kiküszöbölni, ezért célszerű lenne az determinisztikus-, és a sztochasztikus esetben használt \methodName{GetRevenue()} metódusok összevonása, mégpedig a \\className{Recipe} osztályban, ennek az összevont metódusnak a részletes leírása a \ref{getRevenue} pontban olvasható.
 Az összevont \methodName{GetRevenue()} metódus megalkotásának köszönhetően a \className{Throughputsolver} osztály immáron egységes módon kérdezheti le a várható profitot, a probléma milyenségéről való döntés, valamint a profit kiszámítása pedig a \className{Recipe} osztály feladata.
 \subsection{A \textit{GetRevenue} metódus} \label{getRevenue}
 A \methodName{GetRevenue()} metódus arra szolgál, hogy adott konfiguráció várható összbevételét kiszámítsa, majd visszaadja azt.
 A metódus először döntést hoz a probléma típusát illetően a recept objektumban tárolt \textit{boolean} flag segítségével.
-Általános esetben a profit kiszámítása meglehetősen egyszerűen, a \ref{getRevenueNonStoch} ábrán látható módon megtehető. 
+Determinisztikus esetben a profit kiszámítása meglehetősen egyszerűen, a \ref{getRevenueNonStoch} ábrán látható módon megtehető. 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.38]{getRevenueNonStoch}
-\caption{A \textit{GetRevenue() metódus lefutása általános esetben}}
+\caption{A \textit{GetRevenue() metódus lefutása determinisztikus esetben}}
 \label{getRevenueNonStoch}
 \end{center}
 \end{figure}
@@ -218,7 +218,7 @@ Ideális számomra az lenne, ha például a konfigurációban két darab $"A"$ b
 Azonban nem ez történik.
 A konfigurációban egy $"A"$ és egy $"A\_2"$ nevű termék van jelen egyaránt $1$ batch számmal.
 Erre az ütemterv elkészítéséhez van szükség, hogy egyértelműen beazonosíthatóak legyenek az egyes termékek, illetve azok részfolyamatai.
-Ez a fajta működés nyilván általános esetben nem okoz gondot, hiszen ott ekvivalens az, ha két ugyan olyan termékből gyártunk egy-egy darabot, vagy egy termékből kettőt, hiszen a profit értékek nem függenek egymástól, azonban sztochasztikus esetben az alul-, és túl termelési költségek miatt a két eset nem ekvivalens.
+Ez a fajta működés nyilván determinisztikus esetben nem okoz gondot, hiszen ott ekvivalens az, ha két ugyan olyan termékből gyártunk egy-egy darabot, vagy egy termékből kettőt, hiszen a profit értékek nem függenek egymástól, azonban sztochasztikus esetben az alul-, és túl termelési költségek miatt a két eset nem ekvivalens.
 Éppen ezért ezt a működést valamilyen formában orvosolni kell.
 Erre a problémára nyújt megoldást a \className{Recipe} osztály \methodName{ReduceToBase()} metódusa.
 A metódus működéséhez elengedhetetlen, hogy az inputfájlban specifikált termékek neveit elmentsük a \className{Recipe} osztály egy vectorába, a fájl beolvasásakor.
@@ -256,7 +256,7 @@ Mivel a metódusnak kezelnie kell a különböző eseteket, ezért szerkezete a 
 
 
 \begin{itemize}
-\item Általános (nem sztochasztikus) esetben a számítás meglehetősen egyszerűen, a $price_p \cdot b_p$ képlettel elvégezhető.
+\item Determinisztikus esetben a számítás meglehetősen egyszerűen, a $price_p \cdot b_p$ képlettel elvégezhető.
 \item Kötött batch méretű sztochasztikus esetben a várható profit számítása a \ref{FixBatchSize} pontban bevezetett módon, az $ExpProfit(x)$ képlet segítségével lehetséges.
 \item Változó batch méretű sztochasztikus esetben a várható profit számítása a \ref{variable_batch_size_modell} pontban leírtak alapján $x_p(b_p)$ meghatározásával, majd $ExpProfit(x_p)$ kiszámításával tehető meg.
 \item Két lépcsős ütemezés esetén a várható profit számítása a \ref{TwoStage} pontban ismertetett módon $x_{s,p}(b_p)$  meghatározása után, a következő képlettel lehetséges:
@@ -265,11 +265,11 @@ $$ \sum_{s \in S}(prob_s \cdot Profit(x_{s,p}(b_p))$$
 Ezen módszerek implementációját tartalmazza tehát a \methodName{GetProductRevenue} metódus, amely segítségével ezentúl adott termék profitja, függetlenül a probléma típusától egységesen megkapható.
 \subsection{A \textit{ThroughputUI} osztály kiegészítése}
 A \className{ThroughputUI} osztály feladata a \className{ThroughputSolver} osztály által kiszámított eredmények megjelenítése a felhasználó számára.
-Általános (nem sztochasztikus) esetben a Throughput maximalizáló egy példa lefutását a \ref{ThroughputUI} ábra szemlélteti.
+Determinisztikus esetben a Throughput maximalizáló egy példa lefutását a \ref{ThroughputUI} ábra szemlélteti.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.8]{throughputUI}
-\caption{Példa a \textit{ThroughputUI} szerkezetére általános esetben}
+\caption{Példa a \textit{ThroughputUI} szerkezetére determinisztikus esetben}
 \label{ThroughputUI}
 \end{center}
 \end{figure}

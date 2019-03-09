@@ -14,11 +14,11 @@
 \BOOKMARK [1][-]{section.5.2}{Az \341ltal\341nos throughput maximaliz\341l\363}{chapter.5}% 14
 \BOOKMARK [0][-]{chapter.6}{A probl\351ma megval\363s\355t\341sa}{}% 15
 \BOOKMARK [1][-]{section.6.1}{A felhaszn\341lt m\363dszerek}{chapter.6}% 16
-\BOOKMARK [2][-]{subsection.6.1.1}{Prevent\355v \374temez\351s fix batch m\351rettel}{section.6.1}% 17
+\BOOKMARK [2][-]{subsection.6.1.1}{Prevent\355v \374temez\351s k\366t\366tt batch m\351rettel}{section.6.1}% 17
 \BOOKMARK [2][-]{subsection.6.1.2}{Prevent\355v \374temez\351s v\341ltoz\363 batch m\351rettel}{section.6.1}% 18
-\BOOKMARK [2][-]{subsection.6.1.3}{Two stage \(k\351t l\351pcsos \374temez\351s\)}{section.6.1}% 19
+\BOOKMARK [2][-]{subsection.6.1.3}{K\351t l\351pcsos \374temez\351s \(two stage\)}{section.6.1}% 19
 \BOOKMARK [2][-]{subsection.6.1.4}{K\366vetkeztet\351s}{section.6.1}% 20
-\BOOKMARK [1][-]{section.6.2}{A BrokenLine oszt\341ly}{chapter.6}% 21
+\BOOKMARK [1][-]{section.6.2}{A PiecewiseLinearFunction oszt\341ly}{chapter.6}% 21
 \BOOKMARK [2][-]{subsection.6.2.1}{Koordin\341ta p\341r hozz\341ad\341sa}{section.6.2}% 22
 \BOOKMARK [2][-]{subsection.6.2.2}{Kezdeti-, \351s v\351g meredeks\351g kisz\341m\355t\341sa}{section.6.2}% 23
 \BOOKMARK [2][-]{subsection.6.2.3}{A f\374ggv\351ny skal\341r \351rt\351kkel val\363 szorz\341sa}{section.6.2}% 24

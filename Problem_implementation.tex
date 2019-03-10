@@ -148,7 +148,7 @@ Ennek következtében a két függvény összeadása már jóval egyszerűbb fel
 \label{add_piecewise}
 \end{center}
 \end{figure}
-\subsection{A függvény horizontális nyújtása}
+\subsection{A függvény horizontális nyújtása} \label{stretch}
 A függvény a \ref{extended_multiproduct} pontban használt, a \ref{profit_func_stretch} ábrán bemutatott horizontális nyújtását (illetve összenyomását, s értéktől függően) a \methodName{stretchHorizontally(double s)} metódus végzi.
 A metódus egyszerűen egy \textit{for} ciklus segítségével a függvény összes pontjának $x$ koordinátáját, valamint a kezdeti-, és vég meredekséget beszorozza a paraméterként kapott $s$ értékkel, illetve a meredekségek esetén annak reciprokával. 
 \begin{figure}
@@ -321,4 +321,30 @@ Az általam létrehozott, \className{Lock} objektummal védett \textit{getter}, 
 \end{figure}
 \section{Multiproduct receptek esete} \label{extended_multiproduct}
 Ebben a részben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1-1 kapcsolat áll fenn, nem teljesül.
-Egy recept akár több különböző terméket is előállíthat, illetve egy bizonyos terméket akár több különböző recept is előállíthat. 
+Egy recept akár több különböző terméket is előállíthat, illetve egy bizonyos terméket akár több különböző recept is előállíthat.
+Az ilyen probléma megoldásához szükséges új fajta input fájlra példa, a \fileName{stochastic\_extended.ods}, amely a \ref{input_files} függelék \ref{stochastic_extended_ods} ábráján látható.
+Az ábra alapján jól látható, hogy az előzőekben használt \fileName{stochastic.ods} fájlhoz képest csupán egy új tábla került hozzáadásra, valamint a \textbf{scenario\_data} táblában történt változás.
+Ez az egy új hozzáadott tábla a \textbf{sub\_product} nevet kapta, ez hivatott kifejezni a \textbf{product} táblában található receptek által előállított termékeket. \footnote{Mivel a solverben, valamint az eddigi input fájlokban (pl. a multipurpose.ods-ben) is "product" néven hivatkozunk a receptekre, ezért a konzekvenciát megtartandó a receptek által előállított termékek ebben az esetben a "sub product" nevet kapták. A későbbiekben ezen elnevezések egységesítése, refaktorálása a solverben jóval érhetőbb, egységesebb kódot eredményezne, azonban ez túlmutat ezen szakdolgozat témáján.}
+A \textbf{sub\_product} tábla tartalmazza az adott receptek által előállított termékek neveit, illetve egy arányszámot, mely megadja, hogy a recept egy batch-ének gyártása során adott termék milyen arányban áll elő.
+A \textbf{scenario\_data} táblában pedig immáron a sub product-okra vonatkozó adatok találhatóak a product-ok adatai helyett.
+A multiproduct receptekkel kapcsolatos probléma alapvetően két esetre osztható:
+\begin{itemize}
+\item Az első, egyszerűbb esetről akkor beszélünk, ha egyetlen egy terméket sem eredményez két, vagy több recept.
+\item A második, bonyolultabb eset akkor áll fenn, ha egy terméket egyszerre több recept is előállít.
+\end{itemize}
+Az első eset könnyen megoldható, csupán sorra kell venni az adott recept által gyártott termékek $profit_{s,p}$ függvényeit minden egyes forgatókönyvre, majd a \ref{stretch} pontban bemutatott metódus segítségével a \ref{profit_func_stretch} ábrán látható módon nyújtani azokat a fent említett arányszámmal, mely kifejezi a recept egy batch-e és az előállított termék mennyisége közti arányt.
+Miután ezeket a nyújtott függvényeket megkaptuk minden termékre az adott forgatókönyvben, amelyet az adott recept gyárt, ezek összegeként előáll a recept $profit$ függvénye az adott forgatókönyvben.
+Ezen $profit$ függvények letárolásával a továbbiakban ez az eset is tekinthető az eredeti sztochasztikus esetnek, az eddig említett módszerek felhasználhatóak a megoldáshoz.
+Az egyszerűbb átláthatóság kedvéért azonban célszerű lenne bevezetni pár új jelölést:
+\begin{description}
+\item[$R$] a receptek halmaza
+\item[$P_r$] a termékek halmaza, amelyet $r \in R$ előállít
+\item[$s_{r,p}$] az $r \in R$ recept egy batch-e által maximálisan előállítható $p \in P$ termék mennyisége
+\end{description}
+Az új jelölések alapján $r \in R$ recept $profit$ függvénye az adott forgatókönyvben a következőképpen fejezhető ki:
+$$profit_{s,r}=\sum_{p \in P} profit_{s,p} \cdot s_{r,p}$$ 
+Az előzőeket hivatott megvalósítani a \className{Recipe} osztály általam létrehozott \methodName{CalculateSubProductRevenueSum(uint product\_id)} metódusa, amelyet a \methodName{GetProductRevenue} metódus hív meg abban az esetben, ha érzékeli, hogy multiproduct eset áll fenn.
+A metódus lefutása után a probléma a továbbiakban a sztochasztikus alapesetekkel ekvivalens, a várható profit értéke a szokásos módon megkapható.
+
+A második esetben, vagyis amikor fennáll az, hogy egy terméket egyszerre több recept is előállíthat, a probléma megoldása kifinomultabb módszereket igényel, hiszen a receptek várható profitja ebben az esetben nem lesz független egymástól.
+Az optimális batch darabszámok, illetve méretek kiszámítására jelen esetben célravezető egy LP modell felírása. \cite{phd_Hegyhati} Az inputfájl definiálásával, illetve a solveren végzett munkámmal megteremtettem ezen eset megoldásának feltételeit is, azonban ennek implementációja túlmutat jelen dolgozat munkáján.

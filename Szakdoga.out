@@ -4,12 +4,12 @@
 \BOOKMARK [1][-]{section.2.2}{Megold\363 m\363dszerek}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.3}{Sztochasztikus \374temez\351s}{chapter.2}% 5
 \BOOKMARK [1][-]{section.2.4}{Az \374temtervek vizualiz\341ci\363ja}{chapter.2}% 6
-\BOOKMARK [0][-]{chapter.3}{Az S-gr\341f modell}{}% 7
-\BOOKMARK [1][-]{section.3.1}{Profit maximaliz\341l\341s S-gr\341ffal}{chapter.3}% 8
+\BOOKMARK [0][-]{chapter.3}{Az S-gr\341f keretrendszer}{}% 7
+\BOOKMARK [1][-]{section.3.1}{Profit maximaliz\341l\341s az S-gr\341f keretrendszerrel}{chapter.3}% 8
 \BOOKMARK [0][-]{chapter.4}{Probl\351madefin\355ci\363}{}% 9
 \BOOKMARK [1][-]{section.4.1}{A probl\351ma csoportos\355t\341sa}{chapter.4}% 10
 \BOOKMARK [1][-]{section.4.2}{A probl\351ma param\351terei}{chapter.4}% 11
-\BOOKMARK [0][-]{chapter.5}{Az S-gr\341f keretrendszer}{}% 12
+\BOOKMARK [0][-]{chapter.5}{Az S-gr\341f solver}{}% 12
 \BOOKMARK [1][-]{section.5.1}{A solver fel\351p\355t\351se}{chapter.5}% 13
 \BOOKMARK [1][-]{section.5.2}{A determinisztikus throughput maximaliz\341l\363}{chapter.5}% 14
 \BOOKMARK [0][-]{chapter.6}{A probl\351ma megval\363s\355t\341sa}{}% 15

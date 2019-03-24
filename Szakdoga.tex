@@ -7,6 +7,7 @@
 \usepackage{geometry}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\graphicspath{{Figures/}}
 \usepackage{float}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
@@ -41,16 +42,16 @@
 \setcounter{page}{1}
 \tableofcontents
 
-\include{Preface}
-\include{Research}
-\include{S-graph}
-\include{Problem_definition}
-\include{Solver}
-\include{Problem_implementation}
-\include{Testing}
-\include{Summary}
+\include{Chapters/Preface}
+\include{Chapters/Research}
+\include{Chapters/S-graph}
+\include{Chapters/Problem_definition}
+\include{Chapters/Solver}
+\include{Chapters/Problem_implementation}
+\include{Chapters/Testing}
+\include{Chapters/Summary}
 \bibliographystyle{plain}
-\bibliography{Szakdoga}
+\bibliography{Chapters/Szakdoga}
 \addcontentsline{toc}{chapter}{Irodalomjegyzék}
-\include{Appendix}
+\include{Chapters/Appendix}
 \end{document}

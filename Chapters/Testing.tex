@@ -7,8 +7,7 @@ Mivel esetemben egy meglévő szoftver rendszer továbbfejlesztéséről beszél
 \item A sztochasztikus alapesetek (1-1) tesztelése
 \item A sztochasztikus multiproduct esetek tesztelése
 \end{itemize}
-A teszteléshez használt input fájlok megtalálhatóak a CD melléklet \fileName{Tesztelés/Tesztfájlok} mappájában.
-Ezen inputfájlok tartalma, nevezetesen a termékekre, illetve a forgatókönyvekre vonatkozó paraméterek random szám generátorral készültek adott tartományokon belül.
+A teszteléshez használt input fájlok tartalma, nevezetesen a termékekre, illetve a forgatókönyvekre vonatkozó paraméterek random szám generátorral készültek adott tartományokon belül.
 A tesztkonfigurácó leírása:
 \begin{itemize}
 \item Windows 7 operációs rendszer 
@@ -32,5 +31,32 @@ Jól látható, hogy az eredmény helyes, hiszen $2 \cdot 24.5 +12,3=61.3$.
 Ezenfelül a solver master git branchén található verziót futtatva (melyhez a dolgozat írásakor még nem került hozzáadásra a munkám) szintén megegyező eredményt kapunk, mind a profit értékeket, mind a kimeneti ütemterveket figyelembe véve, valamint a futási időkben sem figyelhető meg számottevő változás.
 Ezen adatokat figyelembe véve kijelenthető tehát, hogy a determinisztikus throughput maximalizáló továbbra is hibátlanul működik.     
 \section{A sztochasztikus alapesetek tesztelése (1-1)}
-
+A sztochasztikus throughput maximalizáló alapeseteinek teszteléséhez használt teszt fájlok a CD melléklet  \fileName{Tesztelés/Tesztfájlok/Sztochasztikus} mappájában találhatóak, míg a teszteredményeket rögzítő \fileName{StochasticTestResults.ods} fájl a CD melléklet \fileName{Tesztelés/Teszteredmények} mappájában található.
+A sztochasztikus teszt fájlokban található, a termékekre, illetve a forgatókönyvekre vonatkozó paraméterek (batch méretek, kereslet, termék ára, stb.) random szám generátorral lettek előállítva.
+A \ref{stochastic_test} ábra szemlélteti a \fileName{StochasticTestResults.ods} fájl tartalmát.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.325]{stochasticTest}
+\caption{Részlet a \textit{StochasticTestResults.ods} fájlból}
+\label{stochastic_test}
+\end{center}
+\end{figure}
+ Az ábra alapján látható, hogy egy teszteset teszteléséhez két különböző fájlra van szükség: egyre a kötött batch méretű esethez, valamint egy másikra a változó batch méretű, illetve a kétlépcsős esethez (hiszen utóbbi bekapcsolásához csupán egy parancssori kapcsolóra van szükség).
+Az egy tesztesethez használt fájlokban (Pl. test001 és teszt002) található random generált paraméterek megegyeznek, ezek csupán a batch méretekben térnek el, oly módon, hogy a kötött batch méretű esetben generált számok (Pl. test001 fájl esetén $s_A=8, s_B=10$) a változó batch méretű fájlban a batch méretek alsó, vagy felső korlátait reprezentálják (azaz $s_p^{min}$, vagy $s_p^{max}$ értékének fognak megfelelni), a másik korlátot szintén véletlenszerűen választjuk ki ezekben az esetekben. (Pl. test002 fájl esetén $s_A^{max}=8, s_B^{max}=10$ értékek kerültek beállításra, $s_A^{min}=5, s_B^{min}=7$ értékek lettek generálva.)
+Ezen módszert használva felfedhetőek a különböző módok esetleges hibái, könnyen belátható ugyanis, hogy helyes működés esetén a változó batch méretű optimális eredménynek legalább meg kell egyeznie, vagy jobbnak kell lennie a kötött batch méretű várható profit értéknél, hiszen ha a kötött batch méretek a változó batch méretek alsó, vagy felső határát reprezentálják, valamint a solver szabadon választhatja ki $x_p(b_p)$ értéket a $[s_p^{min}\cdot b_p,s_p^{max}\cdot b_p]$ tartományból, az eredmény legrosszabb esetben is a tartomány azon legszélső értéke lesz, amely egyenlő a kötött batch méret esetén számolt $s_p(b_p)$ értékkel.
+Hasonló reláció elmondható a változó batch méretű, és a két lépcsős esetek profit értékeire is, hiszen míg a előbbi esetén azonos batch méret kerül beállításra minden forgatókönyv esetén, addig az utóbbi esetben forgatókönyvenként választható meg az ideális batch méret az adott tartományból, tovább növelve esetlegesen a várható profit értékét a változó batch méretű esethez képest, de nem rontva azt a legrosszabb esetben sem.
+A tesztesetek között a különböző recept és forgatókönyv darabszámokat tartalmazó eseteken kívül megtalálható néhány speciális eset is:
+\begin{itemize}
+\item Abban az esetben például, ha a kötött batch méret a változó batch méretű, illetve a két lépcsős esetben a batch méret alsó és a felső korlátja is egyben (test033 és test034), mindhárom várható profit értéknek meg kell egyeznie.
+\item Abban az esetben, ha csak egy darab forgatókönyv létezik (test035 és test036), a változó batch méretű eredmény és a két lépcsős eredmény megegyező kell legyen.
+\end{itemize}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.34]{specialTests}
+\caption{A speciális teszt esetek eredményei.}
+\label{special_tests}
+\end{center}
+\end{figure} 
+A teszteredmények, ahogyan az \ref{stochastic_test} ábrán, valamint bővebben a \fileName{StochasticTestResults.ods} fájlban is látható alátámasztják a fent leírtakat, tehát a sztochasztikus throughput maximalizáló ilyen szempontból jól működik az alapeseteken, továbbá manuálisan kiszámítva az input fájlokban található paraméterek alapján a várható profit értékét egy találomra választott teszt esetre a \ref{FixBatchSize} pontban ismertetettek alapján, alátámasztást nyer azon várható profit értékek helyessége is.
+\pagebreak
 \section{A sztochasztikus multiproduct receptek tesztelése}

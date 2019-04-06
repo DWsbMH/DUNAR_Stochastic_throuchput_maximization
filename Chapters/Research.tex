@@ -1,5 +1,35 @@
-\chapter{Irodalmi áttekintés}
-\section{Szakaszos gyártórendszerek ütemezése}
+\chapter{Irodalmi áttekintés} \label{Research}     
+\section{Gyártórendszerek ütemezése}
+Ahogyan az már a bevezetésben is említésre került az ütemezési problémák nagy hányadát a gyártásütemezési feladatok teszik ki, melyek elvégzése során a cél általában az átviteli kapacitás, vagy egyszerűen profit (throughput)\footnote{A szakirodalomban általában az angol "throughput" kifejezés a használatos, ha profit maximalizálásról, "makespan", ha idő minimalizálásról van szó, éppen ezért dolgozatomban a továbbiakban én is ezen kifejezések használatára törekszem.} maximalizálása.
+Másik fontos célkitűzés lehet a "makespan", vagyis a feladatok elvégzéséhez szükséges idő minimalizálása.
+A gyártásütemezési problémák esetében a megoldandó feladatok alatt általában a késztermékek egy részének, összetevőjének a legyártása értendő, az erőforrások, amik között a feladatok kiosztásra kerülnek pedig nem mások mint az elérhető gépek, berendezések, amelyek az adott rész legyártására képesek, adott továbbá az is, hogy melyik berendezés melyik feladatot mennyi idő alatt képes elvégezni, valamint a részfeladatok elvégzésének betartandó sorrendje sorrendje.
+Ezen paraméterek együtt alkotják az un. receptet, mely a feladatok precedenciája alapján a következő kategóriákra bontható:
+\begin{itemize}
+\item[]\textbf{Single stage recept}: Minden termék egy lépésben állítható elő. 
+\item[]\textbf{Simple multiproduct recept:} Minden termék több lineárisan egymást követő lépésből áll elő.
+\item[]\textbf{General multiproduct recept}: Az előző fajta speciális esete, ahol a lépések tetszőlegesen kihagyhatóak.
+\item[]\textbf{Multipurpose recept}: A lépéseknek nincs meghatározott, lineáris sorrendjük, tetszőleges sorrendben hajthatóak végre.
+\item[]\textbf{Precedential recept}: A lépések nem lineárisak, lehetnek elágazások is a lépések között (kör nem lehetséges), egy lépésnek akár több megelőző lépése is lehet, melyek teljesítése a következő lépés megkezdésének a feltétele.
+\item[]\textbf{General network recept}: A legáltalánosabb recept kategória, melyben a feladatok a bemenetükkel, illetve a kimenetükkel adottak, indirekt módon meghatározva ezzel a precedenciákat.\cite{hegyhati2010} 
+\end{itemize}
+
+A recepteken kívül a gyártórendszerek ütemezésével kapcsolatos problémák is több szempont szerint is csoportosíthatóak\cite{phd_Hegyhati}:
+\begin{itemize}
+\item Az ütemezés időpontjában elérhető paraméterek szerint:
+\begin{itemize}
+\item Offline ütemezésről beszélünk akkor, ha minden szükséges adat rendelkezésre áll az ütemezés megkezdésekor.
+\item Online ütemezésnek nevezzük azon eseteket, mikor az ütemezés megkezdésekor még nem minden paraméter áll rendelkezésre, ezért bizonyos paraméterek hiányában kell meghozni az ütemezési döntéseket.
+\end{itemize} 
+\item A bizonytalanságok alapján:
+\begin{itemize}
+\item Determinisztikus problémának nevezzük azon eseteket, amelyekben minden paraméter értéke adott már a kidolgozott ütemterv megvalósítása előtt.
+\item Sztochasztikus a probléma ezzel szemben, ha valamely paraméter értéke csak az ütemterv végrehajtása során (pl. termelés közben) válik világossá.
+\end{itemize}
+\end{itemize}
+Az ütemezési problémák megoldásai is osztályozhatóak aszerint, hogy a megoldás megvalósítható (feasible), vagy nem valósítható meg (infeasible).
+A "megoldás" alatt általában magát az ütemtervet értjük, amely nem más mint az összes feladat hozzárendelése berendezésekhez, illetve időintervallumokhoz.
+Infeasible megoldásról akkor beszélünk, ha az ütemterv nem elégíti ki a probléma definiálása során lefektetett megkötések akár egyetlen egy tagját is, ezzel szemben feasible a megoldás, ha az ütemterv minden megkötést kielégít.
+A feasible megoldások további csoportját képezik a non-delay megoldások, amelyek esetén egyetlen egy berendezés esetén sem beszélhetünk üresjáratról, ha akár csak egy feladat is megvalósításra vár.     
 \section{Megoldó módszerek}
-\section{Sztochasztikus ütemezés}
+
 \section{Az ütemtervek vizualizációja}

@@ -31,13 +31,14 @@ A probléma megoldása során használt paraméterek:
 \begin {description}
 \item[$P$]  a termékek halmaza
 \item[$b_p$]  a legyártott batch-ek darabszáma az adott konfigurációban
-\item[$s_p$]  a termék batch mérete (kötött batch méret esetén)
-\item[$s_p^{min},s_p^{max}$]  adott termékhez tartozó lehetséges legkisebb, legnagyobb batch méret (válzotó batch méret esetén)
+\item[$s_p$]  a termék batch mérete (fix batch méret esetén) [Kg]
+\item[$s_p^{min},s_p^{max}$]  adott termékhez tartozó lehetséges legkisebb, legnagyobb batch méret (válzotó batch méret esetén) [Kg]
 \item[$S$]  a forgatókönyvek halmaza
 \item[$prob_s$]  s forgatókönyv valószínűsége $s	\in S$
-\item[$dem_{s,p}$]  p termék iránti kereslet az s forgatókönyvben $s	\in S, p	\in P$
-\item[$price_{s,p}$]  p termék ára az s forgatókönyvben $s	\in S, p	\in P$
-\item[$oc_{s,p}, uc_{s,p}$]  p termék túl-, és alul termelési költsége s forgatókönyvben $s	\in S, p	\in P$
+\item[$dem_{s,p}$]  p termék iránti kereslet az s forgatókönyvben $s	\in S, p	\in P$ [Kg]
+\item[$price_{s,p}$]  p termék ára az s forgatókönyvben $s	\in S, p	\in P$ [Cost Unit/Kg]
+\item[$oc_{s,p}, uc_{s,p}$]  p termék túl-, és alul termelési költsége s forgatókönyvben $s	\in S, p	\in P$ [Cost Unit/Kg]
+\item[$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$]  $p$ termék $x$ értékben vett várható profit értéke
 \end {description}
 Ezenkívül érdemes bevezetni még a $Profit_{s,p}(x)$ jelölést, amely megadja $x$ mennyiségű $p$ termék bevételét az adott $s$ forgatókönyvben:
 \begin{equation*}

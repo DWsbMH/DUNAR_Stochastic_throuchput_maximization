@@ -31,5 +31,50 @@ A "megoldás" alatt általában magát az ütemtervet értjük, amely nem más m
 Infeasible megoldásról akkor beszélünk, ha az ütemterv nem elégíti ki a probléma definiálása során lefektetett megkötések akár egyetlen egy tagját is, ezzel szemben feasible a megoldás, ha az ütemterv minden megkötést kielégít.
 A feasible megoldások további csoportját képezik a non-delay megoldások, amelyek esetén egyetlen egy berendezés esetén sem beszélhetünk üresjáratról, ha akár csak egy feladat is megvalósításra vár.     
 \section{Megoldó módszerek}
-
+Az utóbbi évtizedekben számos különböző módszer került publikálásra, melyek az ütemezési problémák megoldására hivatottak.
+Az évek során ezek a módszerek jelentős javuláson mentek keresztül mind a megoldható problémák halmazát tekintve, mind a megoldáshoz szükséges idő gyorsaságát figyelembe véve.
+A következő alpontokban néhány megoldó módszer kerül megemlítésre..
+\subsection{MILP modellek}
+A publikációk túlnyomó része matematikai programozáson, név szerint a Mixed-Integer Linear Programming, azaz MILP modelleken alapszik.
+A modellek általában univerzális MILP algoritmusokkal kerülnek megoldásra. \cite{9780471283669}
+A MILP modelleknek különböző típusai léteznek:
+\begin{description}
+\item[\textbf{Időfelosztásos módszerek (Time discretization based)}]: Az időhorizont diszkrét pontokra, vagy résekre bontásán alapszanak, mely szuboptimális, vagy akár infeasible megoldáshoz is vezethet, azonban ezen módszerek segítségével az ütemezési problémák széles skálája valósítható meg.
+Időrendi szempontból ezen modellek jelentek meg először a szakirodalomban. \cite{KONDILI1993211}
+Minden időpontban bináris változók vannak hozzárendelve a feladatokhoz, melyek értéke jelenti, hogy adott feladat végrehajtása az adott időpontban kezdődik el vagy sem.
+Jól látható, hogy a változók száma arányos a kiválasztott időpontok számával, ezáltal az ütemezés teljesítéséhez szükséges számítási idő nagyban függ a diszkrét időpontok számától, éppen ezért mindig is kutatási szándék volt olyan módszer fejlesztése, amely képes az optimális megoldás meghatározására minimális diszkrét időpont alapján.
+\item[\textbf{Precedencia alapú módszerek (Precedence based)}]: Az időfelosztásos módszerekkel szemben a precedencia alapú módszerek esetén nincs szükség az időhorizont diszkretizációjára, ezáltal nem használnak ismeretlen paramétereket a megoldás során.
+A megoldható problémák halmaza kisebb mint az előző típus esetében, azonban a megoldható problémákra alapvetően jobb megoldást szolgáltatnak a precedencia alapú módszerek.
+A legtöbb modell multiproduct és multipurpose receptekre lett bevezetve, azonban többségük egyszerűen kibővíthető, hogy általánosabb problémák megoldására is használható legyen.
+A módszerek alapja két különböző bináris változó halmaz: $Y_{i,j}$, melynek értéke 1, ha $i$ feladatot $j$ berendezéshez rendeljük, valamint $X_{i,j,i'}$, mely akkor vesz fel 1 értéket, ha $i$ és $i'$ feladatokat egyaránt $j$ berendezéshez rendeljük, méghozzá úgy, hogy $i$ elvégzése megelőzi $i'$ elvégzését $j$ berendezésen. 
+\end{description}
+\subsection{Időzített automaták, Időzített Petri háló}
+A Petri hálók, és automaták gyakran használatosak diszkrét eseményrendszerek modellezésére, ahhoz azonban, hogy ezen módszerek felhasználhatóak legyenek gyártásütemezési problémák megoldására is, időzítésekkel kellett kiegészíteni őket.
+Így születtek meg a Timed Place Petri Nets (TPPN), Timed Priced Automata (TPA) módszerek.
+Ezen módszerek Branch \& Bound algoritmust használnak az állapottér bejárására, és a legkedvezőbb megoldás megtalálására.
+A hatékony modellezésnek köszönhetően a modellezési hibák könnyen kikerülhetőek, valamint a módszer könnyen kibővíthető a reaktív ütemezési feladatok kezelésére is, ennek ellenére azonban ezen módszerek hatékonysága elmarad a MILP modellek, illetve az S-gráf modell hatékonyságától is.  
+\subsection{S-gráf keretrendszer}
+Az S-gráf keretrendszer, amely ezen szakdolgozat fő fókuszát képezi, volt az első publikált gráf elméleten alapuló módszer szakaszos gyártórendszerek ütemezésére.
+Az S-gráf keretrendszer részletesebb bemutatása a \ref{S-graph}. fejezetben olvasható. 
 \section{Az ütemtervek vizualizációja}
+Az ütemezési problémák megoldása során keletkezett ütemterveket Gannt-diagrammal szokás ábrázolni, mely nevét feltalálójáról Henry Gantt amerikai mérnökről kapta. \cite{0879600489}
+Az ütemtervek lényegében a következő formájú négyesekből állnak: ($i,j,t^s,t^f$), ahol
+\begin{itemize}
+\item[$i$] az elvégzendő feladat
+\item[$j$] az $i$ feladatot elvégző berendezés
+\item[$t^s$] a feladat elvégzésének kezdeti időpontja
+\item[$t^f$] a feladat elvégzésének vég időpontja
+\end{itemize}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.7]{gannt}
+\caption{Gannt-diagram egy ütemterv szemléltetésére}
+\label{gannt}
+\end{center}
+\end{figure}
+Egy Gannt-diagram szemléltetésére szolgál a \ref{gannt} ábra.
+Látható, hogy az $y$ tengelyen a berendezések nevei (E1,E2,E3) találhatóak, míg az $x$ tengely az idő szemléltetésére hivatott.
+Az ábra három különböző termék (A,B,C), valamint azok részfeladatainak ütemezését szemlélteti, melyeket különböző színekkel jelölünk.
+A Gannt-diagramos ábrázolás segítségével az ütemtervet képező négyesek minden paramétere egyszerűen leolvasható.
+Az elvégzendő feladat neve a színes téglalapokon találhatóak (pl. C1), a feladatot elvégző berendezést az adott téglalap $y$ tengelyen vett helye határozza meg (pl. C1 esetében E1 berendezés).
+A feladatok elvégzésének a kezdeti, illetve vég időpontja pedig az téglalapok $x$ tengelyen vett helye alapján könnyen beazonosíthatóak, meghatározva ezáltal a feladat teljesítéséhez szükséges időt is. 

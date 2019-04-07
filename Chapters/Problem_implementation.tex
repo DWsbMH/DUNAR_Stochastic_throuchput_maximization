@@ -263,12 +263,28 @@ Mivel a metódusnak kezelnie kell a különböző eseteket, ezért szerkezete a 
 $$ \sum_{s \in S}(prob_s \cdot Profit(x_{s,p}(b_p))$$ 
 \end{itemize}
 Ezen módszerek implementációját tartalmazza tehát a \methodName{GetProductRevenue} metódus, amely segítségével ezentúl adott termék profitja, függetlenül a probléma típusától egységesen megkapható.
+\subsection{A \textit{Revenue Line} figyelmen kívül hagyása sztochasztikus esetben}
+Ahogyan az már a \ref{SgraphProfitMax}. pontban említésre került, a determinisztikus throughput maximalizálóban használatos gyorsítási stratégia az un. Revenue Line, amely lényegében alsó bound-ként szolgál az egyes konfigurációk profitértékeinek összehasonlításához.
+A \ref{revLine}. ábrán jól látható, hogy ez a stratégia determinisztikus esetben jó eredménnyel használható, ideális esetben töredékére csökkentheti az ellenőrizendő konfigurációk számát.
+Sztochasztikus esetben azonban el kell tekintetnünk a Revenue Line használatától, belátható ugyanis, hogy az esetleges alul-, és túl termelési költségek miatt nem minden esetben állja meg a helyét az az állítás miszerint egy konfiguráció várható profitértéke magasabb lesz egy másikénál azért, mert adott konfigurációban több batch-et termelünk adott termékekből.
+Éppen ellenkezőleg.
+Akár olyan eset is fenn állhat, melyben a nagyobb konfiguráció várható profit értéke elmarad a kisebb konfiguráció profitjától.
+A fenti állítás szemléltetésére szolgál a \ref{revLineStoch}. ábra.
+Jól látszik, hogy ha jelen paraméterek mellett a Revenue Line-t felhasználva futtatnánk a sztochasztikus throughput maximalizálót, szuboptimális eredményt kapnánk, hiszen a vonal behúzása miatt a valódi optimális eredmény kiszámításra sem kerülne.
+Szerencsére a Revenue Line figyelmen kívül hagyása sztochasztikus esetben egyetlen \textit{if} feltétellel megtehető \className{ThroughputSolver} osztályban a megfelelő eredmény elérése érdekében.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.3]{revLineStoch}
+\caption{A \textit{Revenue Line} helytelenségének szemléltetése sztochasztikus esetben}
+\label{revLineStoch}
+\end{center}
+\end{figure} 
 \subsection{A \textit{ThroughputUI} osztály kiegészítése}
 A \className{ThroughputUI} osztály feladata a \className{ThroughputSolver} osztály által kiszámított eredmények megjelenítése a felhasználó számára.
 Determinisztikus esetben a Throughput maximalizáló egy példa lefutását a \ref{ThroughputUI} ábra szemlélteti.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.8]{throughputUI}
+\includegraphics[scale=0.62]{throughputUI}
 \caption{Példa a \textit{ThroughputUI} szerkezetére determinisztikus esetben}
 \label{ThroughputUI}
 \end{center}

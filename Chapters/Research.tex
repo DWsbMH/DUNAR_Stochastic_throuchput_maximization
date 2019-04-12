@@ -12,8 +12,20 @@ Ezen paraméterek együtt alkotják az un. receptet, mely a feladatok precedenci
 \item[]\textbf{Precedential recept}: A lépések nem lineárisak, lehetnek elágazások is a lépések között (kör nem lehetséges), egy lépésnek akár több megelőző lépése is lehet, melyek teljesítése a következő lépés megkezdésének a feltétele.
 \item[]\textbf{General network recept}: A legáltalánosabb recept kategória, melyben a feladatok a bemenetükkel, illetve a kimenetükkel adottak, indirekt módon meghatározva ezzel a precedenciákat.\cite{hegyhati2010} 
 \end{itemize}
-
-A recepteken kívül a gyártórendszerek ütemezésével kapcsolatos problémák is több szempont szerint is csoportosíthatóak\cite{phd_Hegyhati}:
+A receptek tulajdonságain kívül fontos tényező, különösen vegyi üzemek termelésének ütemezése során a különböző tárolási irányelvek (storage policy) betartása.\cite{phd_Hegyhati}
+Tárolási irányelvek alatt azokat a megkötéseket értjük, amelyek a köztes termékek tárolására vonatkoznak a recept két egymást követő feladata között.
+A tárolási irányelvek alapvetően két szempont szerint csoportosíthatóak, az egyik az idő, ameddig a köztes termék tárolható anélkül például, hogy bizonyos kémia, fizikai tulajdonságai megváltoznának, amelyre egyébként a következő feladat során szükség lenne (pl. ne hűljön ki a termék).
+A másik szempont pedig a mennyiség, azaz, hogy adott köztes termékből adott üzemben mennyit lehet eltárolni.
+Ezek alapján a különböző kategóriák azonosíthatóak be:
+\begin{itemize}
+\item[]\textbf{UW - Unlimited Wait}: A legegyszerűbb, és leggyakoribb eset, melyben a köztes termék bármennyi ideig eltárolható a következő feladat megkezdése előtt.
+\item[]\textbf{LW - Limited Wait}: Ebben az esetben a köztes termék nem tárolható egy megadott időnél tovább a következő feladat előtt, hogy ne veszítse el valamilyen tulajdonságát.
+\item[]\textbf{ZW - Zero Wait}: Ebben az esetben a köztes termék tárolásának megengedett ideje 0.
+\item[]\textbf{UIS - Unlimited Intermediate Storage}: Ebben az esetben végtelen mennyiséget el tudunk tárolni az adott köztes termékből.
+\item[]\textbf{FIS - Finite Intermediate Storage}: Az az eset, melyben a köztes termék tárolása megoldható, de véges számú a tároló kapacitás.
+\item[]\textbf{NIS - No Intermediate Storage}: Ebben az esetben nem állnak rendelkezésre tároló egységek a köztes termék eltárolására, de a köztes termék továbbra is várakozhat az aktuális feladatot végrehajtó egységben.
+\end{itemize}
+A recepteken és a tárolási irányelveken kívül a gyártórendszerek ütemezésével kapcsolatos problémák is több szempont szerint is csoportosíthatóak\cite{phd_Hegyhati}:
 \begin{itemize}
 \item Az ütemezés időpontjában elérhető paraméterek szerint:
 \begin{itemize}

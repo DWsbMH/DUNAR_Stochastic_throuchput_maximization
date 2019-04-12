@@ -1,3 +1,24 @@
 \chapter{Az S-gráf solver} \label{s-graph_framework}
+Az S-gráf solver program egy C++ nyelven íródott, több szálas megoldó program, mely az S-gráf keretrendszerben foglalt algoritmusok segítségével különböző ütemezési problémákat képes megoldani.
+Jelenleg a NIS, UIS, UW, és LW tárolási irányelveket támogatja, valamint a következő célfüggvényekkel használható: makespan minimalizáció, throughput maximalizáció, cycle time minimalizáció.
+A solver parancssorból futtatható, különböző parancssori kapcsolók teszik lehetővé a különböző funkciókhoz tartozó paraméterek beállítását.
+Néhány, a throughput maximalizáláshoz fontos kapcsoló:
+\begin{description}
+\item[-i, --input [file]] Az input fájl elérési útja, a fájl kiterjesztése .xml, vagy .ods lehet
+\item[-o, --output [file]] Az output fájl elérési útja, a fájl kiterjesztése lehet .txt, vagy .png attól függően, hogy szöveges, vagy grafikus megjelenítést szeretnénk eredményül kapni
+\item[--obj [objective function]] A célfüggvény típusa, throughput maximalizálás esetén ezen kapcsoló értéke: thmax
+\item[--timehor [time horizon]] A throughput maximalizáláshoz rendelkezésre álló időhorizont mérete 
+\end{description}
+A fentiek alapján a solver futtatására egy példa:
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{switchesExample}
+\caption{Példa a solver futtatására}
+\label{switchExample}
+\end{center}
+\end{figure}
+A solver az OpenMP API-t használja párhuzamosításra, a kód lefordításához Qt5 szükséges.
+Ezenfelül Linux alatt történő futtatáshoz letöltendő még a Google OR-Tools könyvtár, Windows operációs rendszer esetén pedig a Visual C++ Redistributable, valamint a boost könyvtár telepítése a követelmény.
+A fentiek telepítése, illetve a megfelelő könyvtárak elérési útjainak beállítása után a solver qmake segítségével fordítható, melynek következtében létrejönnek a futtatáshoz szükséges fájlok, köztük a solver.exe (Windows esetén), mellyel immáron futtathatjuk a megoldó programot az \ref{switchExample}. ábrához hasonló módon.   
 \section{A solver felépítése}
 \section{A determinisztikus throughput maximalizáló} \label{throughput_solver}

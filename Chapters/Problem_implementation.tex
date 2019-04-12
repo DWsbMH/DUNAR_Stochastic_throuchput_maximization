@@ -358,7 +358,7 @@ Az egyszerűbb átláthatóság kedvéért azonban célszerű lenne bevezetni p�
 \item[$s_{r,p}$] az $r \in R$ recept egy batch-e által maximálisan előállítható $p \in P$ termék mennyisége
 \end{description}
 Az új jelölések alapján $r \in R$ recept $profit$ függvénye az adott forgatókönyvben a következőképpen fejezhető ki:
-$$profit_{s,r}=\sum_{p \in P} profit_{s,p} \cdot s_{r,p}$$ 
+$$profit_{s,r}=\sum_{p \in P_r} profit_{s,p} \cdot s_{r,p}$$ 
 Az előzőeket hivatott megvalósítani a \className{Recipe} osztály általam létrehozott \methodName{CalculateSubProductRevenueSum(uint product\_id)} metódusa, amelyet a \methodName{GetProductRevenue} metódus hív meg abban az esetben, ha érzékeli, hogy multiproduct eset áll fenn.
 A metódus lefutása után a probléma a továbbiakban a sztochasztikus alapesetekkel ekvivalens, a várható profit értéke a szokásos módon megkapható.
 

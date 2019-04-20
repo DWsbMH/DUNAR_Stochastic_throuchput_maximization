@@ -1,1 +1,13 @@
 \chapter{Összefoglalás} \label{Summary}
+Szakdolgozatomban szakaszos gyártórendszerek ütemezésével foglalkoztam sztochasztikus környezetben.
+A feladat az S-gráf keretrendszer, azon belül annak profit maximalizálójának felkészítése volt a sztochasztikus környezet kezelésére, új algoritmusok a rendszerbe történő implementálásával.
+Ehhez először is áttanulmányoztam az ütemezéssel kapcsolatos szakirodalmat, valamint az S-gráf keretrendszerhez tartozó irodalmat, megértettem a különféle ütemezési algoritmusok, főként a determinisztikus profit maximalizáló működését.
+Ezután a sztochasztikus profit maximalizáláshoz szükséges elméleti algoritmusok megvizsgálása, illetve azok részleteinek kidolgozása, a keretrendszerbe történő implementálása következett.
+Az implementáció végeztével alapos tesztelésen esett át a determinisztikus, illetve a sztochasztikus profit maximalizáló is.
+A teszteredmények tudatában elmondható, hogy mind a determinisztikus, mind az új sztochasztikus profit maximalizáló jól működik, az elvárt eredményeket adják vissza.
+ 
+Munkám eredményeképpen, tehát immáron lehetséges sztochasztikus környezetben adott szakaszos gyártórendszerek ütemezési problémáinak megoldása az S-gráf szolver segítségével.
+Számos feladat van azonban az S-gráf keretrendszerben ami még megvalósításra vár, mint például az általam a \ref{extended_multiproduct}. alfejezetben említett LP modell implementálása, mellyel a multiproduct receptek sztochasztikus profit maximalizálása esetén egy terméket akár több recept is előállíthatna, sokat javítva ezzel a szolver által megoldható problémák körét.
+Jövőbeli tervek közé tartozik továbbá az is, hogy a különböző konfigurációk feasibilitásának cachelésével, a profit maximalizáló újbóli futtatása során, elkerülhető legyen a feasibilitások újra tesztelése, ha az azt befolyásoló paraméterek nem, csupán a profitot befolyásoló paraméterek változtak.
+Például, ha a profit maximalizáló előző futtatásának másnapjára az elérhető gépek száma, a termék előállításához szükséges idők, az időhorizont, stb. nem változtak, csupán a kereslet, a termék ára, vagy egyéb sztochasztikus paraméterek változtak.
+Ez a módszer ezekben az esetekben nagyban meggyorsítaná a profit maximalizáló lefutását, ugyanis throughput maximalizálás során a feasibilitások tesztelése a legidőigényesebb feladat, cache-eléssel ez sok esetben kiküszöbölhető lenne.

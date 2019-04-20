@@ -13,7 +13,7 @@ Az ütemezési információ nélküli S-gráfot recept gráfnak (\textbf{recipe 
 \label{recipeGraph}
 \end{center}
 \end{figure}
-Az ábrán látható jobb oldali három csomópont (A,B,C) jelöli a termékeket, a többi csomópont pedig a részfeladatokat, amelyeket el kell végezni a termékek előállítása érdekében.
+Az ábrán látható jobb oldali kettő csomópont (A,B) jelöli a termékeket, a többi csomópont pedig a részfeladatokat, amelyeket el kell végezni a termékek előállítása érdekében.
 A recept gráf nyilai reprezentálják egyrészt két részfeladat közötti függőséget, abban ez esetben például, ha ez egyik részfeladat állítja elő a másik részfeladathoz szükséges bemeneti részterméket, másrészt a részfeladatok és a késztermékek közötti függőséget.
 A recept gráf minden részfeladathoz tartozó csomópontjához tartozik egy halmaz, amely azon berendezések nevét tartalmazza, amelyek képesek adott részfeladat megoldására.
 A nyilakon található súlyok pedig a részfeladat megoldásához szükséges gyártási időt reprezentálják, abban az esetben, ha egy részfeladatot több berendezés is el tud végezni, a nyíl súlya a berendezésekhez tartozó gyártási idők közül a legkisebb lesz.
@@ -23,7 +23,7 @@ Az ily módon előállított gráfot, függetlenül attól, hogy van-e még megh
 A \ref{recipeGraph} pontban látható recept gráf alapján előállított ütemezési gráf a \ref{scheduleGraph} ábrán látható.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{scheduleGraph}
+\includegraphics[scale=0.4]{scheduleGraph}
 \caption{Az ütemezési gráf szemléltetése}
 \label{scheduleGraph}
 \end{center}
@@ -34,13 +34,13 @@ Az ütemezési nyilak súlya alapértelmezetten $0$, ha az adott problémában n
 Az adott berendezéshez rendelt részfeladatok sorrendje könnyen leolvasható az ütemezési gráfról, erre egy példa a \ref{unitSequence} ábrán látható.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{unitSequence}
-\caption{Az E2 berendezéshez rendelt részfeladatok sorrendje}
+\includegraphics[scale=0.4]{unitSequence}
+\caption{Az E1 berendezéshez rendelt részfeladatok sorrendje}
 \label{unitSequence}
 \end{center}
 \end{figure}
-Az ábra alapján leolvasható, hogy az E2 berendezés először a B1 részfeladatot végzi el, majd a C2, azután pedig az A3 fog következni.
-Ahhoz azonban, hogy például a C2 részfeladatot E2 berendezés el tudja végezni, nem elegendő az, hogy B1 befejeződjön, elengedhetetlen az is, hogy minden részfeladat amitől C2 függ (nevezetesen C1) szintén véget érjen.
+Az ábra alapján leolvasható, hogy az E1 berendezés először a B1 részfeladatot végzi el, majd a A1, azután pedig az A2 fog következni.
+Ahhoz azonban, hogy például a A3 részfeladatot E2 berendezés el tudja végezni, nem elegendő az, hogy B termék gyártása befejeződjön, elengedhetetlen az is, hogy minden részfeladat amitől A3 függ (nevezetesen A2) szintén véget érjen.
 
 Az S-gráf keretrendszerben történő ütemezésre egy bővebb példa a makespan minimalizáló \footnote{A makespan minimalizáló algoritmus segítségével adott receptgráffal reprezentált termékek gyártási ideje minimalizálható. Az algoritmus fontos szerepet játszik a \ref{SgraphProfitMax}. alfejezetben tárgyalt profit (throughput) maximalizáló algoritmusban is.} algoritmuson keresztül szemléltetve megtalálható a CD melléklet \fileName{Algoritmusok} mappájában \fileName{DO\_Sgraph\_Makespan\_Minimization.odg} néven. 
 \section{Profit maximalizálás az S-gráf keretrendszerrel} \label{SgraphProfitMax}

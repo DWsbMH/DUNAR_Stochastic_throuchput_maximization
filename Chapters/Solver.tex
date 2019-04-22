@@ -20,5 +20,26 @@ A fentiek alapján a solver futtatására egy példa:
 A solver az OpenMP API-t használja párhuzamosításra, a kód lefordításához Qt5 szükséges.
 Ezenfelül Linux alatt történő futtatáshoz letöltendő még a Google OR-Tools könyvtár, Windows operációs rendszer esetén pedig a Visual C++ Redistributable, valamint a boost könyvtár telepítése a követelmény.
 A fentiek telepítése, illetve a megfelelő könyvtárak elérési útjainak beállítása után a solver qmake segítségével fordítható, melynek következtében létrejönnek a futtatáshoz szükséges fájlok, köztük a solver.exe (Windows esetén), mellyel immáron futtathatjuk a megoldó programot az \ref{switchExample}. ábrához hasonló módon.   
-\section{A solver felépítése}
-\section{A determinisztikus throughput maximalizáló} \label{throughput_solver}
+\section{A solver működése}
+A szolver futtatásához szükséges parancssori kapcsolók lehetséges értékeit, és egyéb paramétereit (pl. min/max érték) leíró opciókat tartalmazza az \fileName{Arguments.cpp} fájl. 
+A \className{MainSolver} osztály \methodName{getOptions} metódusa a beolvasott parancssori kapcsolók értékei alapján létrehozza a \className{SolverOptions} osztály egy példányát amely objektumtól ezután lekérdezhetőek a különféle beállítások.
+Ezután a \className{MainSolver} objektum \methodName{Run} metódusa meghívja a \methodName{ReadInputFromFile} metódust, ami egy \className{RelationalProblemReader} objektum példányosítása, majd annak \methodName{ReadSGraph} metódusának meghívása után vissza kapja a recept gráfot tartalmazó \className{SGraph} objektumot.
+A \className{RelationalProblemReader} osztály feladata az input fájlban található paraméterek beolvasása, parse-olása, majd a recept gráf elkészítése ezek alapján.
+Az \className{SGraph} osztály egy példánya lényegében egy S-gráfot reprezentál, ez lehet recept gráf, illetve ütemezési gráf is.
+Ezen osztály példányosításával, paramétereinek beállításával zajlik tehát lényegében az ütemezés.
+Miután a \className{MainSolver} osztály \methodName{Run} metódusa visszakapta a recept gráfot, meghívásra kerül a \methodName{GetProblem} metódus, aminek segítségével a kapcsolók, illetve a recept gráf alapján megállapításra kerül a probléma pontos típusa, ezután a \methodName{GetSolver} metódus példányosítja a probléma típus megoldásához szűkséges solvert.
+Ezen solver \methodName{Solve} metódusának meghívásával elkezdődik a probléma megoldása, melynek eredményeként megkapjuk a megoldást tartalmazó \className{TreeNode} objektumot, melyen keresztül elérhető az optimális megoldást reprezentáló ütemezési gráfot tartalmazó \className{SGraph} objektum.
+Throughput maximalizálás esetén ez a solver nem más, mint a \className{ThroughputSolver} osztály egy objektuma, melynek működésének leírása az \ref{throughput_solver} alfejezetben található.  
+Az eredmény visszakapása után a \className{MainSolver} egy \className{SolutionWriter} objektum \methodName{Write} metódusának meghívásával kiíratja az eredményt a megfelelő formátumban, legyen az szöveges fájl vagy .png formátumú Gannt diagram.
+\section{A ThroughputSolver osztály működése} \label{throughput_solver}
+A \className{ThroughputSolver} lényegében a \ref{SgraphProfitMax} alfejezetben leírtakat valósítja meg.
+Az osztály \methodName{Solve} metódusa először is megkeresi az optimális megoldást tartalmazó teret, ezt azzal éri el, hogy mind addig míg található feasible konfiguráció a tengelyek mentén, létrehoz egy újabb konfigurációt, amelyben az adott termékből gyártott batchek számát növeli.
+Ehhez a \methodName{FirstFeasible} metódust használja fel, mely a \methodName{SolveBest} metódus segítségével leteszteli az adott konfiguráció feasibilitását.
+Ha az adott konfiguráció megvalósítható, meghívásra kerül a \methodName{NewSolution} metódus, amely a konfiguráció alapján létrehoz egy új lehetséges megoldást reprezentáló objektumot, valamint elmenti a konfiguráció profit értékét, ha az nagyobb, mint az aktuális legjobb érték.
+A \methodName{SolveBest} metódus visszaadja a \methodName{FirstFeasible} metódus számára azt a mutatót, melyen keresztül az új megoldás elérhető, ha feasible volt a konfiguráció, ha nem volt az, akkor null érték kerül visszaadásra.
+Az első null érték visszakapása után a \methodName{Solve} metódus több konfigurációt már nem hoz létre, megtalálásra került ugyanis az optimális megoldást tartalmazó tér.
+Ezután következik ezen tér bejárása, az optimális megoldás megkeresése a lehetséges megoldások között.
+Erre azonban több stratégia is lehetséges, ezért a \methodName{Solve} metódus először is lekérdezi az ehhez kapcsolódó parancssori paraméterek értékét, majd ezek alapján meghívja a megfelelő bejárást végző metódust.
+Ez a metódus alapértelmezett esetben a \methodName{SearchThrSolution}, mely a \ref{SgraphProfitMax} alfejezetben már említett revenue line gyorsítási stratégiát is használja a térben való kereséshez.
+A metódus lefutása után ideális esetben a \methodName{Solve} metódus számára elérhetővé válik az optimális megoldást reprezentáló objektum, mely visszaadható a \className{MainSolver} számára az eredmények kiíratása érdekében.
+Abban az esetben azonban, ha egyetlen lehetséges megoldás sem található a problémára, egy exception kerül eldobásra, melyet a \className{MainSolver} megfelelően le tud kezelni, jelezni tudja a felhasználó felé a tényt, miszerint nem található megoldás a problémára.

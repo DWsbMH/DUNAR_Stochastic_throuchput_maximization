@@ -96,11 +96,11 @@ Ahhoz, hogy a \className{PiecewiseLinearFunction} osztállyal a matematikai mode
 \end{itemize} 
 \subsection{Koordináta pár hozzáadása} \label{addCoordinates}
 Egy új koordináta pár hozzáadását végző metódus az \methodName{addCoordinate(const Coordinate\& c)}.
-Egy új koordináta pár hozzáadása esetén először is meg kell győződnünk, hogy adott koordináta pár szerepel-e már a koordináták tárolására szolgáló vectorban, hiszen ha már szerepel, nem adhatjuk hozzá újra.
-Ha nem szerepel még ilyen koordináta pár, hozzáadjuk, majd rendezzük a vectort $x$ szerint növekvő sorrendbe.
+Egy új koordináta pár hozzáadása esetén először is meg kell győződnünk, hogy adott koordináta pár szerepel-e már a koordináták tárolására szolgáló \textit{vector}-ban, hiszen ha már szerepel, nem adhatjuk hozzá újra.
+Ha nem szerepel még ilyen koordináta pár, hozzáadjuk, majd rendezzük a \textit{vector}-t $x$ szerint növekvő sorrendbe.
 Ha ez megtörtént, meg kell vizsgálni, hogy a kezdeti-, és vég meredekségeket frissíteni kell-e.
 Abban az esetben, ha a most hozzáadott koordináta pár szerepel a rendezett vector első, vagy második helyén, a kezdeti meredekséget frissíteni kell.
-Hasonlóan, ha az új koordináta pár a vector utolsó, vagy utolsó előtti eleme, a vég meredekség frissítésre szorul.
+Hasonlóan, ha az új koordináta pár a \textit{vector} utolsó, vagy utolsó előtti eleme, a vég meredekség frissítésre szorul.
 Mivel kezdetben akár mindkét feltétel igaz lehet, ezért ezek teljesülését két külön \textit{bool} változóban kell tárolni.
 Miután megállapításra került, hogy melyik meredekségeket kell frissíteni, meghívásra kerül az ezeket kiszámító függvény. 
 \subsection{Kezdeti-, és vég meredekség kiszámítása} \label{calculateAngle}
@@ -121,21 +121,21 @@ $$Angle_{end}=(4-2) / (6-3)\quad \text{, azaz } Angle_{end}=2/3$$
 Ha egyik meredekség sem szorul frissítésre, a metódus semmiféle változtatást nem tesz.
 \subsection{A függvény skalár értékkel való szorzása} \label{multiplyByScalar}
 A függvény skalárral való szorzását a szorzás operátort felültöltő metódus végzi.
-Ahhoz, hogy megkapjuk a függvény skalárral való szorzatát, csupán be kell szorozni a vectorban tárolt összes pont $y$ koordinátáját, valamint a kezdeti-, és vég meredekséget a paraméterként kapott $s$-el.
+Ahhoz, hogy megkapjuk a függvény skalárral való szorzatát, csupán be kell szorozni a \textit{vector}-ban tárolt összes pont $y$ koordinátáját, valamint a kezdeti-, és vég meredekséget a paraméterként kapott $s$-el.
 A függvény szorzását szemléltető példa a \ref{profit_func_prob} ábrán látható.
 \subsection{A függvény $x$ helyen vett értékének lekérdezése} \label{getValue}
 A függvény $x$ helyen vett értékének lekérdezésére a ( ) operátort felültöltő metódus hivatott.
-A metódus először is megnézi, hogy a vectorban tárolt koordináta párok között található-e olyan, amelynek $x$ koordinátája egyezik a paraméterként kapott $x$-el.
+A metódus először is megnézi, hogy a \textit{vector}-ban tárolt koordináta párok között található-e olyan, amelynek $x$ koordinátája egyezik a paraméterként kapott $x$-el.
 Ha talál ilyet, egyszerűen visszaadja a megfelelő koordináta párost tartalmazó \className{Coordinate} objektumot.
-Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a vectorhoz, majd csak ezután lehet visszaadni a keresett \className{Coordinate} objektumot.
-Az $x$ értékhez tartozó $y$ érték kiszámítása a keresett $x$ értéke és a vectorban tárolt pontok alapján háromféleképpen történhet:
+Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a \textit{vector}-hoz, majd csak ezután lehet visszaadni a keresett \className{Coordinate} objektumot.
+Az $x$ értékhez tartozó $y$ érték kiszámítása a keresett $x$ értéke és a \textit{vector}-ban tárolt pontok alapján háromféleképpen történhet:
 \begin{itemize}
-\item Ha a keresett $x$ értéke kisebb mint a vectorban tárolt első pont $x$ koordinátájának értéke, akkor: 
-$y=y_{First}-(x_{First}-x) \cdot Angle_{begin}$ ,ahol $x_{First} \text{ és } y_{First}$ a vectorban tárolt első pont koordinátái.
-\item Ha a keresett $x$ érték két a vectorban tárolt pont $x$ koordinátájának értéke közé esik, akkor:
+\item Ha a keresett $x$ értéke kisebb mint a \textit{vector}-ban tárolt első pont $x$ koordinátájának értéke, akkor: 
+$y=y_{First}-(x_{First}-x) \cdot Angle_{begin}$ ,ahol $x_{First} \text{ és } y_{First}$ a \textit{vector}-ban tárolt első pont koordinátái.
+\item Ha a keresett $x$ érték két a \textit{vector}-ban tárolt pont $x$ koordinátájának értéke közé esik, akkor:
 $y=\bigg(\big(x-x_{LastSmaller}\big) \cdot \big((y_{FirstBigger}-y_{LastSmaller})/(x_{FirstBigger}-x_{LastSmaller})\big)\bigg)+y_{LastSmaller}$ ,ahol $x_{LastSmaller} \text{ és } y_{LastSmaller}$ a keresett $x$ értéket megelőző pont koordinátái, míg $x_{FirstBigger} \text{ és } y_{FirstBigger}$ a keresett $x$ értéket követő pont koordinátái. 
-\item Ha a keresett $x$ értéke nagyobb, mint a vectorban tárolt utolsó pont $x$ koordinátájának értéke, akkor:
-$y=y_{Last}-(x-x_{Last}) \cdot Angle_{end}$ ,ahol $x_{Last} \text{ és } y_{Last}$ a vectorban tárolt utolsó pont koordinátái.
+\item Ha a keresett $x$ értéke nagyobb, mint a \textit{vector}-ban tárolt utolsó pont $x$ koordinátájának értéke, akkor:
+$y=y_{Last}-(x-x_{Last}) \cdot Angle_{end}$ ,ahol $x_{Last} \text{ és } y_{Last}$ a \textit{vector}-ban tárolt utolsó pont koordinátái.
 \end{itemize}
 \subsection{Két függvény összeadása} \label{addPiecewiseLinearFunction}
 Két függvény összeadását az összeadás operátort felültöltő metódus végzi, melynek visszatérési értéke az összegként kapott függvényt tároló új \className{PiecewiseLinearFunction} objektum.
@@ -167,7 +167,7 @@ Ahhoz, hogy az determinisztikus throughput maximalizáló használható legyen a
 Mivel a sztochasztikus throughput maximalizáló működhet preventív, illetve két lépcsős módon, ezért szükségessé vált egy új parancssori kapcsoló bevezetése:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.4]{switch}
+\includegraphics[scale=0.38]{switch}
 \caption{Az új kapcsoló leírása a readme fájlban}
 \label{switch}
 \end{center}
@@ -186,7 +186,7 @@ A \className{RelationalProblemReader} először is meggyőződik az input fájl 
 Ez a metódus az \methodName{IsStochastic()}, illetve a \ref{extended_multiproduct} pontban használt extended input fájl esetén az \methodName{IsExtendedStochastic()}.
 Miután meggyőződtünk a fájl sztochasztikus mivoltáról, meghívásra kerül a \methodName{ReadStochastic()} metódus, amely beolvassa, majd eltárolja az \textbf{equipment}, \textbf{product}, \textbf{scenario}, \textbf{scenario\_data}, \textbf{proctime} táblák paramétereit a recept gráfot reprezentáló \className{SGraph} objektum \className{Recipe} objektumában.
 Jól látszik, hogy az új sztochasztikus paraméterek tárolásához, a \className{Recipe}, és az \className{SGraph} osztályokban szükséges létrehozni a megfelelő adattagokat, azok eléréséhez szükséges metódusokat.
-A termékek batch méretére vonatkozó új paraméterek kezelésére a \className{Product} osztály kiegészítésre került a batch\_size, batch\_size\_min, batch\_size\_max adattagokkal, valamint ide kerülnek letárolásra a \textbf{scenario\_data} tábla adatai is, az erre definiált \className{ScenarioDataEntry} objektumokból álló vectorba.
+A termékek batch méretére vonatkozó új paraméterek kezelésére a \className{Product} osztály kiegészítésre került a batch\_size, batch\_size\_min, batch\_size\_max adattagokkal, valamint ide kerülnek letárolásra a \textbf{scenario\_data} tábla adatai is, az erre definiált \className{ScenarioDataEntry} objektumokból álló \textit{vector}-ba.
 A \className{ScenarioDataEntry} osztály tartalmazza a \textbf{scenario\_data} táblázatban egy sorában található adatokat, például az adott forgatókönyv azonosítóját, a termék iránti keresletet az adott forgatókönyvben, valamint itt tároljuk le a sztochasztikus paraméterek alapján a \ref{piecewise_class} pontban bemutatott módon létrehozott \className{PiecewiseLinearFunction} objektumot, amely a $Profit_{s,p}$ függvényt reprezentálja.
 A fent említett műveleteket, a szükséges objektumok létrehozását a \className{RelationalProblemReader} osztály \methodName{ParseScenarioData} metódusa végzi el.
 Ezenkívül bevezetésre került még három \textit{boolean} változó a \className{Recipe} osztályba,  amelyek flag-ként szolgálnak, hogy a throughput maximalizáló könnyen, csupán a \className{Recipe} objektum segítségével meg tudja különböztetni a kötött-, változó batch méretű, és a két lépcsős eseteket.
@@ -221,9 +221,9 @@ Erre az ütemterv elkészítéséhez van szükség, hogy egyértelműen beazonos
 Ez a fajta működés nyilván determinisztikus esetben nem okoz gondot, hiszen ott ekvivalens az, ha két ugyan olyan termékből gyártunk egy-egy darabot, vagy egy termékből kettőt, hiszen a profit értékek nem függenek egymástól, azonban sztochasztikus esetben az alul-, és túl termelési költségek miatt a két eset nem ekvivalens.
 Éppen ezért ezt a működést valamilyen formában orvosolni kell.
 Erre a problémára nyújt megoldást a \className{Recipe} osztály \methodName{ReduceToBase()} metódusa.
-A metódus működéséhez elengedhetetlen, hogy az inputfájlban specifikált termékek neveit elmentsük a \className{Recipe} osztály egy vectorába, a fájl beolvasásakor.
+A metódus működéséhez elengedhetetlen, hogy az inputfájlban specifikált termékek neveit elmentsük a \className{Recipe} osztály egy \textit{vector}-ába, a fájl beolvasásakor.
 Ezen \textit{vector} terméknevei reprezentálják az úgynevezett "base product"-okat, azaz a kezdeti termékeket.
-Ennek a \textit{vectornak} a birtokában a \methodName{ReduceToBase()} metódus képes az aktuális konfiguráció termékeinek nevét összevetni a kezdeti termékek nevekkel, visszavezetni a konfiguráció termékeit a kezdeti termékekre.
+Ennek a \textit{vector}-nak a birtokában a \methodName{ReduceToBase()} metódus képes az aktuális konfiguráció termékeinek nevét összevetni a kezdeti termékek nevekkel, visszavezetni a konfiguráció termékeit a kezdeti termékekre.
 A metódus egy \textit{map}-el tér vissza, amely tartalmazza a kezdeti termékeknek megfeleltetett termékneveket és a hozzájuk tartozó mennyiségeket.
 Ha például a konfigurációban a fent említett $"A"$ és $"A\_2"$ termékek szerepelnek egy-egy batch-el, a metódus által visszaadott map tartalma $"A"$ termék lesz kettő batch-el, ezzel kiküszöbölve az említett problémát.
 
@@ -336,7 +336,7 @@ Az általam létrehozott, \className{Lock} objektummal védett \textit{getter}, 
 \end{center}
 \end{figure}
 \section{Multiproduct receptek esete} \label{extended_multiproduct}
-Ebben a részben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1-1 kapcsolat áll fenn, nem teljesül.
+Ebben az alfejezetben tárgyalt esetekben az eddigi feltételezés, miszerint a receptek és a termékek között 1-1 kapcsolat áll fenn, nem teljesül.
 Egy recept akár több különböző terméket is előállíthat, illetve egy bizonyos terméket akár több különböző recept is előállíthat.
 Az ilyen probléma megoldásához szükséges új fajta input fájlra példa, a \fileName{stochastic\_extended.ods}, amely a \ref{input_files} függelék \ref{stochastic_extended_ods} ábráján látható.
 Az ábra alapján jól látható, hogy az előzőekben használt \fileName{stochastic.ods} fájlhoz képest csupán egy új tábla került hozzáadásra, valamint a \textbf{scenario\_data} táblában történt változás.

@@ -2,7 +2,7 @@
 \section{Gyártórendszerek ütemezése}
 Ahogyan az már a bevezetésben is említésre került az ütemezési problémák nagy hányadát a gyártásütemezési feladatok teszik ki, melyek elvégzése során a cél általában az átviteli kapacitás, vagy egyszerűen profit (throughput)\footnote{A szakirodalomban általában az angol "throughput" kifejezés a használatos, ha profit maximalizálásról, "makespan", ha idő minimalizálásról van szó, éppen ezért dolgozatomban a továbbiakban én is ezen kifejezések használatára törekszem.} maximalizálása.
 Másik fontos célkitűzés lehet a "makespan", vagyis a feladatok elvégzéséhez szükséges idő minimalizálása.
-A gyártásütemezési problémák esetében a megoldandó feladatok alatt általában a késztermékek egy részének, összetevőjének a legyártása értendő, az erőforrások, amik között a feladatok kiosztásra kerülnek pedig nem mások mint az elérhető gépek, berendezések, amelyek az adott rész legyártására képesek, adott továbbá az is, hogy melyik berendezés melyik feladatot mennyi idő alatt képes elvégezni, valamint a részfeladatok elvégzésének betartandó sorrendje sorrendje.
+A gyártásütemezési problémák esetében a megoldandó feladatok alatt általában a késztermékek egy részének, összetevőjének a legyártása értendő, az erőforrások, amik között a feladatok kiosztásra kerülnek pedig nem mások mint az elérhető gépek, berendezések, amelyek az adott rész legyártására képesek, adott továbbá az is, hogy melyik berendezés melyik feladatot mennyi idő alatt képes elvégezni, valamint a részfeladatok elvégzésének betartandó sorrendje.
 Ezen paraméterek együtt alkotják az un. receptet, mely a feladatok precedenciája alapján a következő kategóriákra bontható:
 \begin{itemize}
 \item[]\textbf{Single stage recept}: Minden termék egy lépésben állítható elő. 
@@ -41,11 +41,11 @@ A recepteken és a tárolási irányelveken kívül a gyártórendszerek ütemez
 Az ütemezési problémák megoldásai is osztályozhatóak aszerint, hogy a megoldás megvalósítható (feasible), vagy nem valósítható meg (infeasible).
 A "megoldás" alatt általában magát az ütemtervet értjük, amely nem más mint az összes feladat hozzárendelése berendezésekhez, illetve időintervallumokhoz.
 Infeasible megoldásról akkor beszélünk, ha az ütemterv nem elégíti ki a probléma definiálása során lefektetett megkötések akár egyetlen egy tagját is, ezzel szemben feasible a megoldás, ha az ütemterv minden megkötést kielégít.
-A feasible megoldások további csoportját képezik a non-delay megoldások, amelyek esetén egyetlen egy berendezés esetén sem beszélhetünk üresjáratról, ha akár csak egy feladat is megvalósításra vár.     
+A feasible megoldások további csoportját képezik a non-delay megoldások, amelyek esetén egyetlen egy berendezés kapcsán sem beszélhetünk üresjáratról, ha akár csak egy feladat is megvalósításra vár.     
 \section{Megoldó módszerek}
 Az utóbbi évtizedekben számos különböző módszer került publikálásra, melyek az ütemezési problémák megoldására hivatottak.
 Az évek során ezek a módszerek jelentős javuláson mentek keresztül mind a megoldható problémák halmazát tekintve, mind a megoldáshoz szükséges idő gyorsaságát figyelembe véve.
-A következő alpontokban néhány megoldó módszer kerül megemlítésre..
+A következő alpontokban néhány megoldó módszer kerül megemlítésre.
 \subsection{MILP modellek}
 A publikációk túlnyomó része matematikai programozáson, név szerint a Mixed-Integer Linear Programming, azaz MILP modelleken alapszik.
 A modellek általában univerzális MILP algoritmusokkal kerülnek megoldásra. \cite{9780471283669}

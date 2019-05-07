@@ -46,7 +46,7 @@ A feasible megoldások további csoportját képezik a non-delay megoldások, am
 Az utóbbi évtizedekben számos különböző módszer került publikálásra, melyek az ütemezési problémák megoldására hivatottak.
 Az évek során ezek a módszerek jelentős javuláson mentek keresztül mind a megoldható problémák halmazát tekintve, mind a megoldáshoz szükséges idő gyorsaságát figyelembe véve.
 A következő alpontokban néhány megoldó módszer kerül megemlítésre.
-\subsection{MILP modellek}
+\subsubsection{MILP modellek}
 A publikációk túlnyomó része matematikai programozáson, név szerint a Mixed-Integer Linear Programming, azaz MILP modelleken alapszik.
 A modellek általában univerzális MILP algoritmusokkal kerülnek megoldásra. \cite{9780471283669}
 A MILP modelleknek különböző típusai léteznek:
@@ -60,12 +60,12 @@ A megoldható problémák halmaza kisebb mint az előző típus esetében, azonb
 A legtöbb modell multiproduct és multipurpose receptekre lett bevezetve, azonban többségük egyszerűen kibővíthető, hogy általánosabb problémák megoldására is használható legyen.
 A módszerek alapja két különböző bináris változó halmaz: $Y_{i,j}$, melynek értéke 1, ha $i$ feladatot $j$ berendezéshez rendeljük, valamint $X_{i,j,i'}$, mely akkor vesz fel 1 értéket, ha $i$ és $i'$ feladatokat egyaránt $j$ berendezéshez rendeljük, méghozzá úgy, hogy $i$ elvégzése megelőzi $i'$ elvégzését $j$ berendezésen. 
 \end{description}
-\subsection{Időzített automaták, Időzített Petri háló}
+\subsubsection{Időzített automaták, Időzített Petri háló}
 A Petri hálók, és automaták gyakran használatosak diszkrét eseményrendszerek modellezésére, ahhoz azonban, hogy ezen módszerek felhasználhatóak legyenek gyártásütemezési problémák megoldására is, időzítésekkel kellett kiegészíteni őket.
 Így születtek meg a Timed Place Petri Nets (TPPN), Timed Priced Automata (TPA) módszerek.
 Ezen módszerek Branch \& Bound algoritmust használnak az állapottér bejárására, és a legkedvezőbb megoldás megtalálására.
 A hatékony modellezésnek köszönhetően a modellezési hibák könnyen kikerülhetőek, valamint a módszer könnyen kibővíthető a reaktív ütemezési feladatok kezelésére is, ennek ellenére azonban ezen módszerek hatékonysága elmarad a MILP modellek, illetve az S-gráf modell hatékonyságától is.  
-\subsection{S-gráf keretrendszer}
+\subsubsection{S-gráf keretrendszer}
 Az S-gráf keretrendszer, amely ezen szakdolgozat fő fókuszát képezi, volt az első publikált gráf elméleten alapuló módszer szakaszos gyártórendszerek ütemezésére.
 Az S-gráf keretrendszer részletesebb bemutatása a \ref{S-graph}. fejezetben olvasható. 
 \section{Az ütemtervek vizualizációja}

@@ -2,8 +2,8 @@
 Az S-gráf keretrendszer egy irányított gráf modellből, az S-gráfból és a hozzá tartozó algoritmusokból áll. \cite{SANMARTI1998S847}
 Az S-gráf egy speciális irányított gráf, amely nem csupán a probléma vizualizációjára képes, hanem egy matematikai modell is.
 A keretrendszerben a recepteket, valamint a félkész-, illetve a teljes ütemterveket is az S-gráf reprezentálja.
-Ezekben a gráfokban a termékeket, illetve a feladatokat a pontok jelölik, amelyeket csomópontoknak nevezünk.
-Ezenkívül, ha két feladat között összeköttetés van, ezt a gráfon a két feladatot reprezentáló csomópontok közötti nyíl jelöli.
+Ezekben a gráfokban a termékeket, illetve a feladatokat a csúcsok jelölik, amelyeket csomópontoknak nevezünk.
+Ezenkívül, ha két feladat között összeköttetés van, ezt a gráfon a két feladatot reprezentáló csomópontok közötti irányított él jelöli.
 Az ütemezési információ nélküli S-gráfot recept gráfnak (\textbf{recipe graph)} nevezzük, melyre egy példa a \ref{recipeGraph} ábrán látható.
 \begin{figure}[H]
 \begin{center}
@@ -13,13 +13,13 @@ Az ütemezési információ nélküli S-gráfot recept gráfnak (\textbf{recipe 
 \end{center}
 \end{figure}
 Az ábrán látható jobb oldali kettő csomópont (A,B) jelöli a termékeket, a többi csomópont pedig a részfeladatokat, amelyeket el kell végezni a termékek előállítása érdekében.
-A recept gráf nyilai reprezentálják egyrészt két részfeladat közötti függőséget, abban ez esetben például, ha ez egyik részfeladat állítja elő a másik részfeladathoz szükséges bemeneti részterméket, másrészt a részfeladatok és a késztermékek közötti függőséget.
+A recept gráf irányított élei reprezentálják egyrészt két részfeladat közötti függőséget, abban ez esetben például, ha ez egyik részfeladat állítja elő a másik részfeladathoz szükséges bemeneti részterméket, másrészt a részfeladatok és a késztermékek közötti függőséget.
 A recept gráf minden részfeladathoz tartozó csomópontjához tartozik egy halmaz, amely azon berendezések nevét tartalmazza, amelyek képesek adott részfeladat megoldására.
-A nyilakon található súlyok pedig a részfeladat megoldásához szükséges gyártási időt reprezentálják, abban az esetben, ha egy részfeladatot több berendezés is el tud végezni, a nyíl súlya a berendezésekhez tartozó gyártási idők közül a legkisebb lesz.
+Az éleken található súlyok pedig a részfeladat megoldásához szükséges gyártási időt reprezentálják, abban az esetben, ha egy részfeladatot több berendezés is el tud végezni, az irányított él súlya a berendezésekhez tartozó gyártási idők közül a legkisebb lesz.
 
-Az S-gráf keretrendszerben található algoritmusok az előzőekben bemutatott recept gráfot egészítik ki ütemezési nyilakkal, amelyek az algoritmus által meghozott ütemezési döntéseket reprezentálják.
+Az S-gráf keretrendszerben található algoritmusok az előzőekben bemutatott recept gráfot egészítik ki ütemezési élekkel, amelyek az algoritmus által meghozott ütemezési döntéseket reprezentálják.
 Az ily módon előállított gráfot, függetlenül attól, hogy van-e még meghozatlan ütemezési döntés, vagy pedig a teljes ütemezés megtörtént, ütemezési gráfnak (\textbf{schedule graph}) nevezzük.
-A \ref{recipeGraph} pontban látható recept gráf alapján előállított ütemezési gráf a \ref{scheduleGraph} ábrán látható.
+A \ref{recipeGraph} pontban látható recept gráf alapján előállított egy lehetséges ütemezési gráf a \ref{scheduleGraph} ábrán látható.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.375]{scheduleGraph}
@@ -27,9 +27,9 @@ A \ref{recipeGraph} pontban látható recept gráf alapján előállított ütem
 \label{scheduleGraph}
 \end{center}
 \end{figure}
-Az ábrán látható gráfon már minden ütemezési döntés lezajlott, a zöld nyilak jelölik az ütemező algoritmus által behúzott ütemezési nyilakat.
+Az ábrán látható gráfon már minden ütemezési döntés meghozásra került, a zöld élek modellezik az ütemező algoritmus által meghozott ütemezési döntéseket.
 A részfeladatokat reprezentáló csomópontokon immáron a lehetséges berendezések halmaza helyett egy konkrét berendezés jelölése található, amely az adott részfeladat elvégzésére hivatott az adott ütemterv szerint.
-Az ütemezési nyilak súlya alapértelmezetten $0$, ha az adott problémában nem számolunk például részfeladatok közötti szállítási-, átállási-, illetve tisztítási időkkel.
+Az ütemezési élek súlya alapértelmezetten $0$, ha az adott problémában nem számolunk például részfeladatok közötti szállítási-, átállási-, illetve tisztítási időkkel.
 Az adott berendezéshez rendelt részfeladatok sorrendje könnyen leolvasható az ütemezési gráfról, erre egy példa a \ref{unitSequence} ábrán látható.
 \begin{figure}[H]
 \begin{center}
@@ -39,12 +39,14 @@ Az adott berendezéshez rendelt részfeladatok sorrendje könnyen leolvasható a
 \end{center}
 \end{figure}
 Az ábra alapján leolvasható, hogy az E1 berendezés először a B1 részfeladatot végzi el, majd a A1, azután pedig az A2 fog következni.
-Ahhoz azonban, hogy például a A3 részfeladatot E2 berendezés el tudja végezni, nem elegendő az, hogy B termék gyártása befejeződjön, elengedhetetlen az is, hogy minden részfeladat amitől A3 függ (nevezetesen A2) szintén véget érjen.
+Az ábrán megfigyelhető továbbá az is, hogy a zöld ütemezési nyíl nem közvetlenül a B1 csomópontból, hanem a B2-ből került behúzásra az A1 felé.
+Ezen jelölés azt szemlélteti, hogy A1 feladat elkezdéséhez nem elegendő az, hogy E1 berendezés elvégezze B1 feladatot, de a B1 feladat során termelt részterméket E2-nek először át kell vennie E1 berendezéstől, addig ugyanis az E1 berendezésben kerül tárolásra NIS tárolási irányelv szerint.
 
 Az S-gráf keretrendszerben történő ütemezésre egy bővebb példa a makespan minimalizáló \footnote{A makespan minimalizáló algoritmus segítségével adott receptgráffal reprezentált termékek gyártási ideje minimalizálható. Az algoritmus fontos szerepet játszik a \ref{SgraphProfitMax}. alfejezetben tárgyalt profit (throughput) maximalizáló algoritmusban is.} algoritmuson keresztül szemléltetve megtalálható a CD melléklet \fileName{Algoritmusok} mappájában \fileName{DO\_Sgraph\_Makespan\_Minimization.odg} néven. 
+\section{Makespan minimalizálás az S-gráf keretrendszerben}
 \section{Profit maximalizálás az S-gráf keretrendszerrel} \label{SgraphProfitMax}
 Az S-gráf keretrendszer eredetileg makespan minimalizációs célokra lett megalkotva, azonban később kibővítésre került egy throughput maximalizáló algoritmussal, amely segítségével immáron profit maximalizálásra is képes.
-Az throughput maximalizáló algoritmus alapötletét Majozi és Friedler \cite{doi:10.1021ie0604472}, valamint Holczinger \cite{HOLCZINGER2007649} fektették le, melynek lényege, hogy a termékek lehetséges batch darabszámai alapján különböző konfigurációk kerülnek létrehozásra\footnote{A és B termékek esetén egy lehetséges konfiguráció például, ha A termékből 1 darab, B-ből 2 darab batch-et gyártunk.}, melyek között branch \& bound algoritmus segítségével eredményül kapható a legnagyobb profitot eredményező konfiguráció, ha létezik megvalósítható (feasible) megoldás a problémára.
+Az throughput maximalizáló algoritmus alapötletét Majozi és Friedler \cite{doi:10.1021ie0604472}, valamint Holczinger és társai \cite{HOLCZINGER2007649} fektették le, melynek lényege, hogy a termékek lehetséges batch darabszámai alapján különböző konfigurációk kerülnek létrehozásra\footnote{A és B termékek esetén egy lehetséges konfiguráció például, ha A termékből 1 darab, B-ből 2 darab batch-et gyártunk.}, melyek között branch \& bound algoritmus segítségével eredményül kapható a legnagyobb profitot eredményező konfiguráció, ha létezik megvalósítható (feasible) megoldás a problémára.
 
 A throughput maximalizáló algoritmus működésének egy példán keresztül történő szemléltetésére készült folyamatábra a CD melléklet \fileName{Algoritmusok} mappájában található \fileName{DO\_Sgraph\_Throughput\_Maximization.odp} néven.
 Kezdetben a konfigurációk halmaza tartalmazza az összes lehetséges konfigurációt az adott termékekre, majd minden iteráció során kiválasztásra kerül egy konfiguráció, amelynek teszteljük feasible-itását, azaz hogy a rendelkezésre álló időhorizont alatt megvalósítható-e adott konfiguráció legyártása.

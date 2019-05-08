@@ -2,6 +2,17 @@
 \section{A felhasznált módszerek} \label{math_modells}
 A problémák megoldásához az S-gráf keretrendszerben már kidolgozásra kerültek elméleti algoritmusok \cite{phd_Hegyhati}.
 Szakdolgozati munkám célja ezen elméleti algoritmusok tanulmányozása, részleteinek kidolgozása, valamint az S-gráf megoldó keretrendszerbe történő integrálása, implementálása, valamint tesztelése.
+A \ref{Problem_def}. fejezetben bevezetett paramétereken kívül célszerű még bevezetni a következő jelöléseket:
+\begin{description}
+\item[$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$]  $p$ termék $x$ értékben vett várható profit értéke
+\end{description}
+$Profit_{s,p}(x)$, amely megadja $x$ mennyiségű $p$ termék bevételét az adott $s$ forgatókönyvben:
+\begin{equation*}
+Profit_{s,p}(x)= \begin{cases}
+            price_{s,p}\cdot x-(dem_{s,p}-x) \cdot uc_{s,p}\qquad \text{ha } x<dem_{s,p} \\
+            price_{s,p} \cdot dem_{s,p}-(x-dem_{s,p}) \cdot oc_{s,p}\qquad \text{egyébként}
+       \end{cases}
+\end{equation*}
 \subsection{Preventív ütemezés kötött batch mérettel} \label{FixBatchSize}
 Ebben az esetben az egyetlen döntés, amit meg kell hozni, hogy az egyes termékekből hány darab batch-et gyártsunk, a várható profit a következőképpen számítható ki:
 $$\sum_{p \in P}\bigg (\sum_{s \in S} prob_s \cdot profit_{s,p} (s_p \cdot b_p)\bigg)$$

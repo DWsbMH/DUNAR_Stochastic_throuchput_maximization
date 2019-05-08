@@ -42,29 +42,64 @@ Az ábra alapján leolvasható, hogy az E1 berendezés először a B1 részfelad
 Az ábrán megfigyelhető továbbá az is, hogy a zöld ütemezési nyíl nem közvetlenül a B1 csomópontból, hanem a B2-ből került behúzásra az A1 felé.
 Ezen jelölés azt szemlélteti, hogy A1 feladat elkezdéséhez nem elegendő az, hogy E1 berendezés elvégezze B1 feladatot, de a B1 feladat során termelt részterméket E2-nek először át kell vennie E1 berendezéstől, addig ugyanis az E1 berendezésben kerül tárolásra NIS tárolási irányelv szerint.
 
-Az S-gráf keretrendszerben történő ütemezésre egy bővebb példa a makespan minimalizáló \footnote{A makespan minimalizáló algoritmus segítségével adott receptgráffal reprezentált termékek gyártási ideje minimalizálható. Az algoritmus fontos szerepet játszik a \ref{SgraphProfitMax}. alfejezetben tárgyalt profit (throughput) maximalizáló algoritmusban is.} algoritmuson keresztül szemléltetve megtalálható a CD melléklet \fileName{Algoritmusok} mappájában \fileName{DO\_Sgraph\_Makespan\_Minimization.odg} néven. 
 \section{Makespan minimalizálás az S-gráf keretrendszerben}
+Az S-gráf keretrendszer eredetileg makespan minimalizációs célokra lett megalkotva.
+A makespan minimalizáló algoritmus egy Branch \& Bound algoritmus, melynek segítségével adott receptgráffal reprezentált termékek gyártási ideje minimalizálható.
+Az algoritmus fontos szerepet játszik azonban a \ref{SgraphProfitMax}. alfejezetben tárgyalt throughput maximalizáló algoritmusban is, éppen ezért az algoritmus rövid áttekintése hasznos lehet a továbbiakban, ezt tartalmazza jelen alfejezet.
+Az S-gráf keretrendszer makespan minimalizáló algoritmusának lefutására egy részletes példa megtalálható a CD melléklet \fileName{Algoritmusok} mappájában \fileName{DO\_Sgraph\_Makespan\_Minimization.odg} néven. 
+Az algoritmus először végtelenre állítja be a makespan értékét, valamint inicializálja a nyitott részproblémák halmazát, amelyben kezdetben csupán a recept gráf található.
+Minden iteráció során egy részprobléma kerül kiválasztásra ebből a halmazból, ez a kiválasztás többféle stratégia alapján történhet, ezért ennek mikéntje implementáció függő.
+Az iteráció kezdetén a  részprobléma kiértékelésre kerül egy bound függvény által abból a szempontból, hogy optimális eredményt képes-e szolgáltatni.
+Ez a bound függvény leggyakrabban a gráfban található leghosszabb út alapján kerül kiszámításra.
+Ha az aktuális részprobléma bound értéke nem kisebb mint az aktuális legjobb eredmény, az iteráció véget ér, egy új részprobléma kerül kiválasztásra a halmazból.
+Ha a bound érték kisebb mint az aktuális legjobb érték, az algoritmus leellenőrzi, hogy a részprobléma esetén minden ütemezési döntés meghozásra került-e.
+Ha ez a feltétel igaz, akkor a makespan értéke frissítésre kerül az aktuális részprobléma bound-jával, valamint elmentésre kerül az ütemezési gráf is, mint az eddigi legjobb megoldás.
+Abban az esetben, ha a részproblémához tartozó ütemezési gráf nem teljes, az algoritmus az elérhető berendezésekhez rendeli a még elérhető feladatokat.
+Minden berendezéshez rendelt feladat esetén lemásolásra kerül az aktuális ütemezési gráf.
+Ezen másolatok kiegészítésre kerülnek a hozzárendelés alapján behúzható ütemezési élekkel, valamint ezen élek súlyaival.
+Ezután minden ilyen módon létrehozott új gráf hozzáadásra kerül a nyitott részproblémák halmazához.
+Az algoritmus akkor ér véget, ha ez a halmaz kiürül, ebben az esetben visszaadásra kerül a legjobb megoldást reprezentáló ütemezési gráf és a hozzá tartozó makespan érték, ha létezik a problémának legalább egy feasible megoldása. 
 \section{Profit maximalizálás az S-gráf keretrendszerrel} \label{SgraphProfitMax}
-Az S-gráf keretrendszer eredetileg makespan minimalizációs célokra lett megalkotva, azonban később kibővítésre került egy throughput maximalizáló algoritmussal, amely segítségével immáron profit maximalizálásra is képes.
-Az throughput maximalizáló algoritmus alapötletét Majozi és Friedler \cite{doi:10.1021ie0604472}, valamint Holczinger és társai \cite{HOLCZINGER2007649} fektették le, melynek lényege, hogy a termékek lehetséges batch darabszámai alapján különböző konfigurációk kerülnek létrehozásra\footnote{A és B termékek esetén egy lehetséges konfiguráció például, ha A termékből 1 darab, B-ből 2 darab batch-et gyártunk.}, melyek között branch \& bound algoritmus segítségével eredményül kapható a legnagyobb profitot eredményező konfiguráció, ha létezik megvalósítható (feasible) megoldás a problémára.
-
+A makespan minimalizáláson kívül az S-gráf keretrendszer később kibővítésre került egy throughput maximalizáló algoritmussal, amely segítségével immáron throughput maximalizálásra is képes.
+Az throughput maximalizáló algoritmus alapötletét Majozi és Friedler \cite{doi:10.1021ie0604472}, valamint Holczinger és társai \cite{HOLCZINGER2007649} fektették le.
+Az algoritmus lényege, hogy a termékek lehetséges batch darabszámai alapján különböző konfigurációk kerülnek létrehozásra, melyek között az algoritmus segítségével eredményül kapható a legnagyobb throughputot eredményező konfiguráció, ha létezik megvalósítható (feasible) megoldás a problémára.
+Egy konfiguráció alatt tehát azt értjük, hogy adott termékből hány batch-et termelünk.
+Ezen konfigurációk elképzelhetőek egy $n$ dimenziós térben, ahol $n$ a különböző termékek számát jelöli.
+Ebben a térben a tengelyek menti megoldások azokat az eseteket jelölik, melyekben csak egy fajta terméket termelünk.
 A throughput maximalizáló algoritmus működésének egy példán keresztül történő szemléltetésére készült folyamatábra a CD melléklet \fileName{Algoritmusok} mappájában található \fileName{DO\_Sgraph\_Throughput\_Maximization.odp} néven.
+Ezen fájl alapján a fentiekre példa két termék esetén a következő koordináta rendszer:
+ \begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{throughputCoordinate}
+\caption{A konfigurációkat tartalmazó tér szemléltetése két termék esetén}
+\label{throughputCoordinate}
+\end{center}
+\end{figure}
 Kezdetben a konfigurációk halmaza tartalmazza az összes lehetséges konfigurációt az adott termékekre, majd minden iteráció során kiválasztásra kerül egy konfiguráció, amelynek teszteljük feasible-itását, azaz hogy a rendelkezésre álló időhorizont alatt megvalósítható-e adott konfiguráció legyártása.
 Ennek tesztelése a korábban már említett makespan minimalizáló algoritmus felhasználásával a legegyszerűbb.
 A makespan minimalizáló algoritmusnak átadásra kerül adott konfiguráció recept gráfja, majd az eredményül kapott idő érték összehasonlításra kerül a rendelkezésre álló időhorizonttal, ha a kapott érték nagyobb annál, az adott konfiguráció nem valósítható meg (infeasible). 
 Ha az adott konfiguráció megvalósítható a rendelkezésre álló időhorizont alatt, kiszámításra kerül az adott konfiguráció által nyújtott profit, ha ez nagyobb az eddigi legjobb értéknél, frissíteni kell a legjobb értéket adott konfiguráció revenue értékével.
 Kezdetben a tengelyek menti konfigurációk kerülnek tesztelésre mind addig, még az összes tengelyen el nem jutunk az első megvalósíthatatlan (infeasible) konfigurációig.
-Ezzel előáll egy tér, amely tartalmazza az optimális megoldást, amelyet már csak meg kell találni, mivel azonban a konfigurációk tesztelése erőforrás igényes feladat, ezért a konfigurációk kiválasztásának sorrendje nem mindegy, többféle stratégia létezik az algoritmus gyorsítására. \cite{phd_Hegyhati}
-Az egyik ilyen stratégia az úgynevezett revenue line behúzása, mely segítségével szerencsés esetben akár töredékére csökkenthető a tesztelendő konfigurációk száma.
-A revenue line segítségével lényegében eltávolításra kerülnek azok a konfigurációk, melyek profitja nem éri el az aktuális legjobb profit értéket, azaz a behúzott vonal alatt vannak.
-A revenue line szemléltetésére a \ref{revLine} ábra hivatott, mely a már fent említett  \fileName{DO\_Sgraph\_Throughput\_Maximization.odp} fájl részlete.
+Ezzel előáll egy tér, amely tartalmazza az optimális megoldást, amelyet már csak meg kell találni.
+Ennek szemléltetésére szolgál a \ref{optSolRegion}.  ábra.
  \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{revLine}
+\includegraphics[scale=0.4]{optSolRegion}
+\caption{Példa az optimális megoldást tartalmazó térre két termék esetén}
+\label{optSolRegion}
+\end{center}
+\end{figure}
+Mivel a konfigurációk tesztelése erőforrás igényes feladat, ezért a konfigurációk kiválasztásának sorrendje ezen a téren belül nem mindegy, többféle stratégia létezik az algoritmus gyorsítására. \cite{phd_Hegyhati}
+Az egyik ilyen stratégia az úgynevezett revenue line behúzása, mely segítségével szerencsés esetben akár töredékére csökkenthető a tesztelendő konfigurációk száma.
+A revenue line segítségével lényegében eltávolításra kerülnek azok a konfigurációk, melyek profitja nem éri el az aktuális legjobb profit értéket, azaz a behúzott vonal alatt vannak.
+A revenue line szemléltetésére a \ref{revLine} ábra hivatott.
+ \begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{revLine}
 \caption{A revenue line szemléltetése}
 \label{revLine}
 \end{center}
 \end{figure}
-Jól látható, hogy jelen esetben a revenue line behúzása felére csökkentette az ellenőrizendő konfigurációk számát, gyorsítva ezzel az algoritmus lefutását.
-Az algoritmus akkor ér véget, ha a konfigurációk halmaza kiürül, ebben az esetben ha egyetlen egy megvalósítható megoldás sem található, a probléma megoldása lehetetlen az adott időhorizont alatt.
+Jól látható, hogy jelen esetben a revenue line behúzása harmadára csökkentette az ellenőrizendő konfigurációk számát, gyorsítva ezzel az algoritmus lefutását.
+Az algoritmus akkor ér véget, ha a konfigurációk halmaza kiürül, ebben az esetben ha egyetlen egy konfiguráció sem valósítható meg az adott időkorláton belül, a probléma megoldása lehetetlen az adott időhorizont alatt.
 Ha található feasible megoldás, az algoritmus az optimális konfigurációt adja eredményül, megkapva ezzel a maximális profit értékét, valamint annak előállításához szükséges ütemtervet.

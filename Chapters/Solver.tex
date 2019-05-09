@@ -1,4 +1,6 @@
 \chapter{Az S-gráf solver} \label{s-graph_framework}
+Mivel munkám része a kidolgozott új módszerek implementációja az S-gráf solver programba, ezért célszerű röviden bemutatni ezen program használatát, felépítését, illetve a további munkám szempontjából fontosabb részek működését.
+Ezek leírására szolgál jelen fejezet.
 Az S-gráf solver program egy C++ nyelven íródott, több szálas megoldó program, mely az S-gráf keretrendszerben foglalt algoritmusok segítségével különböző ütemezési problémákat képes megoldani.
 Jelenleg a NIS, UIS, UW, és LW tárolási irányelveket támogatja, valamint a következő célfüggvényekkel használható: makespan minimalizáció, throughput maximalizáció, cycle time minimalizáció.
 A solver parancssorból futtatható, különböző parancssori kapcsolók teszik lehetővé a különböző funkciókhoz tartozó paraméterek beállítását.
@@ -9,13 +11,15 @@ Néhány, a throughput maximalizáláshoz fontos kapcsoló:
 \item[\text{-{}-}obj [objective function]] A célfüggvény típusa, throughput maximalizálás esetén ezen kapcsoló értéke: thmax
 \item[\text{-{}-}timehor [time horizon]] A throughput maximalizáláshoz rendelkezésre álló időhorizont mérete 
 \end{description}
+\pagebreak
 A fentiek alapján a solver futtatására egy példa:
 \begin{center}
 \verb|-i input-stoch.ods -o output.png --timehor 15 --obj thmax|
 \end{center}
 A solver az OpenMP API-t használja párhuzamosításra, a kód lefordításához Qt5 szükséges, feltétel továbbá a boost könyvtár telepítése is.
 Ezenfelül Linux alatt történő futtatáshoz letöltendő még a Google OR-Tools könyvtár, Windows operációs rendszer esetén pedig a Visual C++ Redistributable telepítése a követelmény.
-A fentiek telepítése, illetve a megfelelő könyvtárak elérési útjainak beállítása után a solver qmake segítségével fordítható, melynek következtében létrejönnek a futtatáshoz szükséges fájlok, köztük a solver.exe (Windows esetén), mellyel immáron futtathatjuk a megoldó programot az előző példához hasonló módon.   
+A fentiek telepítése, illetve a megfelelő könyvtárak elérési útjainak beállítása után qmake segítségével elkészíthető a make file a projekt alapján.
+Ezen make fájl segítségével a make meghívja a fordítót, amely lefordítja a programot, melynek következtében létrejönnek a futtatáshoz szükséges fájlok, köztük a solver.exe (Windows esetén), mellyel immáron futtathatjuk a megoldó programot az előző példához hasonló módon.   
 \section{A solver működése}
 A szolver futtatásához szükséges parancssori kapcsolók lehetséges értékeit, és egyéb paramétereit (pl. min/max érték) leíró opciókat tartalmazza az \fileName{Arguments.cpp} fájl. 
 A \className{MainSolver} osztály \methodName{getOptions} metódusa a beolvasott parancssori kapcsolók értékei alapján létrehozza a \className{SolverOptions} osztály egy példányát amely objektumtól ezután lekérdezhetőek a különféle beállítások.
@@ -33,7 +37,8 @@ Az osztály \methodName{Solve} metódusa először is megkeresi az optimális me
 Ehhez a \methodName{FirstFeasible} metódust használja fel, mely a \methodName{SolveBest} metódus segítségével leteszteli az adott konfiguráció feasibilitását.
 Ha az adott konfiguráció megvalósítható, meghívásra kerül a \methodName{NewSolution} metódus, amely a konfiguráció alapján létrehoz egy új lehetséges megoldást reprezentáló objektumot, valamint elmenti a konfiguráció profit értékét, ha az nagyobb, mint az aktuális legjobb érték.
 A \methodName{SolveBest} metódus visszaadja a \methodName{FirstFeasible} metódus számára azt a mutatót, melyen keresztül az új megoldás elérhető, ha feasible volt a konfiguráció, ha nem volt az, akkor null érték kerül visszaadásra.
-Az első null érték visszakapása után a \methodName{Solve} metódus több konfigurációt már nem hoz létre, megtalálásra került ugyanis az optimális megoldást tartalmazó tér.
+Az első null érték visszakapása után a \methodName{Solve} metódus több konfigurációt már nem hoz létre az aktuális tengelyen.
+Miután minden tengely mentén visszakapta az első null értéket, véget ér ez az első fázis, megtalálásra került ugyanis az optimális megoldást tartalmazó tér.
 Ezután következik ezen tér bejárása, az optimális megoldás megkeresése a lehetséges megoldások között.
 Erre azonban több stratégia is lehetséges, ezért a \methodName{Solve} metódus először is lekérdezi az ehhez kapcsolódó parancssori paraméterek értékét, majd ezek alapján meghívja a megfelelő bejárást végző metódust.
 Ez a metódus alapértelmezett esetben a \methodName{SearchThrSolution}, mely a \ref{SgraphProfitMax} alfejezetben már említett revenue line gyorsítási stratégiát is használja a térben való kereséshez.

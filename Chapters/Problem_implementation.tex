@@ -2,31 +2,43 @@
 \section{A felhasznált módszerek} \label{math_modells}
 A problémák megoldásához az S-gráf keretrendszerben már kidolgozásra kerültek elméleti algoritmusok \cite{phd_Hegyhati}.
 Szakdolgozati munkám célja ezen elméleti algoritmusok tanulmányozása, részleteinek kidolgozása, valamint az S-gráf megoldó keretrendszerbe történő integrálása, implementálása, valamint tesztelése.
-A \ref{Problem_def}. fejezetben bevezetett paramétereken kívül célszerű még bevezetni a következő jelöléseket:
-\begin{description}
-\item[$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$]  $p$ termék $x$ értékben vett várható profit értéke
-\end{description}
-$Profit_{s,p}(x)$, amely megadja $x$ mennyiségű $p$ termék bevételét az adott $s$ forgatókönyvben:
-\begin{equation*}
-Profit_{s,p}(x)= \begin{cases}
-            price_{s,p}\cdot x-(dem_{s,p}-x) \cdot uc_{s,p}\qquad \text{ha } x<dem_{s,p} \\
-            price_{s,p} \cdot dem_{s,p}-(x-dem_{s,p}) \cdot oc_{s,p}\qquad \text{egyébként}
-       \end{cases}
-\end{equation*}
 \subsection{Preventív ütemezés kötött batch mérettel} \label{FixBatchSize}
 Ebben az esetben az egyetlen döntés, amit meg kell hozni, hogy az egyes termékekből hány darab batch-et gyártsunk, a várható profit a következőképpen számítható ki:
 $$\sum_{p \in P}\bigg (\sum_{s \in S} prob_s \cdot profit_{s,p} (s_p \cdot b_p)\bigg)$$
-Érdemes még bevezetni adott $p$ termék $x$ értékben vett várható profit értékére a következő jelölést:
+Érdemes még bevezetni a fenti képlet egyszerűsítésére adott $p$ termék $x$ értékben vett várható profit értékére a következő jelölést:
 $$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$$
-$ExpProfit_p(x)$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. 
-Miután minden forgatókönyvre előállítottuk a \ref{profit_func_prob} ábrához hasonlóan ezt az "összenyomott" profit függvényt, ezen függvények összeadásával előáll az $ExpProfit_p$, ha ezt minden termékre megtesszük, az adott $p$ termékek $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékének összegeként előáll a várható profit.
+$ExpProfit_p$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. 
+Miután minden forgatókönyvre előállítottuk az "összenyomott" profit függvényt adott forgatókönyv valószínűségét felhasználva, ezen előállított függvények összeadásával megkapható az $ExpProfit_p$ függvény.
+A fentiek szemléltetésére szolgálnak az alábbi ábrák $p1$ termék esetén, melynek két forgatókönyve $s1$ és $s2$:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.4]{profitFuncProb}
-\caption{A profit függvény szorzásának szemléltetése}
-\label{profit_func_prob}
+\includegraphics[scale=0.38]{profitsForP1}
+\caption{$p_1$ termék profit függvényei $s_1$ és $s_2$ forgatókönyvben}
+\label{profit_for_p1}
 \end{center}
 \end{figure}
+A \ref{profit_for_p1}. ábrán láthatóak $p1$ termék profit függvényei.
+A bal oldali függvény az $s1$, a jobb oldali az $s2$ forgatókönyvbeli profit függvénye $p1$ terméknek.
+Miután ezek a függvények megalkotásra kerültek adott termék összes forgatókönyvére, a következő lépésben ezek beszorzásra kerülnek adott forgatókönyvek valószínűségével.
+Ezt a lépést ábrázolja a \ref{profit_for_p1_prob}. ábra.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.475]{profitsForP1Prob}
+\caption{$p_1$ termék összenyomott profit függvényei $s_1$ és $s_2$ forgatókönyvben}
+\label{profit_for_p1_prob}
+\end{center}
+\end{figure}
+Ebben a példában $s1$ forgatókönyv valószínűsége $0.5$, $s2$ valószínűsége pedig $0.25$.
+Az ábrán látható függvények kiszámításával előáll minden forgatókönyvre a $prob_s \cdot profit_{s,p}$ függvény, amelyeket ezután össze kell adni, hogy előálljon $ExpProfit_{p_1}$ függvény.
+Ezt a fenti ábrák alapján előállított $ExpProfit_{p_1}$ függvényt ábrázolja a \ref{expProfit_p1}. ábra.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.45]{expProfitP1}
+\caption{$p_1$ termék ExpProfit függvényének szemléltetése.}
+\label{expProfit_p1}
+\end{center}
+\end{figure}
+Miután minden termékre előállításra kerül ez az $ExpProfit_p$ függvény, az $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékek összegeként előáll a várható profit, azaz minden termék $ExpProfit$ függvényéből lekérdezésre kerül az $x$ értékhez tartozó profit érték, majd ezen értékek összegzésre kerülnek, ez adja meg a várható profit értékét.
 \subsection{Preventív ütemezés változó batch mérettel} \label{variable_batch_size_modell}
 Az előző esettel ellentétben, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. 
 Ebben az esetben a batch méretről való döntés is a megoldó algoritmus feladata úgy, hogy $p$ termék batch mérete $s_p^{min}$ és $s_p^{max}$ között legyen.

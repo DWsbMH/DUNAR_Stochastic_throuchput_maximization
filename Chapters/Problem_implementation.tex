@@ -27,26 +27,18 @@ A fentiek szemléltetésére szolgálnak az alábbi ábrák $p1$ termék esetén
 A \ref{profit_for_p1}. ábrán láthatóak $p1$ termék profit függvényei.
 A bal oldali függvény az $s1$, a jobb oldali az $s2$ forgatókönyvbeli profit függvénye $p1$ terméknek.
 Miután ezek a függvények megalkotásra kerültek adott termék összes forgatókönyvére, a következő lépésben ezek beszorzásra kerülnek adott forgatókönyvek valószínűségével.
-Ezt a lépést ábrázolja a \ref{profit_for_p1_prob}. ábra.
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.4]{profitsForP1Prob}
-\caption{$p_1$ termék összenyomott profit függvényei $s_1$ és $s_2$ forgatókönyvben}
-\label{profit_for_p1_prob}
-\end{center}
-\end{figure}
-Ebben a példában $s1$ forgatókönyv valószínűsége $0.5$, $s2$ valószínűsége pedig $0.25$.
-Az ábrán látható függvények kiszámításával előáll minden forgatókönyvre a $prob_s \cdot profit_{s,p}$ függvény, amelyeket ezután össze kell adni, hogy előálljon $ExpProfit_{p_1}$ függvény.
-Ezt a fenti ábrák alapján előállított $ExpProfit_{p_1}$ függvényt ábrázolja a \ref{expProfit_p1}. ábra.
+Ezt a lépést ábrázolja a \ref{profitsToExp}. ábra felső két függvénye.
+Ebben a példában $s1$ és $s2$ forgatókönyv valószínűsége is $0.5$.
+Az ábrán látható függvények kiszámításával előáll minden forgatókönyvre a $prob_s \cdot profit_{s,p}$ függvény, amelyeket ezután össze kell adni, hogy előálljon $ExpProfit_{p_1}$ függvény, melyet a \ref{profitsToExp}. ábra alsó függvénye ábrázol.
 Miután minden termékre előállításra kerül ez az $ExpProfit_p$ függvény, az $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékek összegeként előáll a várható profit.
 Azaz minden termék $ExpProfit$ függvényéből lekérdezésre kerül az $x$ értékhez tartozó profit érték, ahol $x$ az adott termékből termelt mennyiség, mely a termelt batchek száma ($b_p$) és azok méretének ($s_p$) szorzataként áll elő.
 Jelen esetben a batch méret ($s_p$) egy fixen adott paraméter, hiszen kötött batch méretű esetről beszélünk.
 Ezután ezen $ExpProfit_p(x)$ értékek összegzésre kerülnek, ez adja meg a várható profit értékét.
-\begin{figure}[H]
+\begin{figure}
 \begin{center}
-\includegraphics[scale=0.45]{expProfitP1}
-\caption{$p_1$ termék ExpProfit függvényének szemléltetése.}
-\label{expProfit_p1}
+\includegraphics[scale=0.4]{profitsToExp}
+\caption{$p_1$ termék összenyomott profit függvényei, és az $ExpProfit_{p_1}$ függvény}
+\label{profitsToExp}
 \end{center}
 \end{figure}
 \subsection{Preventív ütemezés változó batch mérettel} \label{variable_batch_size_modell}

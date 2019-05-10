@@ -7,6 +7,13 @@ Ebben az esetben az egyetlen döntés, amit meg kell hozni, hogy az egyes termé
 $$\sum_{p \in P}\bigg (\sum_{s \in S} prob_s \cdot profit_{s,p} (s_p \cdot b_p)\bigg)$$
 Érdemes még bevezetni a fenti képlet egyszerűsítésére adott $p$ termék $x$ értékben vett várható profit értékére a következő jelölést:
 $$ExpProfit_p(x)=\sum_{s \in S}prob_s \cdot profit_{s,p}(x)$$
+Ahol $profit_{s,p}(x)$, azaz adott termék $x$ darabszámának profit értéke az $s$ forgatókönyvben a következőképpen számítható ki: 
+\begin{equation*}
+Profit_{s,p}(x)= \begin{cases}
+            price_{s,p}\cdot x-(dem_{s,p}-x) \cdot uc_{s,p}\qquad \text{ha } x<dem_{s,p} \\
+            price_{s,p} \cdot dem_{s,p}-(x-dem_{s,p}) \cdot oc_{s,p}\qquad \text{egyébként}
+       \end{cases}
+\end{equation*}
 $ExpProfit_p$ kiszámításához tehát nincs másra szükségünk, mint hogy az összes forgatókönyvre sorban felépítsünk az adott forgatókönyvre vonatkozó sztochasztikus paraméterekből a $profit_{s,p}$ függvényt, majd ezt a függvény beszorozzuk az aktuális $prob_s$ értékkel, amely lényegében a függvény "összenyomását" jelenti. 
 Miután minden forgatókönyvre előállítottuk az "összenyomott" profit függvényt adott forgatókönyv valószínűségét felhasználva, ezen előállított függvények összeadásával megkapható az $ExpProfit_p$ függvény.
 A fentiek szemléltetésére szolgálnak az alábbi ábrák $p1$ termék esetén, melynek két forgatókönyve $s1$ és $s2$:
@@ -31,6 +38,10 @@ Ezt a lépést ábrázolja a \ref{profit_for_p1_prob}. ábra.
 Ebben a példában $s1$ forgatókönyv valószínűsége $0.5$, $s2$ valószínűsége pedig $0.25$.
 Az ábrán látható függvények kiszámításával előáll minden forgatókönyvre a $prob_s \cdot profit_{s,p}$ függvény, amelyeket ezután össze kell adni, hogy előálljon $ExpProfit_{p_1}$ függvény.
 Ezt a fenti ábrák alapján előállított $ExpProfit_{p_1}$ függvényt ábrázolja a \ref{expProfit_p1}. ábra.
+Miután minden termékre előállításra kerül ez az $ExpProfit_p$ függvény, az $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékek összegeként előáll a várható profit.
+Azaz minden termék $ExpProfit$ függvényéből lekérdezésre kerül az $x$ értékhez tartozó profit érték, ahol $x$ az adott termékből termelt mennyiség, mely a termelt batchek száma ($b_p$) és azok méretének ($s_p$) szorzataként áll elő.
+Jelen esetben a batch méret ($s_p$) egy fixen adott paraméter, hiszen kötött batch méretű esetről beszélünk.
+Ezután ezen $ExpProfit_p(x)$ értékek összegzésre kerülnek, ez adja meg a várható profit értékét.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.45]{expProfitP1}
@@ -38,10 +49,6 @@ Ezt a fenti ábrák alapján előállított $ExpProfit_{p_1}$ függvényt ábrá
 \label{expProfit_p1}
 \end{center}
 \end{figure}
-Miután minden termékre előállításra kerül ez az $ExpProfit_p$ függvény, az $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékek összegeként előáll a várható profit.
-Azaz minden termék $ExpProfit$ függvényéből lekérdezésre kerül az $x$ értékhez tartozó profit érték, ahol $x$ az adott termékből termelt mennyiség, mely a termelt batchek száma ($b_p$) és azok méretének ($s_p$) szorzataként áll elő.
-Jelen esetben a batch méret ($s_p$) egy fixen adott paraméter, hiszen kötött batch méretű esetről beszélünk.
-Ezután ezen $ExpProfit_p(x)$ értékek összegzésre kerülnek, ez adja meg a várható profit értékét.
 \subsection{Preventív ütemezés változó batch mérettel} \label{variable_batch_size_modell}
 Az ehhez az esethez tartozó lépések megegyeznek az előző kötött batch méretű eset lépéseivel, az $ExpProfit_p$ függvények előállításáig.
 Az előző esettel ellentétben azonban, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. 
@@ -86,7 +93,8 @@ Az előzőekben bemutatott módszerek ismerete arra enged következtetni, hogy a
 \section{A PiecewiseLinearFunction osztály} \label{piecewise_class}
 Ahogy az már korábban, a \ref{piecewise_suggestion} pontban említésre került, a probléma implementációjához elengedhetetlen egy olyan osztály definiálása, amely kezelni képes folytonos, szakaszos, lineáris függvényeket.
 Erre hivatott az általam megalkotott \className{PiecewiseLinearFunction} osztály, amelynek forráskódja \fileName{piecewiselinearfunction.h}, illetve \fileName{piecewiselinearfunction.cpp} fájlokban található a solver \fileName{src\textbackslash base} mappájában.
-Az általunk használt függvények tárolásához elegendő, ha kezdetben három pont koordinátái adottak, hiszen ezek elhelyezkedéséből a többi pont koordinátái később, ha valamilyen okból kifolyólag ez szükségessé válik, könnyen kiszámíthatóak, hiszen folytonos, lineáris függvényekről beszélünk.
+Az általam használt függvények eleve tartalmaznak egy törést, hiszen az egyes $profit_{s,p}$ függvények csak a kereslet értékéig növekednek, onnantól pedig vagy beállnak a maximális értékre, ha nincsen felül termelési költség, vagy csökkenni fognak a felültermelési költségek miatt.
+Éppen ezért ezen függvények tárolásához elegendő, ha kezdetben három pont koordinátái adottak, hiszen ezek elhelyezkedéséből a többi pont koordinátái később, ha valamilyen okból kifolyólag ez szükségessé válik, könnyen kiszámíthatóak, hiszen folytonos, lineáris függvényekről beszélünk.
 Ez a három pont a $profit_{s,p}$ függvények esetében nem más, mint: 
 \begin{itemize}
 \item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}-1$

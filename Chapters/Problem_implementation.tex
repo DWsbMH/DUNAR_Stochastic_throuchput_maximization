@@ -93,78 +93,50 @@ Az előzőekben bemutatott módszerek ismerete arra enged következtetni, hogy a
 \section{A PiecewiseLinearFunction osztály} \label{piecewise_class}
 Ahogy az már korábban, a \ref{piecewise_suggestion} pontban említésre került, a probléma implementációjához elengedhetetlen egy olyan osztály definiálása, amely kezelni képes folytonos, szakaszos, lineáris függvényeket.
 Erre hivatott az általam megalkotott \className{PiecewiseLinearFunction} osztály, amelynek forráskódja \fileName{piecewiselinearfunction.h}, illetve \fileName{piecewiselinearfunction.cpp} fájlokban található a solver \fileName{src\textbackslash base} mappájában.
+Egy folytonos, szakaszos, lineáris függvény tárolásához töréspontokat illetve a kezdeti- ,és vég meredekséget kell eltárolni.
 Az általam használt függvények eleve tartalmaznak egy törést, hiszen az egyes $profit_{s,p}$ függvények csak a kereslet értékéig növekednek, onnantól pedig vagy beállnak a maximális értékre, ha nincsen felül termelési költség, vagy csökkenni fognak a felültermelési költségek miatt.
-Éppen ezért ezen függvények tárolásához elegendő, ha kezdetben három pont koordinátái adottak, hiszen ezek elhelyezkedéséből a többi pont koordinátái később, ha valamilyen okból kifolyólag ez szükségessé válik, könnyen kiszámíthatóak, hiszen folytonos, lineáris függvényekről beszélünk.
-Ez a három pont a $profit_{s,p}$ függvények esetében nem más, mint: 
+Éppen ezért ezen függvények tárolásához elegendő a következő három érték kiértékelése:
 \begin{itemize}
-\item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}-1$
+\item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}-1$ egység [Kg]
 \item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}$
-\item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}+1$
-\end{itemize} 
-E három pont koordinátái minden esetben kiszámíthatók, minden forgatókönyv-termék párosra már az input fájl beolvasását követően, hiszen minden sztochasztikus paraméter adott ehhez a fájlban.
-Az ehhez szükséges képlet a \ref{variable_batch_size_modell} pont szerint:
+\item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}+1$ egység [Kg]
+\end{itemize}
+Az ehhez szükséges képlet a \ref{FixBatchSize}. pont szerint:
 \begin{equation*}
 Profit_{s,p}(x)= \begin{cases}
             price_{s,p}\cdot x-(dem_{s,p}-x) \cdot uc_{s,p}\qquad \text{ha } x<dem_{s,p} \\
             price_{s,p} \cdot dem_{s,p}-(x-dem_{s,p}) \cdot oc_{s,p}\qquad \text{egyébként}
        \end{cases}
 \end{equation*}
-Miután ennek a három pontnak a pontos koordinátái beazonosításra kerültek, már csak annyit kell tenni, hogy kiszámítunk két arány számot, amelyek a függvény kezdeti-, és vég meredekségét hivatottak letárolni.
-Ezen paraméterek ismeretében később a függvény bármely $x$ pontjában felvett értéke számítható lesz.
-Ezek alapján a \className{PiecewiseLinearFunction} osztály adattagjai a következőek:
+Ezen értékek kiértékelése után kiszámítható ezen három pont koordinátája, valamint a kezdeti és vég meredekségek is.
+Ezek az értékek minden esetben kiszámíthatók, minden forgatókönyv-termék párosra már az input fájl beolvasását követően, hiszen minden sztochasztikus paraméter adott ehhez a fájlban.
+Később ezen adatok alapján a többi pont koordinátái, ha valamilyen okból kifolyólag ezek ismerete szükségessé válik, könnyen kiszámíthatóak, hiszen folytonos, lineáris függvényekről beszélünk.
+Ezek alapján a \className{PiecewiseLinearFunction} osztály adattagjai a \ref{piecewise_variables}. ábrán láthatóak.
+A \ref{piecewise_variables} ábrán látható \className{Coordinate} osztály a függvények töréspontjainak $x$ és $y$ koordinátáinak egyszerű tárolására, lekérdezésére, és összehasonlítására szolgál a megvalósított \textit{setter}, \textit{getter} és felültöltött egyenlőség operátorral.
+Ahhoz, hogy a \className{PiecewiseLinearFunction} osztállyal a matematikai modellek minden szükséges művelete elvégezhető legyen, a következő funkcionalitást kell megvalósítani az osztálynak:
+\begin{itemize}
+\item A függvény skalár értékkel való szorzása
+\item A függvény $x$ helyen vett értékének lekérdezése
+\item Két függvény összeadása
+\item A függvény horizontális nyújtása (a \ref{extended_multiproduct} pontban tárgyalt esetekhez)
+\item A függvény maximális értékéhez tartozó koordináták lekérdezése
+\end{itemize}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{piecewiseVariables}
 \caption{A \textit{PiecewiseLinearFunction} osztály adattagjai}
 \label{piecewise_variables}
 \end{center}
-\end{figure} 
-A \ref{piecewise_variables} ábrán látható \className{Coordinate} osztály a függvények pontjainak $x$ és $y$ koordinátáinak egyszerű tárolására, lekérdezésére, és összehasonlítására szolgál a megvalósított \textit{setter}, \textit{getter} és felültöltött egyenlőség operátorral.\\
-Ahhoz, hogy a \className{PiecewiseLinearFunction} osztállyal a matematikai modellek minden szükséges művelete elvégezhető legyen, a következő funkcionalitást kell megvalósítani az osztálynak:
-\begin{itemize}
-\item Koordináta pár hozzáadása
-\item Koordináta párok rendezése $x$ szerint növekvő sorrendbe
-\item Kezdeti-, és vég meredekség kiszámítása
-\item A függvény skalár értékkel való szorzása
-\item A függvény $x$ helyen vett értékének lekérdezése
-\item Két függvény összeadása
-\item A függvény horizontális nyújtása (a \ref{extended_multiproduct} pontban tárgyalt esetekhez)
-\item A függvény maximális értékéhez tartozó koordináták lekérdezése
-\end{itemize} 
-\subsection{Koordináta pár hozzáadása} \label{addCoordinates}
-Egy új koordináta pár hozzáadását végző metódus az \methodName{addCoordinate(const Coordinate\& c)}.
-Egy új koordináta pár hozzáadása esetén először is meg kell győződnünk, hogy adott koordináta pár szerepel-e már a koordináták tárolására szolgáló \textit{vector}-ban, hiszen ha már szerepel, nem adhatjuk hozzá újra.
-Ha nem szerepel még ilyen koordináta pár, hozzáadjuk, majd rendezzük a \textit{vector}-t $x$ szerint növekvő sorrendbe.
-Ha ez megtörtént, meg kell vizsgálni, hogy a kezdeti-, és vég meredekségeket frissíteni kell-e.
-Abban az esetben, ha a most hozzáadott koordináta pár szerepel a rendezett vector első, vagy második helyén, a kezdeti meredekséget frissíteni kell.
-Hasonlóan, ha az új koordináta pár a \textit{vector} utolsó, vagy utolsó előtti eleme, a vég meredekség frissítésre szorul.
-Mivel kezdetben akár mindkét feltétel igaz lehet, ezért ezek teljesülését két külön \textit{bool} változóban kell tárolni.
-Miután megállapításra került, hogy melyik meredekségeket kell frissíteni, meghívásra kerül az ezeket kiszámító függvény. 
-\subsection{Kezdeti-, és vég meredekség kiszámítása} \label{calculateAngle}
-A  kezdeti-, és vég meredekség kiszámítására és frissítésére hivatott metódus a \methodName{calculateAngle(bool begin,bool end)}, melynek két paramétere a \ref{addCoordinates} pontban említett két \textit{bool} változó, amelyek megadják, hogy kell e frissíteni adott meredekségeket.
-A meredekségek kiszámítása roppant egyszerű a koordináták ismeretében:
-$$Angle_{begin}=(y_{second}-y_{first}) / (x_{second}-x_{first})$$
-$$Angle_{end}=(y_{penultimate}-y_{last}) / (x_{last}-x_{penultimate})$$
-A \ref{calculate angle} ábrán látható három pont koordinátái alapján a meredekségek például a következőképpen alakulnak: 
-$$Angle_{begin}=(4-3) / (3-2)\quad \text{, azaz } Angle_{begin}=1$$
-$$Angle_{end}=(4-2) / (6-3)\quad \text{, azaz } Angle_{end}=2/3$$
-\begin{figure}[H]
-\begin{center}
-\includegraphics[scale=0.375]{calculateAngle}
-\caption{Példa a meredekségek kiszámítására}
-\label{calculate angle}
-\end{center}
-\end{figure}
-Ha egyik meredekség sem szorul frissítésre, a metódus semmiféle változtatást nem tesz.
+\end{figure}  
 \subsection{A függvény skalár értékkel való szorzása} \label{multiplyByScalar}
 A függvény skalárral való szorzását a szorzás operátort felültöltő metódus végzi.
 Ahhoz, hogy megkapjuk a függvény skalárral való szorzatát, csupán be kell szorozni a \textit{vector}-ban tárolt összes pont $y$ koordinátáját, valamint a kezdeti-, és vég meredekséget a paraméterként kapott $s$-el.
-A függvény szorzását szemléltető példa a \ref{profit_func_prob} ábrán látható.
+A függvény szorzását szemléltető példa a \ref{profit_for_p1_prob} ábrán látható.
 \subsection{A függvény $x$ helyen vett értékének lekérdezése} \label{getValue}
 A függvény $x$ helyen vett értékének lekérdezésére a ( ) operátort felültöltő metódus hivatott.
 A metódus először is megnézi, hogy a \textit{vector}-ban tárolt koordináta párok között található-e olyan, amelynek $x$ koordinátája egyezik a paraméterként kapott $x$-el.
-Ha talál ilyet, egyszerűen visszaadja a megfelelő koordináta párost tartalmazó \className{Coordinate} objektumot.
-Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a \textit{vector}-hoz, majd csak ezután lehet visszaadni a keresett \className{Coordinate} objektumot.
+Ha talál ilyet, egyszerűen visszaadja a megfelelő koordináta páros $y$ értékét.
+Ha nem található ilyen pont, akkor annak ki kell számítani a koordinátáit, és hozzá kell adni a \textit{vector}-hoz, majd csak ezután lehet visszaadni a keresett $y$ értéket
 Az $x$ értékhez tartozó $y$ érték kiszámítása a keresett $x$ értéke és a \textit{vector}-ban tárolt pontok alapján háromféleképpen történhet:
 \begin{itemize}
 \item Ha a keresett $x$ értéke kisebb mint a \textit{vector}-ban tárolt első pont $x$ koordinátájának értéke, akkor: 
@@ -177,10 +149,22 @@ $y=y_{Last}-(x-x_{Last}) \cdot Angle_{end}$ ,ahol $x_{Last} \text{ és } y_{Last
 \subsection{Két függvény összeadása} \label{addPiecewiseLinearFunction}
 Két függvény összeadását az összeadás operátort felültöltő metódus végzi, melynek visszatérési értéke az összegként kapott függvényt tároló új \className{PiecewiseLinearFunction} objektum.
 Mivel a függvények tárolásához elegendő három pont tárolása, ezért gyakran előfordul olyan eset, hogy a két összeadni kívánt \className{PiecewiseLinearFunction} objektum nem tartalmazza a szükséges koordinátákat, ezért a hiányzó koordináta párokat először hozzá kell adni, ezt azonban megkönnyíti a \ref{getValue} pontban bemutatott metódus, hiszen elég, ha lekérdezzük az aktuális $x$ értékét mindkét függvény esetén, és ha az valamelyiknél nem található, automatikusan hozzá lesz adva annak pontjaihoz.
-Ennek következtében a két függvény összeadása már jóval egyszerűbb feladat, egyetlen \textit{for} ciklussal megtehető.
+Ennek következtében a két függvény összeadása már jóval egyszerűbb feladat.
+A fentiek szemléltetésére szolgál a \ref{add_piecewise}. ábra.
+A két összeadandó függvényt \textbf{a}-nak, illetve \textbf{b}-nek nevezzük, az összegként adott új függvény pedig a \textbf{c}.
+Az ábrán a 90. sorban lekérdezzük \textbf{b} függvény koordinátáit, melyeken a 91. sorban található \textit{for} ciklussal végigiterálunk.
+A 92. sorban \textbf{a} függvénynek lekérdezzük x helyen vett értékét, ahol x \textbf{b} függvény soron következő koordinátájának x értéke.
+A lekérdezés következtében, ha \textbf{a} függvény eddig nem tartalmazott koordinátát x értékkel, ezen koordináta hozzáadásra kerül a \ref{getValue}. pontban leírtak alapján.
+Mivel ezt \textbf{b} függvény minden pontjára megtesszük, ezért a \textit{for} ciklus végeztével \textbf{a} függvény immáron biztosan tartalmazza a \textbf{b} függvényben tárolt összes töréspont x értékéhez tartozó saját x értékű koordinátáit az azon a helyen vett y értékekkel.
+Ezután \textbf{a} függvény összes tárolt töréspontján végigiterálunk a 95. sorban található \textit{for} ciklussal.
+Ebben a \textit{for} ciklusban létrehozzuk az új \textbf{c} függvény koordinátáit.
+Ezen koordináták x értéke az \textbf{a} függvény x értékei lesznek rendre hiszen \textbf{a} immáron tartalmazza az összes közös x értéket \textbf{b}-vel.
+A koordináták y értéke pedig $a(x)+b(x)$ lesz.
+Mivel a koordináták \methodName{addCoordinate} metódussal való hozzáadása során a kezdeti és a vég meredekségek automatikusan frissítésre kerülnek, ha szükséges ezen értékek újraszámítása, ezért a \textit{for} ciklus végére előálló \textbf{c} függvényben ezeket már nem kell külön beállítani.
+A metódus végén pedig visszaadásra kerül az új \textbf{c} összegfüggvény. 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.365]{addPiecewise}
+\includegraphics[scale=0.4]{addPiecewise}
 \caption{Az összeadást végző metódus}
 \label{add_piecewise}
 \end{center}
@@ -197,7 +181,7 @@ A metódus egyszerűen egy \textit{for} ciklus segítségével a függvény öss
 \end{figure}
 \subsection{A függvény maximális értékéhez tartozó koordináták lekérdezése}
 A függvény maximumának lekérdezését a \methodName{getMaximum()} metódus végzi, mely egy egyszerű maximum keresést valósít meg $y$ koordinátára nézve.
-A metódusnak a \ref{variable_batch_size_modell} pontban bemutatott változó batch méretű esetben van nagy jelentősége, ezt használjuk ugyanis $dem_{s'}$ meghatározására.
+A metódusnak a korábban bemutatott változó batch méretű, illetve két lépcsős esetekben van nagy jelentősége.
 \section{Az új paraméterek implementációja}
 Ahhoz, hogy az determinisztikus throughput maximalizáló használható legyen a \ref{problem_parameters} pontban bemutatott új sztochasztikus paraméterekkel, fel kell készíteni a megfelelő osztályokat ezen paraméterek kezelésére, be kell olvasni először is ezeket a paramétereket egy input fájlból, majd valamilyen formában le is kell őket tárolni, hogy később a \ref{math_modells} pontban bemutatott műveletek végrehajthatóak legyenek a várható profit kiszámítására.
 \subsection{Új kapcsoló definiálása}
@@ -212,10 +196,26 @@ Mivel a sztochasztikus throughput maximalizáló működhet preventív, illetve 
 Abban az esetben, ha nem adjuk meg a kapcsoló értékét, vagy azt single-re állítjuk, preventív módban fog futni az ütemező, ha twostage-t állítunk be, két lépcsős ütemezés fog lefutni, feltéve, hogy a bemeneti fájlban változó batch méretű adatokat adtunk meg.
 \subsection{Új input fájl definiálása}
 Az általam definiált új input fájl a \fileName{stochastic.ods} a solver \fileName{input} mappájában található.
-A fájl lényegében a \fileName{multipurpose.ods} kibővítése a sztochasztikus paraméterekkel, éppen ezért az utóbbi \textbf{equipment}, és \textbf{proctime} tábláit változtatás nélkül tartalmazza, hiszen ezek tartalmazzák a gépekre, illetve a recept gráfra vonatkozó determinisztikus paramétereket, amelyeket az új esetekben is fel kell használnia a megoldó algoritmusnak.
+A fájl lényegében a \fileName{multipurpose.ods} kibővítése a sztochasztikus paraméterekkel.
+A \fileName{multipurpose.ods} fájl felépítése a \ref{multipurpose_odshere}. ábrán látható.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{multipurposeOds}
+\caption{A \textit{multipurpose.ods} fájl}
+\label{multipurpose_odshere}
+\end{center}
+\end{figure}
+A \fileName{stochastic.ods} fájl változtatás nélkül tartalmazza a \fileName{multipurpose.ods} fájl \textbf{equipment}, és \textbf{proctime} tábláit , hiszen ezek tartalmazzák a gépekre, illetve a recept gráfra vonatkozó determinisztikus paramétereket, amelyeket az új esetekben is fel kell használnia a megoldó algoritmusnak.
 Ezzel szemben a \textbf{product} tábla a sztochasztikus esetekben nem fogja megállni a helyét, hiszen a batch méretekre vonatkozó adatok hiányoznak belőle, ezeket hozzá kell adni a product táblához.
 Ezenkívül a forgatókönyvek adatait is tárolnunk kell, ezért bevezetésre kerültek a\textbf{ scenario}, és a \textbf{scenario\_data} táblázatok, melyek a \ref{problem_parameters} pontban leírt, forgatókönyvekre vonatkozó sztochasztikus adatokat tartalmazzák.
-Az általam definiált új formátumokra példa input fájlok megtekinthetőek a \textbf{\ref{input_files}} függelékben.
+A \fileName{stochastic.ods} fájl felépítése a \ref{stochastic_odshere}. ábrán látható.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{stochasticOds}
+\caption{A \textit{stochastic.ods} fájl}
+\label{stochastic_odshere}
+\end{center}
+\end{figure}
 \subsection{A fájl beolvasása, beolvasott paraméterek tárolása}
 Az input fájl beolvasását a \className{RelationalProblemReader} osztály végzi, melynek feladata a fájlban található paraméterek alapján a recept gráf felépítése, annak visszaadása a \className{MainSolver }osztály számára.
 A \className{RelationalProblemReader} először is meggyőződik az input fájl típusáról, majd az alapján sorban beolvassa a megfelelő mezőket az input fájlból.
@@ -229,7 +229,7 @@ A fent említett műveleteket, a szükséges objektumok létrehozását a \class
 Ezenkívül bevezetésre került még három \textit{boolean} változó a \className{Recipe} osztályba,  amelyek flag-ként szolgálnak, hogy a throughput maximalizáló könnyen, csupán a \className{Recipe} objektum segítségével meg tudja különböztetni a kötött-, változó batch méretű, és a két lépcsős eseteket.
 \section{Szükséges változtatások az S-gráf keretrendszerben} \label{refactor}
 A sztochasztikus paraméterek letárolása után nincs más hátra, mint felkészíteni a throughput maximalizálást végző \className{ThroughputSolver} osztályt ezek kezelésére.
-Azonban ahhoz, hogy egységesen használható legyen az osztály determinisztikus, illetve sztochasztikus esetben is, némi refaktorálásra van szükség, ugyanis jelen állapotában a \className{ThroughputSolver} osztályban találhatóak olyan megoldások, melyek megkövetelik, hogy a profit egyszerűen a $b_p\cdot price_p$ képlettel megkapható legyen, azonban ez a sztochasztikus esetben korántsem ilyen egyszerű.
+Azonban ahhoz, hogy egységesen használható legyen az osztály determinisztikus, illetve sztochasztikus esetben is, némi refaktorálásra volt szükség, ugyanis korábbi állapotában a \className{ThroughputSolver} osztályban találhatóak voltak olyan megoldások, melyek megkövetelték, hogy a profit egyszerűen a $b_p\cdot price_p$ képlettel megkapható legyen, azonban ez a sztochasztikus esetben korántsem ilyen egyszerű.
 \subsection{A meglévő kód refaktorálása}
 A \className{Throughputsolver} osztály jelenlegi állapotában, determinisztikus esetben kétféleképpen számítja ki a profitot, egyrészt az \className{SGraph} osztály \methodName{GetRevenue()} metódusát használva, másrészt az egyes termékek adatait az \className{SGraph} osztály \className{Recipe} objektumában letárolt \className{Product} objektumok adatait közvetlenül lekérdezve, majd azokat a fent említett $b_p\cdot price_p$ képlettel kiszámítva, és összegezve.
 Habár determinisztikus esetben ezek a módszerek megállják a helyüket, ezek jelen állapotban nem túl elegánsak, hiszen a \methodName{GetRevenue()} metódus lényegében ugyan azt a működést éri el, mint az utóbbi közvetlen elérés, és összegzés.

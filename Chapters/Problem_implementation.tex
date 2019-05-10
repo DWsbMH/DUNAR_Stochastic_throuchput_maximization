@@ -276,29 +276,51 @@ Ezen értékek tudatában a nem termelt termékekből származó esetleges veszt
 Ezen változtatások segítségével a \methodName{GetRevenue()} függvény ezentúl egységesen használható a \className{ThroughputSolver} osztály számára egy adott konfiguráció összprofitjának kiszámítására, függetlenül a probléma típusától. 
 \subsection{A \textit{GetProductRevenue} metódus} \label{getProductRevenue}
 A \methodName{GetProductRevenue} metódus hivatott $p$ termék $x$ helyen vett várható profit értékének, azaz $ExpProfit_p(x)$ kiszámítására.
-Mivel a metódusnak kezelnie kell a különböző eseteket, ezért szerkezete a következőképpen alakul: 
-\begin{algorithmic}
-\Procedure{GetProductRevenue}{}
-\If {$\textbf{not } stochastic$} \Return $non \text{ } stochastic \text{ } profit$
-\EndIf
-\If {$\textbf{not } variable \text{ } batch \text{ } size$} \Return $fixed \text{ } batch \text{ } size \text{ } profit$
-\EndIf
-\If {$variable \text{ } batch \text{ } size \textbf{ and } \textbf{not } two \text{ } stage$} \Return $variable \text{ } batch \text{ } size \text{ } profit$
-\EndIf
-\If {$variable \text{ } batch \text{ } size \textbf{ and } two \text{ } stage$} \Return $two \text{ } stage \text{ } profit$
-\EndIf\\
-\Return $0$
-\EndProcedure
-\end{algorithmic}
+Mivel a metódusnak kezelnie kell a különböző eseteket, ezért szerkezete 4 részre bontható:
+\subsubsection{Determinisztikus probléma product revenue számítása}
+Determinisztikus esetben a számítás meglehetősen egyszerűen, a $price_p \cdot b_p$ képlettel elvégezhető.
+\subsubsection{Kötött batch méretű probléma product revenue számítása}
+Kötött batch méretű sztochasztikus esetben a várható profit számítása a \ref{FixBatchSize} pontban leírtak alapján a következő képlettel zajlik: $$\sum_{s \in S} prob_s \cdot profit_{s,p} (s_p \cdot b_p)$$
+Először tehát egy \textit{for} ciklus segítségével végigiterálunk az összes forgatókönyvön.
+Minden iterációban lekérdezzük az adott forgatókönyvhöz tartozó $profit_{s,p}$ függvényt reprezentáló \className{PiecewiseLinearFunction} objektumot, majd ezt megszorozzuk az aktuális forgatókönyv valószínűségével, hogy előálljon a \ref{profit_for_p1_prob}. ábrához hasonlóan az összenyomott profit függvény.
+Ezután ezt hozzáadjuk az $ExpProfit_p$ függvényt reprezentáló \className{PiecewiseLinearFunction} objektumhoz, amely a \textit{for} ciklus előtt került példányosításra.
+Miután a ciklus véget ér előáll  $ExpProfit_p$ függvény végleges formája a \ref{expProfit_p1}. ábrához hasonlóan.
+Ezután kiszámításra kerül a gyártott mennyiség, azaz az $x$ érték a batch méret és a gyártott batchek darabszámának szorzataként $(s_p \cdot b_p)$.
+Kiértékelésre és visszaadásra kerül végül $ExpProfit_p(x)$ értéke.
+A kötött batch méretű problémához tartozó forráskód részlete a \ref{fixIMPL}. ábrán látható.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{fixIMPL}
+\caption{Kötött batch méretű probléma product revenue számítása}
+\label{fixIMPL}
+\end{center}
+\end{figure} 
+\subsubsection{Változó batch méretű probléma product revenue számítása}
+Változó batch méret esetén a kötött batch méretű esettel azonos módon kapjuk vissza az $ExpProfit_p$ függvényt, tehát a \ref{fixIMPL}. ábrán látható \textit{for} ciklus lefutása ebben az esetben is azonos.
+Az $ExpProfit_p$ megkapása után azonban $x$ érték, valamint $ExpProfit_p(x)$ érték kiszámítása a \ref{variable_batch_size_modell}. alfejezetben leírtak alapján, a \ref{expProfit_func_var}. ábrán szemléltetettek szerint történik.
+Meghatározásra kerül tehát az  $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$ tartomány, mely segítségével immáron eldönthető az optimális $x$ értéke, és visszaadható a hozzá tartozó  $ExpProfit_p(x)$ érték. 
+Ezen folyamat implementációja a \ref{variableIMPL}. ábrán látható.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.55]{variableIMPL}
+\caption{Az optimális profit érték kiszámítása változó batch méret esetén}
+\label{variableIMPL}
+\end{center}
+\end{figure} 
+\subsubsection{Két lépcsős probléma product revenue számítása}
+Két lépcsős ütemezés esetén a várható profit számítása a \ref{TwoStage} pontban ismertetett módon történik, ezen eset forráskódja a \ref{twostageIMPL}. ábrán látható.
+Jól látható, hogy az előző két esettel ellentétben  $ExpProfit_p$ függvény két lépcsős ütemezés esetén nem kerül felépítésre.
+A \textit{for} ciklusban az egyes forgatókönyvek $profit_{s,p}$ függvényei segítségével kerül ugyanis kiválasztásra az optimális $x$ érték.
+Ezután a $profit_{s,p}(x)$ érték kiértékelésre kerül, majd ezt az értéket megszorozzuk az aktuális forgatókönyv valószínűségével.
+Ezen beszorzott profit értékek összegeként áll elő, és kerül visszaadásra jelen termék várható profit értéke.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.69]{twostageIMPL}
+\caption{Két lépcsős probléma product revenue számítása}
+\label{twostageIMPL}
+\end{center}
+\end{figure} 
 
-
-\begin{itemize}
-\item Determinisztikus esetben a számítás meglehetősen egyszerűen, a $price_p \cdot b_p$ képlettel elvégezhető.
-\item Kötött batch méretű sztochasztikus esetben a várható profit számítása a \ref{FixBatchSize} pontban bevezetett módon, az $ExpProfit(x)$ képlet segítségével lehetséges.
-\item Változó batch méretű sztochasztikus esetben a várható profit számítása a \ref{variable_batch_size_modell} pontban leírtak alapján $x_p(b_p)$ meghatározásával, majd $ExpProfit(x_p)$ kiszámításával tehető meg.
-\item Két lépcsős ütemezés esetén a várható profit számítása a \ref{TwoStage} pontban ismertetett módon $x_{s,p}(b_p)$  meghatározása után, a következő képlettel lehetséges:
-$$ \sum_{s \in S}(prob_s \cdot Profit(x_{s,p}(b_p))$$ 
-\end{itemize}
 Ezen módszerek implementációját tartalmazza tehát a \methodName{GetProductRevenue} metódus, amely segítségével ezentúl adott termék profitja, függetlenül a probléma típusától egységesen megkapható.
 \subsection{A \textit{Revenue Line} figyelmen kívül hagyása sztochasztikus esetben}
 Ahogyan az már a \ref{SgraphProfitMax}. pontban említésre került, a determinisztikus throughput maximalizálóban használatos gyorsítási stratégia az un. Revenue Line, amely lényegében alsó bound-ként szolgál az egyes konfigurációk profitértékeinek összehasonlításához.
@@ -315,7 +337,7 @@ Ennek a szemléltetésére szolgál a \ref{revLineStoch}. ábra.
 \subsection{A \textit{ThroughputUI} osztály kiegészítése}
 A \className{ThroughputUI} osztály feladata a \className{ThroughputSolver} osztály által kiszámított eredmények megjelenítése a felhasználó számára.
 Determinisztikus esetben a Throughput maximalizáló egy példa lefutását a \ref{ThroughputUI} ábra szemlélteti.
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.62]{throughputUI}
 \caption{Példa a \textit{ThroughputUI} szerkezetére determinisztikus esetben}

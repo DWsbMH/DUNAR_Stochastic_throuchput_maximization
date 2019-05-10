@@ -4,7 +4,7 @@ Mivel esetemben egy meglévő szoftver rendszer továbbfejlesztéséről beszél
 Éppen ezért a tesztesetek alapvetően három részre bonthatóak:
 \begin{itemize}
 \item A determinisztikus throughput maximalizáló tesztelése
-\item A sztochasztikus alapesetek (1-1) tesztelése
+\item A sztochasztikus alapesetek tesztelése
 \item A sztochasztikus multiproduct esetek tesztelése
 \end{itemize}
 A teszteléshez használt input fájlok tartalma, nevezetesen a termékekre, illetve a forgatókönyvekre vonatkozó paraméterek random szám generátorral készültek adott tartományokon belül.
@@ -30,7 +30,7 @@ Ezen fájlt felhasználva például a determinisztikus throughput maximalizáló
 Jól látható, hogy az eredmény helyes, hiszen $2 \cdot 24.5 +12,3=61.3$.
 Ezenfelül a solver master git branchén található verziót futtatva (melyhez a dolgozat írásakor még nem került hozzáadásra a munkám) szintén megegyező eredményt kapunk, mind a profit értékeket, mind a kimeneti ütemterveket figyelembe véve, valamint a futási időkben sem figyelhető meg számottevő változás.
 A \fileName{DeterministicTestResults.ods} fájl adatait figyelembe véve kijelenthető tehát, hogy a determinisztikus throughput maximalizáló továbbra is hibátlanul működik.     
-\section{A sztochasztikus alapesetek tesztelése (1-1)}
+\section{A sztochasztikus alapesetek tesztelése}
 A sztochasztikus throughput maximalizáló alapeseteinek teszteléséhez használt teszt fájlok a CD melléklet  \fileName{Tesztelés/Tesztfájlok/Sztochasztikus} mappájában találhatóak, míg a teszteredményeket rögzítő \fileName{StochasticTestResults.ods} fájl a CD melléklet \fileName{Tesztelés/Teszteredmények} mappájában található.
 A sztochasztikus teszt fájlokban található, a termékekre, illetve a forgatókönyvekre vonatkozó paraméterek (batch méretek, kereslet, termék ára, stb.) random szám generátorral lettek előállítva.
 A \ref{stochastic_test} ábra szemlélteti a \fileName{StochasticTestResults.ods} fájl tartalmát.
@@ -50,7 +50,7 @@ A tesztesetek között a különböző recept és forgatókönyv darabszámokat 
 \item Abban az esetben például, ha a kötött batch méret a változó batch méretű, illetve a két lépcsős esetben a batch méret alsó és a felső korlátja is egyben (test033 és test034), mindhárom várható profit értéknek meg kell egyeznie.
 \item Abban az esetben, ha csak egy darab forgatókönyv létezik (test035 és test036), a változó batch méretű eredmény és a két lépcsős eredmény megegyező kell legyen.
 \end{itemize}
-\begin{figure}[H]
+\begin{figure}[hbtp]
 \begin{center}
 \includegraphics[scale=0.34]{specialTests}
 \caption{A speciális teszt esetek eredményei.}

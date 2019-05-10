@@ -94,21 +94,15 @@ Az előzőekben bemutatott módszerek ismerete arra enged következtetni, hogy a
 Ahogy az már korábban, a \ref{piecewise_suggestion} pontban említésre került, a probléma implementációjához elengedhetetlen egy olyan osztály definiálása, amely kezelni képes folytonos, szakaszos, lineáris függvényeket.
 Erre hivatott az általam megalkotott \className{PiecewiseLinearFunction} osztály, amelynek forráskódja \fileName{piecewiselinearfunction.h}, illetve \fileName{piecewiselinearfunction.cpp} fájlokban található a solver \fileName{src\textbackslash base} mappájában.
 Egy folytonos, szakaszos, lineáris függvény tárolásához töréspontokat illetve a kezdeti- ,és vég meredekséget kell eltárolni.
-Az általam használt függvények eleve tartalmaznak egy törést, hiszen az egyes $profit_{s,p}$ függvények csak a kereslet értékéig növekednek, onnantól pedig vagy beállnak a maximális értékre, ha nincsen felül termelési költség, vagy csökkenni fognak a felültermelési költségek miatt.
-Éppen ezért ezen függvények tárolásához elegendő a következő három érték kiértékelése:
-\begin{itemize}
-\item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}-1$ egység [Kg]
-\item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}$
-\item $Profit_{s,p}(x)$\quad, ahol $x=dem_{s,p}+1$ egység [Kg]
-\end{itemize}
-Az ehhez szükséges képlet a \ref{FixBatchSize}. pont szerint:
+Az általam használt függvények eleve tartalmaznak egy törést a kereslet értékénél, hiszen az egyes $profit_{s,p}$ függvények csak a kereslet értékéig növekednek, onnantól pedig vagy beállnak a maximális értékre, ha nincsen felül termelési költség, vagy csökkenni fognak a felültermelési költségek miatt.
+Éppen ezért ezen függvények tárolásához elegendő a következő töréspont kiszámítása: $x=dem_{s,p}$, $y=Profit_{s,p}(x)$. 
+Majd ezután a kezdeti-, és vég meredekségek a következő képlet segítségével, az alul-, és túl termelési költségek alapján kiszámíthatóak.
 \begin{equation*}
 Profit_{s,p}(x)= \begin{cases}
             price_{s,p}\cdot x-(dem_{s,p}-x) \cdot uc_{s,p}\qquad \text{ha } x<dem_{s,p} \\
             price_{s,p} \cdot dem_{s,p}-(x-dem_{s,p}) \cdot oc_{s,p}\qquad \text{egyébként}
        \end{cases}
 \end{equation*}
-Ezen értékek kiértékelése után kiszámítható ezen három pont koordinátája, valamint a kezdeti és vég meredekségek is.
 Ezek az értékek minden esetben kiszámíthatók, minden forgatókönyv-termék párosra már az input fájl beolvasását követően, hiszen minden sztochasztikus paraméter adott ehhez a fájlban.
 Később ezen adatok alapján a többi pont koordinátái, ha valamilyen okból kifolyólag ezek ismerete szükségessé válik, könnyen kiszámíthatóak, hiszen folytonos, lineáris függvényekről beszélünk.
 Ezek alapján a \className{PiecewiseLinearFunction} osztály adattagjai a \ref{piecewise_variables}. ábrán láthatóak.
@@ -209,9 +203,9 @@ A \fileName{stochastic.ods} fájl változtatás nélkül tartalmazza a \fileName
 Ezzel szemben a \textbf{product} tábla a sztochasztikus esetekben nem fogja megállni a helyét, hiszen a batch méretekre vonatkozó adatok hiányoznak belőle, ezeket hozzá kell adni a product táblához.
 Ezenkívül a forgatókönyvek adatait is tárolnunk kell, ezért bevezetésre kerültek a\textbf{ scenario}, és a \textbf{scenario\_data} táblázatok, melyek a \ref{problem_parameters} pontban leírt, forgatókönyvekre vonatkozó sztochasztikus adatokat tartalmazzák.
 A \fileName{stochastic.ods} fájl felépítése a \ref{stochastic_odshere}. ábrán látható.
-\begin{figure}[H]
+\begin{figure}[hbtp]
 \begin{center}
-\includegraphics[scale=0.4]{stochasticOds}
+\includegraphics[scale=0.58]{stochasticOds}
 \caption{A \textit{stochastic.ods} fájl}
 \label{stochastic_odshere}
 \end{center}
@@ -325,7 +319,7 @@ Ezen módszerek implementációját tartalmazza tehát a \methodName{GetProductR
 \subsection{A \textit{Revenue Line} figyelmen kívül hagyása sztochasztikus esetben}
 Ahogyan az már a \ref{SgraphProfitMax}. pontban említésre került, a determinisztikus throughput maximalizálóban használatos gyorsítási stratégia az un. Revenue Line, amely lényegében alsó bound-ként szolgál az egyes konfigurációk profitértékeinek összehasonlításához.
 A \ref{revLine}. ábrán jól látható, hogy ez a stratégia determinisztikus esetben jó eredménnyel használható, ideális esetben töredékére csökkentheti az ellenőrizendő konfigurációk számát.
-Sztochasztikus esetben azonban el kell tekintetnünk a Revenue Line használatától, belátható ugyanis, hogy sztochasztikus esetben ez a vonal nem húzható be, hiszen az azonos revenue értékű konfigurációk nem egy vonalon vannak a sztochasztikus paraméterek értékei miatt.
+Sztochasztikus esetben azonban el kell tekintetnünk a Revenue Line használatától, belátható ugyanis, hogy sztochasztikus esetben ez a vonal nem húzható be, hiszen az azonos revenue értékű konfigurációk nem egy vonalon vannak a sztochasztikus paraméterek értékei miatt, hiszen a determinisztikus esettel szemben itt a revenue értékek nem monoton növekvőek az optimális megoldást tartalmazó téren belül.
 Ennek a szemléltetésére szolgál a \ref{revLineStoch}. ábra.
 \begin{figure}[H]
 \begin{center}

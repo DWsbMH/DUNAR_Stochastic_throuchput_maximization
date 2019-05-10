@@ -31,14 +31,17 @@ Ezt a lépést ábrázolja a \ref{profit_for_p1_prob}. ábra.
 Ebben a példában $s1$ forgatókönyv valószínűsége $0.5$, $s2$ valószínűsége pedig $0.25$.
 Az ábrán látható függvények kiszámításával előáll minden forgatókönyvre a $prob_s \cdot profit_{s,p}$ függvény, amelyeket ezután össze kell adni, hogy előálljon $ExpProfit_{p_1}$ függvény.
 Ezt a fenti ábrák alapján előállított $ExpProfit_{p_1}$ függvényt ábrázolja a \ref{expProfit_p1}. ábra.
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.45]{expProfitP1}
 \caption{$p_1$ termék ExpProfit függvényének szemléltetése.}
 \label{expProfit_p1}
 \end{center}
 \end{figure}
-Miután minden termékre előállításra kerül ez az $ExpProfit_p$ függvény, az $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékek összegeként előáll a várható profit, azaz minden termék $ExpProfit$ függvényéből lekérdezésre kerül az $x$ értékhez tartozó profit érték, majd ezen értékek összegzésre kerülnek, ez adja meg a várható profit értékét.
+Miután minden termékre előállításra kerül ez az $ExpProfit_p$ függvény, az $ExpProfit_p(x) \text{ (ahol }x=s_p \cdot b_p)$ értékek összegeként előáll a várható profit.
+Azaz minden termék $ExpProfit$ függvényéből lekérdezésre kerül az $x$ értékhez tartozó profit érték, ahol $x$ az adott termékből termelt mennyiség, mely a termelt batchek száma ($b_p$) és azok méretének ($s_p$) szorzataként áll elő.
+Jelen esetben a batch méret ($s_p$) egy fixen adott paraméter, hiszen kötött batch méretű esetről beszélünk.
+Ezután ezen $ExpProfit_p(x)$ értékek összegzésre kerülnek, ez adja meg a várható profit értékét.
 \subsection{Preventív ütemezés változó batch mérettel} \label{variable_batch_size_modell}
 Az előző esettel ellentétben, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. 
 Ebben az esetben a batch méretről való döntés is a megoldó algoritmus feladata úgy, hogy $p$ termék batch mérete $s_p^{min}$ és $s_p^{max}$ között legyen.

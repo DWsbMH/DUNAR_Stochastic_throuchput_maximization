@@ -23,7 +23,7 @@ Miután ezek a függvények megalkotásra kerültek adott termék összes forgat
 Ezt a lépést ábrázolja a \ref{profit_for_p1_prob}. ábra.
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.475]{profitsForP1Prob}
+\includegraphics[scale=0.4]{profitsForP1Prob}
 \caption{$p_1$ termék összenyomott profit függvényei $s_1$ és $s_2$ forgatókönyvben}
 \label{profit_for_p1_prob}
 \end{center}
@@ -43,21 +43,21 @@ Azaz minden termék $ExpProfit$ függvényéből lekérdezésre kerül az $x$ é
 Jelen esetben a batch méret ($s_p$) egy fixen adott paraméter, hiszen kötött batch méretű esetről beszélünk.
 Ezután ezen $ExpProfit_p(x)$ értékek összegzésre kerülnek, ez adja meg a várható profit értékét.
 \subsection{Preventív ütemezés változó batch mérettel} \label{variable_batch_size_modell}
-Az előző esettel ellentétben, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. 
+Az ehhez az esethez tartozó lépések megegyeznek az előző kötött batch méretű eset lépéseivel, az $ExpProfit_p$ függvények előállításáig.
+Az előző esettel ellentétben azonban, változó batch méret esetén a batch darabszám nem határozza meg egyértelműen az adott termékből termelt mennyiséget. 
 Ebben az esetben a batch méretről való döntés is a megoldó algoritmus feladata úgy, hogy $p$ termék batch mérete $s_p^{min}$ és $s_p^{max}$ között legyen.
 Mivel ezt a döntést előre meg kell hozni, ezért minden forgatókönyvben azonos méretű lesz minden $p$ termékhez tartozó batch.
-Ezután, már csak arról kell döntést hozni, hogy adott termékből mennyit gyártsunk, ez az $x_p$ érték a következő intervallumból kerül kiválasztásra: $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$.
-Az $ExpProfit$ függvény maximális értékét az egyik keresleti értékben veszi fel, legyen ez $dem_{s'}$.
-Az optimális $x_p$ érték kiválasztása a következőképpen tehető meg:
-\begin{equation*}
-x_{p}(b_p)= \begin{cases}
-            b_p \cdot s_p^{max} \quad \text{ha } b_p \cdot s_p^{max}<dem_{s'}\\
-            dem_{s'} \qquad \text{ha } b_p \cdot s_p^{min} \leq dem_{s'} \leq b_p \cdot s_p^{max}\\
-            b_p \cdot s_p^{min} \quad \text{ ha } b_p \cdot s_p^{min}>dem_{s'}
-       \end{cases}       
-\end{equation*}\\
-A \ref{expProfit_func_var} ábra szemlélteti a fentieket. Látható, hogy ez esetben a $dem_{s'}$ érték beleesik a \\$[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$ tartományba, ezért itt $x_p=3$ lenne az optimális választás.
-\begin{figure}
+Az arról való döntés tehát, hogy adott termékből mennyit gyártsunk, azaz $x_p$ érték meghatározása a következő intervallumból kerül kiválasztásra: $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$.
+Ezen érték kiválasztását a \ref{expProfit_func_var}. ábra szemlélteti.
+Jelen példában $b_p$ értéke 1, azaz egy darab batchet termelünk $p$ termékből, ezen egy batch termelése mellett a minimális elérhető  termelt mennyiség mennyiség, azaz $b_p \cdot s_p^{min}$ értéke 1.5 kg lesz.
+Egy batch termelésével elérhető maximális mennyiség, $b_p \cdot s_p^{max}$ pedig 2.3 kg lesz.
+A tartomány amiből tehát ki kell választani x értékét nem más, mint: $[1.5 , 2.3]$, ezt a tartományt jelölik az ábrán a szaggatott vonalak.
+Az $x$ optimális értéke úgy kerül kiválasztásra, hogy megnézzük, hogy $ExpProfit_{p1}$ maximális értéke a fenti tartománytól balra, vagy jobbra esik-e, vagy esetleg a tartomány része.
+Ha a tartománytól jobbra esik, mint jelen példa szerint, akkor a tartományunk maximális $x$ értéke, azaz jelen esetben $2.3$ kg kerül kiválasztásra, hiszen ezzel az értékkel érhető el jelen tartományban a legnagyobb profit.
+Ha a tartománytól balra esne $ExpProfit_{p1}$ maximális értéke, akkor a $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$ tartomány legkisebb értéke, azaz jelen esetben $1.5$ kg kerülne kiválasztásra.
+Abban az esetben pedig, ha $ExpProfit_{p1}$ maximális értéke beleesik a $[s_p^{min} \cdot b_p , s_p^{max} \cdot b_p]$ tartományba, akkor a maximális profitot eredményező $x$ érték kerülne kiválasztásra, amely jelen esetben 3 kg lenne.
+Az $x_p$ értékek kiválasztása után az összes várható profit a fix batch méretű esettel azonosan módon, $ExpProfit_p(x)$ értékek összegzésével állítható elő. 
+\begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.4]{expProfitFuncVar}
 \caption{Az optimális $x_p$ érték kiválasztásának szemléltetése}
@@ -75,8 +75,11 @@ x_{s,p}(b_p)= \begin{cases}
        \end{cases}       
 \end{equation*}\\
 Látható, hogy a képlet hasonló a \ref{variable_batch_size_modell} pontban bemutatott képlethez, azonban míg ott  az $ExpProfit$ függvényből kerül kiválasztásra az optimális $x_p$ mennyiség (azaz, minden forgatókönyv esetén ez az érték ugyan annyi lesz), addig a két lépcsős ütemezés esetén minden egyes forgatókönyv $Profit$ függvényéből egyenként kerül kiválasztásra az optimális mennyiség.
+Azaz a \ref{expProfit_func_var}. ábrán szemléltetett $x$ érték kiválasztása nem az ábrán látható $ExpProfit_p$ függvényből történik, hanem minden, \ref{profit_for_p1}. ábrán látható $profit_{s,p}$ függvényből egyenként történik.
+Az így kiválasztott $x$ értékekhez tartozó profit értékek ezután kerülnek beszorzásra a forgatókönyvek valószínűségével.
+Az így előállt $(prob_s \cdot Profit(x_{s,p}(b_p))$ értékek ezután kerülnek összegzésre a forgatókönyvekre, majd a termékekre nézve, ezzel áll elő az összes várható profit.
 Ezzel megoldható az, hogy egy bizonyos forgatókönyv bekövetkezése után annak elvárásaihoz igazítsuk a termelt batch-ek méretét, jobb várható profitot elérve ezzel a legtöbb esetben.
-A várható profit két lépcsős ütemezés esetén a következőképpen számítható ki:
+A várható profit két lépcsős ütemezés esetén tehát a következőképpen számítható ki:
 $$\sum_{p \in P} \bigg( \sum_{s \in S}(prob_s \cdot Profit(x_{s,p}(b_p)) \bigg)$$ 
 \subsection{Következtetés} \label{piecewise_suggestion}
 Az előzőekben bemutatott módszerek ismerete arra enged következtetni, hogy a probléma megoldásához elengedhetetlen az S-gráf keretrendszerben egy olyan osztály definiálása, amely képes  folytonos, szakaszos, lineáris függvények modellezésére, tárolására, azokon történő műveletek végrehajtására. Ezen osztály részletes leírása a \ref{piecewise_class} pontban olvasható.

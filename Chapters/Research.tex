@@ -14,14 +14,14 @@ Ezen paraméterek együtt alkotják az un. receptet, mely a feladatok precedenci
 \item[]\textbf{General multiproduct recept}: Az előző fajta speciális esete, ahol a lépések tetszőlegesen kihagyhatóak.
 \item[]\textbf{Multipurpose recept}: Minden termék több lineárisan egymást követő lépésből áll elő, azonban az egyes termékek nem azonos sorrendben használják a berendezéseket.
 \item[]\textbf{Precedential recept}: A lépések egymásra épülése nem lineáris, lehetnek elágazások is a lépések között (kör nem lehetséges), egy lépésnek akár több megelőző lépése is lehet, melyek teljesítése a következő lépés megkezdésének a feltétele.
-\item[]\textbf{General network recept}: A legáltalánosabb recept kategória, melyben a feladatok a bemenetükkel, illetve a kimenetükkel adottak, indirekt módon meghatározva ezzel a precedenciákat.\cite{hegyhati2010} 
+\item[]\textbf{General network recept}: A legáltalánosabb recept kategória, melyben a feladatok a bemenetükkel, illetve a kimenetükkel adottak, indirekt módon meghatározva ezzel a precedenciákat \cite{hegyhati2010}.
 \end{itemize}
-A receptek tulajdonságain kívül fontos tényező, különösen vegyi üzemek termelésének ütemezése során a különböző tárolási irányelvek (storage policy) betartása.\cite{phd_Hegyhati}
+A receptek tulajdonságain kívül fontos tényező, különösen vegyi üzemek termelésének ütemezése során a különböző tárolási irányelvek (storage policy) betartása \cite{phd_Hegyhati}.
 Tárolási irányelvek alatt azokat a megkötéseket értjük, amelyek a köztes termékek tárolására vonatkoznak a recept két egymást követő feladata között.
 A tárolási irányelvek alapvetően két szempont szerint csoportosíthatóak, az egyik az idő, ameddig a köztes termék tárolható anélkül például, hogy bizonyos kémia, fizikai tulajdonságai megváltoznának, amelyre egyébként a következő feladat során szükség lenne (pl. ne hűljön ki a termék).
 Ez alapján három különböző esetet különböztetünk meg:
 \begin{itemize}
-\item[]\textbf{UW - Unlimited Wait}: A legmegengedőbb, melyben a köztes termék bármennyi ideig eltárolható a következő feladat megkezdése előtt.
+\item[]\textbf{UW - Unlimited Wait}: A legmegengedőbb eset, melyben a köztes termék bármennyi ideig eltárolható a következő feladat megkezdése előtt.
 \item[]\textbf{LW - Limited Wait}: Ebben az esetben a köztes termék nem tárolható egy megadott időnél tovább a következő feladat előtt, hogy ne veszítse el valamilyen tulajdonságát.
 \item[]\textbf{ZW - Zero Wait}: Ebben az esetben a köztes termék tárolásának megengedett ideje 0.
 \end{itemize}
@@ -32,7 +32,7 @@ Ezen szempont alapján a következő kategóriák azonosíthatóak be:
 \item[]\textbf{FIS - Finite Intermediate Storage}: Az az eset, melyben a köztes termék tárolása megoldható, de a tároló véges kapacitású.
 \item[]\textbf{NIS - No Intermediate Storage}: Ebben az esetben nem állnak rendelkezésre tároló egységek a köztes termék eltárolására, de a köztes termék továbbra is várakozhat az őt gyártó egységben.
 \end{itemize}
-A recepteken és a tárolási irányelveken kívül a gyártórendszerek ütemezésével kapcsolatos problémák is több szempont szerint is csoportosíthatóak\cite{phd_Hegyhati}:
+A recepteken és a tárolási irányelveken kívül a gyártórendszerek ütemezésével kapcsolatos problémák is több szempont szerint is csoportosíthatóak \cite{phd_Hegyhati}:
 \begin{itemize}
 \item Az ütemezés időpontjában elérhető paraméterek szerint:
 \begin{itemize}
@@ -54,11 +54,11 @@ Az évek során ezek a módszerek jelentős javuláson mentek keresztül mind a 
 A következő alpontokban néhány megoldó módszer kerül megemlítésre.
 \subsubsection{MILP modellek}
 A publikációk túlnyomó része matematikai programozáson, név szerint a Mixed-Integer Linear Programming, azaz MILP modelleken alapszik.
-A modellek általában univerzális MILP algoritmusokkal kerülnek megoldásra. \cite{9780471283669}
+A modellek általában univerzális MILP algoritmusokkal kerülnek megoldásra \cite{9780471283669}. 
 Az ilyen ütemezési feladatokra felírt MILP modelleknek különböző típusai léteznek:
 \begin{description}
 \item[\textbf{Időfelosztásos módszerek (Time discretization based)}]: Az időhorizont diszkrét pontokra, vagy résekre bontásán alapszanak. Ezen módszerek segítségével az ütemezési problémák széles skálája valósítható meg.
-Időrendi szempontból ezen modellek jelentek meg először a szakirodalomban. \cite{KONDILI1993211}
+Időrendi szempontból ezen modellek jelentek meg először a szakirodalomban \cite{KONDILI1993211}.
 Minden időpontban bináris változók vannak hozzárendelve a feladatokhoz, melyek értéke jelenti, hogy adott feladat végrehajtása az adott időpontban kezdődik el vagy sem.
 Jól látható, hogy a változók száma arányos a kiválasztott időpontok számával, ezáltal az ütemezés teljesítéséhez szükséges számítási idő nagyban függ a diszkrét időpontok számától, éppen ezért mindig is kutatási szándék volt olyan módszer fejlesztése, amely képes az optimális megoldás meghatározására minimális diszkrét időpont felhasználásával.
 Történtek ilyen fejlesztések, amelyek ilyen szempontból gyorsabb, jobb modellekhez vezettek, azonban ezek bizonyos esetekben szuboptimális, vagy akár infeasible megoldást is eredményezhetnek.
@@ -73,10 +73,10 @@ A Petri hálók, és automaták gyakran használatosak diszkrét eseményű rend
 Ezen módszerek Branch \& Bound algoritmust használnak az állapottér bejárására, és a legkedvezőbb megoldás megtalálására.
 A hatékony modellezésnek köszönhetően a modellezési hibák könnyen kikerülhetőek, valamint a módszer könnyen kibővíthető a reaktív ütemezési feladatok kezelésére is, ennek ellenére azonban ezen módszerek hatékonysága elmarad a MILP alapú módszerek, illetve az S-gráf módszertan algoritmusainak hatékonyságához képest is.  
 \subsubsection{S-gráf keretrendszer}
-Az S-gráf keretrendszer volt az első publikált gráf elméleten alapuló módszer szakaszos gyártórendszerek ütemezési problémáinak megoldására. \cite{Sanmarti2002}
+Az S-gráf keretrendszer volt az első publikált gráf elméleten alapuló módszer szakaszos gyártórendszerek ütemezési problémáinak megoldására \cite{Sanmarti2002}. 
 Az S-gráf keretrendszer részletesebb bemutatása a \ref{S-graph}. fejezetben olvasható. 
 \section{Az ütemtervek vizualizációja}
-Az ütemezési problémák megoldása során keletkezett ütemterveket Gannt-diagrammal szokás ábrázolni, mely nevét feltalálójáról Henry Gantt amerikai mérnökről kapta. \cite{0879600489}
+Az ütemezési problémák megoldása során keletkezett ütemterveket Gannt-diagrammal szokás ábrázolni, mely nevét feltalálójáról Henry Gantt amerikai mérnökről kapta \cite{0879600489}. 
 Az ütemtervek lényegében a következő formájú négyesekből állnak: ($i,j,t^s,t^f$), ahol
 \begin{itemize}
 \item[$i$] az elvégzendő feladat
@@ -91,7 +91,7 @@ Az ütemtervek lényegében a következő formájú négyesekből állnak: ($i,j
 \label{gannt}
 \end{center}
 \end{figure}
-Egy Gannt-diagram szemléltetésére szolgál a \ref{gannt} ábra.
+Egy Gannt-diagram szemléltetésére szolgál a \ref{gannt}. ábra.
 Látható, hogy az $y$ tengelyen a berendezések nevei (E1,E2,E3) találhatóak, míg az $x$ tengely az idő szemléltetésére hivatott.
 Az ábra három különböző termék (A,B,C), valamint azok részfeladatainak ütemezését szemlélteti, melyeket különböző színekkel jelölünk.
 A Gannt-diagramos ábrázolás segítségével az ütemtervet képező négyesek minden paramétere egyszerűen leolvasható.

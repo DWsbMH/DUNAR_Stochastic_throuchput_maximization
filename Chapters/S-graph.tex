@@ -1,10 +1,10 @@
 \chapter{Az S-gráf keretrendszer} \label{S-graph}
-Az S-gráf keretrendszer egy irányított gráf modellből, az S-gráfból és a hozzá tartozó algoritmusokból áll. \cite{SANMARTI1998S847}
+Az S-gráf keretrendszer egy irányított gráf modellből, az S-gráfból és a hozzá tartozó algoritmusokból áll \cite{SANMARTI1998S847}. 
 Az S-gráf egy speciális irányított gráf, amely nem csupán a probléma vizualizációjára képes, hanem egy matematikai modell is.
 A keretrendszerben a recepteket, valamint a félkész-, illetve a teljes ütemterveket is az S-gráf reprezentálja.
 Ezekben a gráfokban a termékeket, illetve a feladatokat a csúcsok jelölik, amelyeket csomópontoknak nevezünk.
 Ezenkívül, ha két feladat között összeköttetés van, ezt a gráfon a két feladatot reprezentáló csomópontok közötti irányított él jelöli.
-Az ütemezési információ nélküli S-gráfot recept gráfnak (\textbf{recipe graph)} nevezzük, melyre egy példa a \ref{recipeGraph} ábrán látható.
+Az ütemezési információ nélküli S-gráfot recept gráfnak (\textbf{recipe graph)} nevezzük, melyre egy példa a \ref{recipeGraph}. ábrán látható.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.375]{recipeGraph}
@@ -19,7 +19,7 @@ Az éleken található súlyok pedig a részfeladat megoldásához szükséges g
 
 Az S-gráf keretrendszerben található algoritmusok az előzőekben bemutatott recept gráfot egészítik ki ütemezési élekkel, amelyek az algoritmus által meghozott ütemezési döntéseket reprezentálják.
 Az ily módon előállított gráfot, függetlenül attól, hogy van-e még meghozatlan ütemezési döntés, vagy pedig a teljes ütemezés megtörtént, ütemezési gráfnak (\textbf{schedule graph}) nevezzük.
-A \ref{recipeGraph} pontban látható recept gráf alapján előállított egy lehetséges ütemezési gráf a \ref{scheduleGraph} ábrán látható.
+A \ref{recipeGraph}. pontban látható recept gráf alapján előállított egy lehetséges ütemezési gráf a \ref{scheduleGraph}. ábrán látható.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.375]{scheduleGraph}
@@ -30,7 +30,7 @@ A \ref{recipeGraph} pontban látható recept gráf alapján előállított egy l
 Az ábrán látható gráfon már minden ütemezési döntés meghozásra került, a zöld élek modellezik az ütemező algoritmus által meghozott ütemezési döntéseket.
 A részfeladatokat reprezentáló csomópontokon immáron a lehetséges berendezések halmaza helyett egy konkrét berendezés jelölése található, amely az adott részfeladat elvégzésére hivatott az adott ütemterv szerint.
 Az ütemezési élek súlya alapértelmezetten $0$, ha az adott problémában nem számolunk például részfeladatok közötti szállítási-, átállási-, illetve tisztítási időkkel.
-Az adott berendezéshez rendelt részfeladatok sorrendje könnyen leolvasható az ütemezési gráfról, erre egy példa a \ref{unitSequence} ábrán látható.
+Az adott berendezéshez rendelt részfeladatok sorrendje könnyen leolvasható az ütemezési gráfról, erre egy példa a \ref{unitSequence}. ábrán látható.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.375]{unitSequence}
@@ -89,10 +89,10 @@ Ennek szemléltetésére szolgál a \ref{optSolRegion}.  ábra.
 \label{optSolRegion}
 \end{center}
 \end{figure}
-Mivel a konfigurációk tesztelése erőforrás igényes feladat, ezért a konfigurációk kiválasztásának sorrendje ezen a téren belül nem mindegy, többféle stratégia létezik az algoritmus gyorsítására. \cite{phd_Hegyhati}
+Mivel a konfigurációk tesztelése erőforrás igényes feladat, ezért a konfigurációk kiválasztásának sorrendje ezen a téren belül nem mindegy, többféle stratégia létezik az algoritmus gyorsítására \cite{phd_Hegyhati}.
 Az egyik ilyen stratégia az úgynevezett revenue line behúzása, mely segítségével szerencsés esetben akár töredékére csökkenthető a tesztelendő konfigurációk száma.
 A revenue line segítségével lényegében eltávolításra kerülnek azok a konfigurációk, melyek profitja nem éri el az aktuális legjobb profit értéket, azaz a behúzott vonal alatt vannak.
-A revenue line szemléltetésére a \ref{revLine} ábra hivatott.
+A revenue line szemléltetésére a \ref{revLine}. ábra hivatott.
  \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.4]{revLine}
@@ -103,3 +103,48 @@ A revenue line szemléltetésére a \ref{revLine} ábra hivatott.
 Jól látható, hogy jelen esetben a revenue line behúzása harmadára csökkentette az ellenőrizendő konfigurációk számát, gyorsítva ezzel az algoritmus lefutását.
 Az algoritmus akkor ér véget, ha a konfigurációk halmaza kiürül, ebben az esetben ha egyetlen egy konfiguráció sem valósítható meg az adott időkorláton belül, a probléma megoldása lehetetlen az adott időhorizont alatt.
 Ha található feasible megoldás, az algoritmus az optimális konfigurációt adja eredményül, megkapva ezzel a maximális profit értékét, valamint annak előállításához szükséges ütemtervet.
+\section{Az S-gráf solver} \label{s-graph_framework}
+Mivel munkám része a kidolgozott új módszerek implementációja az S-gráf solver programba, ezért célszerű röviden bemutatni ezen program használatát, felépítését, illetve a további munkám szempontjából fontosabb részek működését.
+Ezek leírására szolgál jelen fejezet.
+Az S-gráf solver program egy C++ nyelven íródott, több szálas megoldó program, mely az S-gráf keretrendszerben foglalt algoritmusok segítségével különböző ütemezési problémákat képes megoldani.
+Jelenleg a NIS, UIS, UW, és LW tárolási irányelveket támogatja, valamint a következő célfüggvényekkel használható: makespan minimalizáció, throughput maximalizáció, cycle time minimalizáció.
+A solver parancssorból futtatható, különböző parancssori kapcsolók teszik lehetővé a különböző funkciókhoz tartozó paraméterek beállítását.
+Néhány, a throughput maximalizáláshoz fontos kapcsoló:
+\begin{description}
+\item[-i, \text{-{}-}input [file]] Az input fájl elérési útja, a fájl kiterjesztése .xml, vagy .ods lehet
+\item[-o, \text{-{}-}output [file]] Az output fájl elérési útja, a fájl kiterjesztése lehet .txt, vagy .png attól függően, hogy szöveges, vagy grafikus megjelenítést szeretnénk eredményül kapni
+\item[\text{-{}-}obj [objective function]] A célfüggvény típusa, throughput maximalizálás esetén ezen kapcsoló értéke: thmax
+\item[\text{-{}-}timehor [time horizon]] A throughput maximalizáláshoz rendelkezésre álló időhorizont mérete 
+\end{description}
+A fentiek alapján a solver futtatására egy példa:
+\begin{center}
+\verb|-i input-stoch.ods -o output.png --timehor 15 --obj thmax|
+\end{center}
+A solver az OpenMP API-t használja párhuzamosításra, a kód lefordításához Qt5 szükséges, feltétel továbbá a boost könyvtár telepítése is.
+Ezenfelül Linux alatt történő futtatáshoz letöltendő még a Google OR-Tools könyvtár, Windows operációs rendszer esetén pedig a Visual C++ Redistributable telepítése a követelmény.
+A fentiek telepítése, illetve a megfelelő könyvtárak elérési útjainak beállítása után qmake segítségével elkészíthető a make file a projekt alapján.
+Ezen make fájl segítségével a make meghívja a fordítót, amely lefordítja a programot, melynek következtében létrejönnek a futtatáshoz szükséges fájlok, köztük a solver.exe (Windows esetén), mellyel immáron futtathatjuk a megoldó programot az előző példához hasonló módon.   
+\subsection{A solver működése}
+A szolver futtatásához szükséges parancssori kapcsolók lehetséges értékeit, és egyéb paramétereit (pl. min/max érték) leíró opciókat tartalmazza az \fileName{Arguments.cpp} fájl. 
+A \className{MainSolver} osztály \methodName{getOptions} metódusa a beolvasott parancssori kapcsolók értékei alapján létrehozza a \className{SolverOptions} osztály egy példányát amely objektumtól ezután lekérdezhetőek a különféle beállítások.
+Ezután a \className{MainSolver} objektum \methodName{Run} metódusa meghívja a \methodName{ReadInputFromFile} metódust, ami egy \className{RelationalProblemReader} objektum példányosítása, majd annak \methodName{ReadSGraph} metódusának meghívása után vissza kapja a recept gráfot tartalmazó \className{SGraph} objektumot.
+A \className{RelationalProblemReader} osztály feladata az input fájlban található paraméterek beolvasása, parse-olása, majd a recept gráf elkészítése ezek alapján.
+Az \className{SGraph} osztály egy példánya lényegében egy S-gráfot reprezentál, ez lehet recept gráf, illetve ütemezési gráf is.
+Ezen osztály példányosításával, paramétereinek beállításával zajlik tehát lényegében az ütemezés.
+Miután a \className{MainSolver} osztály \methodName{Run} metódusa visszakapta a recept gráfot, meghívásra kerül a \methodName{GetProblem} metódus, aminek segítségével a kapcsolók, illetve a recept gráf alapján megállapításra kerül a probléma pontos típusa, ezután a \methodName{GetSolver} metódus példányosítja a probléma típus megoldásához szűkséges solvert.
+Ezen solver \methodName{Solve} metódusának meghívásával elkezdődik a probléma megoldása, melynek eredményeként megkapjuk a megoldást tartalmazó \className{TreeNode} objektumot, melyen keresztül elérhető az optimális megoldást reprezentáló ütemezési gráfot tartalmazó \className{SGraph} objektum.
+Throughput maximalizálás esetén ez a solver nem más, mint a \className{ThroughputSolver} osztály egy objektuma, melynek működésének leírása a \ref{throughput_solver}. pontban található.  
+Az eredmény visszakapása után a \className{MainSolver} egy \className{SolutionWriter} objektum \methodName{Write} metódusának meghívásával kiíratja az eredményt a megfelelő formátumban, legyen az szöveges fájl vagy .png formátumú Gannt diagram.
+\subsection{A ThroughputSolver osztály működése} \label{throughput_solver}
+A \className{ThroughputSolver} lényegében a \ref{SgraphProfitMax}. alfejezetben leírtakat valósítja meg.
+Az osztály \methodName{Solve} metódusa először is megkeresi az optimális megoldást tartalmazó teret, ezt azzal éri el, hogy mind addig míg található feasible konfiguráció a tengelyek mentén, létrehoz egy újabb konfigurációt, amelyben az adott termékből gyártott batchek számát növeli.
+Ehhez a \methodName{FirstFeasible} metódust használja fel, mely a \methodName{SolveBest} metódus segítségével leteszteli az adott konfiguráció feasibilitását.
+Ha az adott konfiguráció megvalósítható, meghívásra kerül a \methodName{NewSolution} metódus, amely a konfiguráció alapján létrehoz egy új lehetséges megoldást reprezentáló objektumot, valamint elmenti a konfiguráció profit értékét, ha az nagyobb, mint az aktuális legjobb érték.
+A \methodName{SolveBest} metódus visszaadja a \methodName{FirstFeasible} metódus számára azt a mutatót, melyen keresztül az új megoldás elérhető, ha feasible volt a konfiguráció, ha nem volt az, akkor null érték kerül visszaadásra.
+Az első null érték visszakapása után a \methodName{Solve} metódus több konfigurációt már nem hoz létre az aktuális tengelyen.
+Miután minden tengely mentén visszakapta az első null értéket, véget ér ez az első fázis, megtalálásra került ugyanis az optimális megoldást tartalmazó tér.
+Ezután következik ezen tér bejárása, az optimális megoldás megkeresése a lehetséges megoldások között.
+Erre azonban több stratégia is lehetséges, ezért a \methodName{Solve} metódus először is lekérdezi az ehhez kapcsolódó parancssori paraméterek értékét, majd ezek alapján meghívja a megfelelő bejárást végző metódust.
+Ez a metódus alapértelmezett esetben a \methodName{SearchThrSolution}, mely a \ref{SgraphProfitMax}. alfejezetben már említett revenue line gyorsítási stratégiát is használja a térben való kereséshez.
+A metódus lefutása után ideális esetben a \methodName{Solve} metódus számára elérhetővé válik az optimális megoldást reprezentáló objektum, mely visszaadható a \className{MainSolver} számára az eredmények kiíratása érdekében.
+Abban az esetben azonban, ha egyetlen lehetséges megoldás sem található a problémára, egy exception kerül eldobásra, melyet a \className{MainSolver} megfelelően le tud kezelni, jelezni tudja a felhasználó felé a tényt, miszerint nem található megoldás a problémára.
